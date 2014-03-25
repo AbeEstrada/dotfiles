@@ -1,0 +1,18 @@
+export EDITOR="subl -w"
+export ARCHFLAGS="-arch x86_64"
+export VIRTUALENVWRAPPER_PYTHON="/usr/local/bin/python"
+export VIRTUALENVWRAPPER_VIRTUALENV="/usr/local/bin/virtualenv"
+export WORKON_HOME="$HOME/Sites/virtualenvs"
+export NODE_PATH="/usr/local/lib/node_modules"
+export GOPATH="/usr/local/go"
+#export GOROOT=`brew --prefix go`
+#export ANDROID_SDK_ROOT=`brew --prefix android-sdk`
+
+BIN_HOME="$HOME/.bin"
+DEV_HOME="/Applications/Xcode.app/Contents/Developer/usr/bin"
+HEROKU_HOME="/usr/local/heroku/bin"
+NPM_HOME="/usr/local/share/npm/bin"
+#POSTGRES_APP="/Applications/Postgres.app/Contents/MacOS/bin"
+#MAMP_PHP="/Applications/MAMP/bin/php/php5.3.20/bin"
+
+export PATH="/usr/local/sbin:/usr/local/bin:BIN_HOME:$DEV_HOME:$HEROKU_HOME:$NPM_HOME:$GOPATH/bin:$PATH"
