@@ -60,7 +60,7 @@ complete -W "NSGlobalDomain" defaults
 eval "$(rbenv init -)"
 
 # init virtualenvwrapper
-source "/usr/local/share/python/virtualenvwrapper.sh"
+source "/usr/local/bin/virtualenvwrapper.sh"
 
 # Git Auto-Completion
 source "/usr/local/etc/bash_completion.d/git-completion.bash"
