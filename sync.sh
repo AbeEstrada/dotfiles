@@ -1,4 +1,5 @@
 #!/bin/bash
 cd "$(dirname "$0")"
-rsync --exclude ".git/" --exclude ".DS_Store" --exclude "sync.sh" \
-      --exclude "README.md" --exclude "LICENSE.md" -avh . ~
+rsync --exclude ".git/" --exclude ".gitignore" --exclude ".DS_Store" \
+      --exclude "README.md" --exclude "LICENSE.md" --exclude "sync.sh" \
+      -avh . ~
