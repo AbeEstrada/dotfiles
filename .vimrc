@@ -3,16 +3,22 @@ set nocompatible
 
 " Enable syntax highlighting
 syntax on
+colorscheme molokai
 set t_Co=256
 set background=dark
+
+set listchars=tab:>-,trail:~,extends:>,precedes:< "Hidden characters to show
+set list "Show hidden characters
 
 let mapleader="," " Change mapleader
 set encoding=utf8 nobomb " Encoding UT8
 set number " Line numbers
 set showcmd " Show command in bottom bar
+set laststatus=2 " Always show the status line
 set showmode " Show current mode
 set ruler " Show cursor position
 set mouse=a " Enable mouse in all modes
+set mousehide " Hide mouse when typing
 set tabstop=4 " Number of visual spaces per TAB
 set softtabstop=4 " Number of spaces in tab when editing
 set expandtab " Tabs are spaces
@@ -38,6 +44,10 @@ set incsearch " Highlight dynamically as patter is typed
 set hlsearch " Highlight searches
 set ignorecase " Ignore case of searches
 set smartcase " Ignore 'ignorecase' if search pattern contains uppercase characters
+set go-=T " Hide MacVim toolbar by default
+
+" Hard-wrap paragraphs of text
+nnoremap <leader>q gqip
 
 " Move vertically by visual line
 nnoremap j gj

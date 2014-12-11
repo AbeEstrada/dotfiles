@@ -4,6 +4,7 @@ alias mamp_sock="ln -s /Applications/MAMP/tmp/mysql/mysql.sock /tmp/mysql.sock"
 alias fixopenwith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
 alias hosts="sudo $EDITOR /etc/hosts"
 alias a="atom"
+alias gpg="gpg2"
 
 # List all files colorized
 alias ls="command ls -G"
