@@ -7,7 +7,6 @@ export WORKON_HOME="$HOME/Sites/virtualenvs"
 export NODE_PATH="/usr/local/lib/node_modules"
 export GOPATH="/usr/local/go"
 #export ANDROID_SDK_ROOT=`brew --prefix android-sdk`
-export VAGRANT_DEFAULT_PROVIDER=parallels
 
 BIN_HOME="$HOME/.bin"
 DEV_HOME="/Applications/Xcode.app/Contents/Developer/usr/bin"
