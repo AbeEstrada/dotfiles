@@ -15,4 +15,4 @@ GOTOOLS="/usr/local/opt/go/libexec/bin"
 #POSTGRES_APP="/Applications/Postgres.app/Contents/MacOS/bin"
 #MAMP_PHP="/Applications/MAMP/bin/php/php5.3.20/bin"
 
-export PATH="/usr/local/sbin:/usr/local/bin:BIN_HOME:$DEV_HOME:$HEROKU_HOME:$GOTOOLS:${GOPATH}/bin:$PATH"
+export PATH="/usr/local/sbin:/usr/local/bin:$BIN_HOME:$DEV_HOME:$HEROKU_HOME:$GOTOOLS:${GOPATH}/bin:$PATH"
