@@ -74,3 +74,6 @@ source "/usr/local/etc/bash_completion.d/git-completion.bash"
 # nvm
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
+
+# aws completion
+complete -C aws_completer aws
