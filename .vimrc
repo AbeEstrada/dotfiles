@@ -10,7 +10,7 @@ colorscheme molokai
 " Local directories
 set backupdir=~/.vim/backups
 set directory=~/.vim/swaps
-set undodir=~/.undo
+set undodir=~/.vim/undo
 
 " Set
 set autoindent " Copy indent from last line when starting a new line
