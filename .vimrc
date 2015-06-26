@@ -1,5 +1,4 @@
-" Make vim more useful
-set nocompatible
+set nocompatible " Use vim, no vi defaults
 
 " Syntax highlighting
 set t_Co=256
@@ -18,14 +17,12 @@ set autoindent " Copy indent from last line when starting a new line
 set backspace=indent,eol,start
 set clipboard=unnamed " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set cursorline " Highlight current line
-set diffopt=filler " Add vertical spaces to keep right and left aligned
-set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
 set encoding=utf-8 nobomb " BOM often causes trouble
 set esckeys " Allow cursor keys in insert mode
 set expandtab " Expand tabs to spaces
-set gdefault " Add the g flag to search/replace by default
 set hidden " When a buffer is brought to foreground, remember undo history and marks
 set history=1000 " Increase history from 20 default to 1000
+set hlsearch " Highlight matches
 set ignorecase " Ignore case of searches
 set incsearch " Highlight dynamically as pattern is typed
 set laststatus=2 " Always show status line
@@ -34,13 +31,10 @@ set magic " Enable extended regexes
 set mouse=a " Enable mouse in all modes
 set noerrorbells " Disable error bells
 set nowrap " Do not wrap lines
-set nu " Enable line numbers
-set ofu=syntaxcomplete#Complete " Set omni-completion method
-set regexpengine=1 " Use the old regular expression engine (it's faster for certain language syntaxes)
+set number " Enable line numbers
 set report=0 " Show all changes
 set ruler " Show the cursor position
 set scrolloff=3 " Start scrolling three lines before horizontal border of the window
-set shell=/bin/sh " Use /bin/sh for executing shell commands
 set shiftwidth=2 " The # of spaces for indenting
 set shortmess=atI " Don't show the intro message when starting vim
 set showtabline=2 " Always show the tab bar
@@ -63,8 +57,19 @@ set wildignore+=*/bower_components/*,*/node_modules/*
 set wildignore+=*/vendor/*,*/.git/*,*/.hg/*,*/.svn/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/doc/*,*/source_maps/*,*/dist/*
 set wildmenu " Hitting TAB in command mode will show possible completions above command line
 set wildmode=list:longest " Complete only until point of ambiguity
-set winminheight=0 " Allow splits to be reduced to a single line
 set wrapscan " Searches wrap around end of file
+
+if exists("g:enable_mvim_shift_arrow")
+  let macvim_hig_shift_movement = 1 " mvim shift-arrow-keys
+endif
+
+" NERDCommenter mappings
+if has("gui_macvim") && has("gui_running")
+  map  <D-/> <plug>NERDCommenterToggle<CR>
+  imap <D-/> <Esc><plug>NERDCommenterToggle<CR>i
+else
+  map <leader>/ <plug>NERDCommenterToggle<CR>
+endif
 
 " pathogen.vim
 execute pathogen#infect()
