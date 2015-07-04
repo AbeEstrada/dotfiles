@@ -20,6 +20,9 @@ export HISTTIMEFORMAT
 # Make some commands not show up in history
 #export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 
+# Disable Software Flow Control (XON/XOFF flow control)
+stty -ixon
+
 # Make Tab autocomplete regardless of filename case
 set completion-ignore-case on
 
