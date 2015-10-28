@@ -18,6 +18,7 @@ alias lsd='ls -l | grep "^d"'
 
 # IP addresses
 alias ip="curl icanhazip.com"
+alias localip="ipconfig getifaddr en1"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 
 # Enhanced WHOIS lookups
