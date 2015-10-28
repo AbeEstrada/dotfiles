@@ -17,6 +17,9 @@ export HISTCONTROL=ignoredups
 HISTTIMEFORMAT='%F %T '
 export HISTTIMEFORMAT
 
+# Increase the number of proceses limit
+ulimit -n 2048
+
 # Make some commands not show up in history
 #export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 
@@ -66,13 +69,18 @@ eval "$(rbenv init -)"
 source "/usr/local/bin/virtualenvwrapper.sh"
 
 # Git Auto-Completion
-source "/usr/local/etc/bash_completion.d/git-completion.bash"
+#source "/usr/local/etc/bash_completion.d/git-completion.bash"
 
 # If possible, add tab completion for many more commands
 [ -f /etc/bash_completion ] && source /etc/bash_completion
 
 # z
 . `brew --prefix`/etc/profile.d/z.sh
+
+# bash-completion
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+    . `brew --prefix`/etc/bash_completion
+fi
 
 # nvm
 export NVM_DIR=~/.nvm
