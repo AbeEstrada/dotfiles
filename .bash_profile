@@ -55,10 +55,6 @@ set convert-meta off
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
 
-# Add tab completion for `defaults read|write NSGlobalDomain`
-# You could just use `-g` instead, but I like being explicit
-complete -W "NSGlobalDomain" defaults
-
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
 
@@ -67,12 +63,6 @@ eval "$(rbenv init -)"
 
 # init virtualenvwrapper
 source "/usr/local/bin/virtualenvwrapper.sh"
-
-# Git Auto-Completion
-#source "/usr/local/etc/bash_completion.d/git-completion.bash"
-
-# If possible, add tab completion for many more commands
-[ -f /etc/bash_completion ] && source /etc/bash_completion
 
 # z
 . `brew --prefix`/etc/profile.d/z.sh
@@ -85,6 +75,3 @@ fi
 # nvm
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
-
-# aws completion
-complete -C aws_completer aws
