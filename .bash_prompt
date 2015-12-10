@@ -84,7 +84,7 @@ set_prompts() {
 
 
     function prompt_git() {
-        # this is >5x faster than mathias's. has to be for working in Chromium & Blink.
+        # this is >5x faster than mathias's.
 
         # check if we're in a git repo. (fast)
         git rev-parse --is-inside-work-tree &>/dev/null || return
@@ -101,6 +101,7 @@ set_prompts() {
 
 
         ## early exit for Chromium & Blink repo, as the dirty check takes ~5s
+        ## also recommended (via goo.gl/wAVZLa ) : sudo sysctl kern.maxvnodes=$((512*1024))
         repoUrl=$(git config --get remote.origin.url)
         if grep -q chromium.googlesource.com <<<$repoUrl; then
             dirty=" ⁂"
@@ -129,7 +130,7 @@ set_prompts() {
 
     PS1="\[\033]0;\w\007\]"                                 # terminal title (set to the current working directory)
     PS1+="\n\[$bold\]"
-    #PS1+="\[$(usernamehost)\]"                              # username at host
+    PS1+="\[$(usernamehost)\]"                              # username at host
     PS1+="\[$green\]\w"                                     # working directory
     PS1+="\$(prompt_git \"$white on $purple\" \"$cyan\")"   # git repository details
     PS1+="\n"

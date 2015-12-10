@@ -59,19 +59,23 @@ shopt -s nocaseglob
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
 
 # init rbenv
-eval "$(rbenv init -)"
+#eval "$(rbenv init -)"
 
 # init virtualenvwrapper
-source "/usr/local/bin/virtualenvwrapper.sh"
+#source "/usr/local/bin/virtualenvwrapper.sh"
 
 # z
-. `brew --prefix`/etc/profile.d/z.sh
+if [ -f /usr/local/etc/profile.d/z.sh ]; then
+    . /usr/local/etc/profile.d/z.sh
+fi
 
 # bash-completion
-if [ -f `brew --prefix`/etc/bash_completion ]; then
-    . `brew --prefix`/etc/bash_completion
+if [ -f /usr/local/etc/bash_completion ]; then
+    . /usr/local/etc/bash_completion
 fi
 
 # nvm
 export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
+if [ -f /usr/local/opt/nvm/nvm.sh ]; then
+    source /usr/local/opt/nvm/nvm.sh
+fi
