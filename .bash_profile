@@ -79,3 +79,12 @@ export NVM_DIR=~/.nvm
 if [ -f /usr/local/opt/nvm/nvm.sh ]; then
     source /usr/local/opt/nvm/nvm.sh
 fi
+
+# marks autocomplete
+_completemarks() {
+  local curw=${COMP_WORDS[COMP_CWORD]}
+  local wordlist=$(find $MARKPATH -type l -printf "%f\n")
+  COMPREPLY=($(compgen -W '${wordlist[@]}' -- "$curw"))
+  return 0
+}
+complete -F _completemarks jump unmark

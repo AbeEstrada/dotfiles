@@ -1,6 +1,7 @@
 export EDITOR="subl -w"
 export ARCHFLAGS="-arch x86_64"
 export GOPATH="/usr/local/go"
+export MARKPATH=$HOME/.marks
 #export VIRTUALENV_DISTRIBUTE=true
 #export VIRTUALENVWRAPPER_PYTHON="/usr/local/bin/python"
 #export VIRTUALENVWRAPPER_VIRTUALENV="/usr/local/bin/virtualenv"
