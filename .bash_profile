@@ -10,7 +10,10 @@ export LANG="en_US.UTF-8"
 # Larger bash history (allow 32³ entries; default is 500)
 export HISTSIZE=32768
 export HISTFILESIZE=$HISTSIZE
-export HISTCONTROL=ignoredups
+
+# Avoid duplicate entries
+export HISTCONTROL="erasedups:ignoreboth"
+
 
 # timestamps for bash history. www.debian-administration.org/users/rossen/weblog/1
 # saved for later analysis
@@ -54,6 +57,21 @@ set convert-meta off
 
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
+
+# Prevent file overwrite on stdout redirection
+# set -o noclobber
+
+# Update window size after every command
+shopt -s checkwinsize
+
+# Prepend cd to directory names automatically
+shopt -s autocd
+
+# Correct spelling errors during tab-completion
+shopt -s dirspell
+
+# Correct spelling errors in arguments supplied to cd
+shopt -s cdspell
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
