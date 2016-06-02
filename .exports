@@ -7,6 +7,7 @@ export MARKPATH=$HOME/.marks
 #export VIRTUALENVWRAPPER_VIRTUALENV="/usr/local/bin/virtualenv"
 #export WORKON_HOME="$HOME/Sites/virtualenvs"
 #export ANDROID_SDK_ROOT=`brew --prefix android-sdk`
+export CLICOLOR_FORCE=1
 
 BIN_HOME="$HOME/.bin"
 DEV_HOME="/Applications/Xcode.app/Contents/Developer/usr/bin"

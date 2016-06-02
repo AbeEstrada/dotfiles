@@ -7,18 +7,15 @@ unset file
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 
-# Larger bash history (allow 32³ entries; default is 500)
-export HISTSIZE=32768
-export HISTFILESIZE=$HISTSIZE
+# timestamps for later analysis. www.debian-administration.org/users/rossen/weblog/1
+export HISTTIMEFORMAT='%F %T '
 
-# Avoid duplicate entries
-export HISTCONTROL="erasedups:ignoreboth"
-
-
-# timestamps for bash history. www.debian-administration.org/users/rossen/weblog/1
-# saved for later analysis
-HISTTIMEFORMAT='%F %T '
-export HISTTIMEFORMAT
+# keep history up to date, across sessions, in realtime
+#  http://unix.stackexchange.com/a/48113
+export HISTCONTROL=ignoredups:erasedups         # no duplicate entries
+export HISTSIZE=100000                          # big big history (default is 500)
+export HISTFILESIZE=$HISTSIZE                   # big big history
+which shopt > /dev/null && shopt -s histappend  # append to history, don't overwrite it
 
 # Increase the number of proceses limit
 ulimit -n 2048
@@ -77,15 +74,15 @@ shopt -s cdspell
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
 
 # init rbenv
-#eval "$(rbenv init -)"
+# eval "$(rbenv init -)"
 
 # init virtualenvwrapper
-#source "/usr/local/bin/virtualenvwrapper.sh"
+# source "/usr/local/bin/virtualenvwrapper.sh"
 
 # z
-if [ -f /usr/local/etc/profile.d/z.sh ]; then
-    . /usr/local/etc/profile.d/z.sh
-fi
+# if [ -f /usr/local/etc/profile.d/z.sh ]; then
+#     . /usr/local/etc/profile.d/z.sh
+# fi
 
 # bash-completion
 if [ -f /usr/local/etc/bash_completion ]; then
