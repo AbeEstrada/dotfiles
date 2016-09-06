@@ -17,5 +17,6 @@ GOTOOLS="/usr/local/opt/go/libexec/bin"
 COMPOSER_HOME="$HOME/.composer/vendor/bin"
 #POSTGRES_APP="/Applications/Postgres.app/Contents/MacOS/bin"
 #MAMP_PHP="/Applications/MAMP/bin/php/php5.3.20/bin"
+LOCAL_NODEMODULES="./node_modules/.bin"
 
-export PATH="/usr/local/sbin:/usr/local/bin:$BIN_HOME:$DEV_HOME:$COMPOSER_HOME:$GOTOOLS:${GOPATH}/bin:$PATH"
+export PATH="/usr/local/sbin:/usr/local/bin:$BIN_HOME:$DEV_HOME:$COMPOSER_HOME:$GOTOOLS:${GOPATH}/bin:$LOCAL_NODEMODULES:$PATH"
