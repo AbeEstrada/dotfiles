@@ -1,7 +1,7 @@
 {
 	"bold_folder_labels": true,
 	"caret_style": "phase",
-	"color_scheme": "Packages/Monokai Extended/Monokai Extended.tmTheme",
+	"color_scheme": "Packages/Monokai Neue/Monokai-Neue.tmTheme",
 	"detect_indentation": true,
 	"draw_white_space": "selection",
 	"enable_tab_scrolling": false,
@@ -34,6 +34,7 @@
 	"ignored_packages":
 	[
 		"ActionScript",
+		"AppleScript",
 		"ASP",
 		"Batch File",
 		"C#",
@@ -53,7 +54,9 @@
 		"Pascal",
 		"Perl",
 		"R",
+		"Rails",
 		"RestructuredText",
+		"Ruby",
 		"Scala",
 		"TCL",
 		"Textile",
@@ -70,7 +73,6 @@
 	],
 	"scroll_past_end": true,
 	"show_encoding": true,
-	"show_full_path": true,
 	"side_bar_width": 150,
 	"soda_folder_icons": false,
 	"tab_size": 4,
@@ -78,6 +80,7 @@
 	"theme": "Soda Dark 3.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": true,
+	"use_simple_full_screen": true,
 	"use_tab_stops": true,
-	"word_wrap": true
+	"word_wrap": false
 }
