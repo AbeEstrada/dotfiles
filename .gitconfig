@@ -1,0 +1,40 @@
+[core]
+    editor = subl -w
+    excludesfile = ~/.gitignore
+    attributesfile = ~/.gitattributes
+
+[alias]
+    s = status
+    c = commit -am
+    p = push
+    co = checkout
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+
+[push]
+    default = current
+
+[include]
+    path = ~/.gitconfig.local
+
+[color]
+    ui = always
+[color "diff"]
+    meta = yellow bold
+    commit = green bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
+[color "diff-highlight"]
+    oldNormal = red bold
+    oldHighlight = "red bold 52"
+    newNormal = "green bold"
+    newHighlight = "green bold 22"
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan

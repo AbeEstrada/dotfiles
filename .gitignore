@@ -12,3 +12,6 @@ Thumbs.db
 
 #Private Config
 .extra
+
+# git credential file
+.gitconfig.local
