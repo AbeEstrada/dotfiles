@@ -15,7 +15,7 @@ export HISTTIMEFORMAT='%F %T '
 export HISTCONTROL=ignoredups:erasedups         # no duplicate entries
 export HISTSIZE=100000                          # big big history (default is 500)
 export HISTFILESIZE=$HISTSIZE                   # big big history
-which shopt > /dev/null && shopt -s histappend  # append to history, don't overwrite it
+type shopt &> /dev/null && shopt -s histappend  # append to history, don't overwrite it
 
 # Increase the number of proceses limit
 ulimit -n 2048
