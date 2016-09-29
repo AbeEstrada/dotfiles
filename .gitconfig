@@ -9,7 +9,7 @@
     p = push
     co = checkout
     undo = git reset HEAD~
-    lh = log --graph --all --oneline --decorate --color
+    lg = log --graph --all --oneline --decorate --color
 
 [push]
     default = current
