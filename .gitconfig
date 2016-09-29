@@ -9,7 +9,7 @@
     p = push
     co = checkout
     undo = git reset HEAD~
-    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+    lh = log --graph --all --oneline --decorate --color
 
 [push]
     default = current
