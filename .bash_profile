@@ -80,9 +80,10 @@ fi
 
 # nvm
 export NVM_DIR=~/.nvm
-if [ -f /usr/local/opt/nvm/nvm.sh ]; then
-    source /usr/local/opt/nvm/nvm.sh
-fi
+alias nvminit="source /usr/local/opt/nvm/nvm.sh"
+# if [ -f /usr/local/opt/nvm/nvm.sh ]; then
+#     source /usr/local/opt/nvm/nvm.sh
+# fi
 
 # marks autocomplete
 _completemarks() {
