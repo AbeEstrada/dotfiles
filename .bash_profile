@@ -78,13 +78,6 @@ if [ -f /usr/local/etc/bash_completion ]; then
     . /usr/local/etc/bash_completion
 fi
 
-# nvm
-export NVM_DIR=~/.nvm
-alias nvminit="source /usr/local/opt/nvm/nvm.sh"
-# if [ -f /usr/local/opt/nvm/nvm.sh ]; then
-#     source /usr/local/opt/nvm/nvm.sh
-# fi
-
 # marks autocomplete
 _completemarks() {
     local curw=${COMP_WORDS[COMP_CWORD]}

@@ -59,3 +59,6 @@ alias emptytrash=" \
 
 # Marks
 alias j=jump
+
+# NVM
+alias nvminit="source $NVM_DIR/nvm.sh"
