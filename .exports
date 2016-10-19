@@ -10,5 +10,6 @@ BIN_HOME="$HOME/.bin"
 DEV_HOME="/Applications/Xcode.app/Contents/Developer/usr/bin"
 GOTOOLS="/usr/local/opt/go/libexec/bin"
 LOCAL_NODEMODULES="./node_modules/.bin"
+YARN="$HOME/.yarn/bin"
 
-export PATH="/usr/local/sbin:/usr/local/bin:$BIN_HOME:$DEV_HOME:$GOTOOLS:$GOPATH/bin:$LOCAL_NODEMODULES:$PATH"
+export PATH="/usr/local/sbin:/usr/local/bin:$BIN_HOME:$DEV_HOME:$GOTOOLS:$GOPATH/bin:$LOCAL_NODEMODULES:$YARN:$PATH"
