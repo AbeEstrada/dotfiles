@@ -86,3 +86,6 @@ _completemarks() {
     return 0
 }
 complete -F _completemarks j jump unmark
+
+# Load NVM
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
