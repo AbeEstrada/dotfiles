@@ -123,8 +123,8 @@ set_prompts() {
             local stat="$(git status --porcelain --branch | grep '^##' | grep -o '\[.\+\]$')"
             local aheadN="$(echo $stat | grep -o 'ahead [[:digit:]]\+' | grep -o '[[:digit:]]\+')"
             local behindN="$(echo $stat | grep -o 'behind [[:digit:]]\+' | grep -o '[[:digit:]]\+')"
-            [ -n "$aheadN" ] && marks+="⇡$aheadN "
-            [ -n "$behindN" ] && marks+="⇣$behindN "
+            [ -n "$aheadN" ] && marks+="⇡$aheadN"
+            [ -n "$behindN" ] && marks+="⇣$behindN"
 
             # Check for untracked files.
             if [ -n "$(git ls-files --others --exclude-standard)" ]; then
