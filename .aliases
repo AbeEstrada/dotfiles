@@ -2,6 +2,9 @@ alias mysql_sock="sudo ln -s /tmp/mysql.sock /var/mysql/mysql.sock"
 alias fixopenwith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
 alias hosts="sudo $EDITOR /etc/hosts"
 
+alias ..="cd .."
+alias cd..="cd .."
+
 # mv, rm, cp
 alias mv='mv -v'
 alias rm='rm -i -v'
