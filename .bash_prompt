@@ -119,6 +119,10 @@ set_prompts() {
             dirty=$(git diff --no-ext-diff --quiet --ignore-submodules --exit-code || echo -e "*")
 
             local marks
+
+            # Check for untracked files.
+            [ -n "$(git ls-files --others --exclude-standard)" ] && marks+="+"
+
             # how many commits local branch is ahead/behind of remote?
             local stat="$(git status --porcelain --branch | grep '^##' | grep -o '\[.\+\]$')"
             local aheadN="$(echo $stat | grep -o 'ahead [[:digit:]]\+' | grep -o '[[:digit:]]\+')"
@@ -126,18 +130,13 @@ set_prompts() {
             [ -n "$aheadN" ] && marks+="⇡$aheadN"
             [ -n "$behindN" ] && marks+="⇣$behindN"
 
-            # Check for untracked files.
-            if [ -n "$(git ls-files --others --exclude-standard)" ]; then
-                marks+="+"
-            fi
-
             # mathias has a few more checks some may like:
             #    github.com/mathiasbynens/dotfiles/blob/a8bd0d4300/.bash_prompt#L30-L43
         fi
 
 
         [ -n "${s}" ] && s=" [${s}]";
-        echo -e "${1}${branchName}$marks${2}$dirty";
+        echo -e "${1}${branchName} $marks${2}$dirty";
 
         return
     }
