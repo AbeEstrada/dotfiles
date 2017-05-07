@@ -136,7 +136,7 @@ set_prompts() {
 
 
         [ -n "${s}" ] && s=" [${s}]";
-        echo -e "${1}${branchName} $marks${2}$dirty";
+        echo -e "${1}${branchName}$marks${2}$dirty";
 
         return
     }
