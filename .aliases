@@ -58,6 +58,9 @@ alias emptytrash=" \
     sudo rm -v /private/var/vm/sleepimage; \
 "
 
+# Spoof the MAC address
+alias freewifi="sudo ifconfig en0 ether `openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/.$//'`"
+
 # Marks
 alias j=jump
 
