@@ -3,18 +3,8 @@
 
 default_username='abe'
 
-
-if which thefuck > /dev/null; then
-    eval "$(thefuck --alias)"
-fi;
-
 # Automatically trim long paths in the prompt (requires Bash 4.x)
 PROMPT_DIRTRIM=2
-
-if [[ -n "$ZSH_VERSION" ]]; then  # quit now if in zsh
-    return 1 2> /dev/null || exit 1;
-fi;
-
 
 if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
     export TERM=gnome-256color
@@ -179,8 +169,6 @@ set_prompts() {
     #   zprof is also hot.
 
 }
-
-
 
 set_prompts
 unset set_prompts
