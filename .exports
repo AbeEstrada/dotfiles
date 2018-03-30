@@ -10,6 +10,6 @@ BIN_HOME="$HOME/.bin"
 DEV_HOME="/Applications/Xcode.app/Contents/Developer/usr/bin"
 GOTOOLS="/usr/local/opt/go/libexec/bin"
 LOCAL_NODEMODULES="./node_modules/.bin"
-YARN="$HOME/.yarn/bin"
+CODE="/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$BIN_HOME:$DEV_HOME:$GOTOOLS:$GOPATH/bin:$YARN"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$BIN_HOME:$DEV_HOME:$GOTOOLS:$GOPATH/bin:$CODE"
