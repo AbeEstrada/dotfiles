@@ -1,9 +1,11 @@
+export CLICOLOR=1
+export CLICOLOR_FORCE=1
+export LSCOLORS=GxFxCxDxBxegedabagaced
 export EDITOR="subl -w"
 export ARCHFLAGS="-arch x86_64"
 export MARKPATH=$HOME/.marks
 export GOPATH="$HOME/Code/go"
 #export ANDROID_SDK_ROOT=`brew --prefix android-sdk`
-export CLICOLOR_FORCE=1
 export NVM_DIR="$HOME/.nvm"
 
 BIN_HOME="$HOME/.bin"
