@@ -18,7 +18,7 @@ function la(){
 
 # List node modules without dependencies
 function npmls() {
-    npm ls "$@" | grep "^[└├]" | sed "s/─┬/──/g"
+    npm list --depth=0 "$@"
 }
 
 # Local Server
