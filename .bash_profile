@@ -85,10 +85,6 @@ _completemarks() {
 }
 complete -F _completemarks j jump unmark
 
-# Load NVM
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
 # Updates PATH for the Google Cloud SDK.
 if [ -f "$HOME/.bin/google-cloud-sdk/path.bash.inc" ]; then source "$HOME/.bin/google-cloud-sdk/path.bash.inc"; fi
 
