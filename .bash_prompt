@@ -1,58 +1,84 @@
-if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
-    export TERM=gnome-256color
-elif infocmp xterm-256color >/dev/null 2>&1; then
-    export TERM=xterm-256color
-fi
+#!/usr/bin/env bash
 
-function prompt_git() {
-    # this is >5x faster than mathias's.
+## Uncomment to disable git info
+#POWERLINE_GIT=0
 
-    # check if we're in a git repo. (fast)
-    git rev-parse --is-inside-work-tree &>/dev/null || return
+__powerline() {
+    # Colorscheme
+    readonly RESET='\[\033[m\]'
+    readonly COLOR_CWD='\[\033[0;34m\]' # blue
+    readonly COLOR_GIT='\[\033[0;36m\]' # cyan
+    readonly COLOR_SUCCESS='\[\033[0;32m\]' # green
+    readonly COLOR_FAILURE='\[\033[0;31m\]' # red
 
-    # check for what branch we're on. (fast)
-    #   if… HEAD isn’t a symbolic ref (typical branch),
-    #   then… get a tracking remote branch or tag
-    #   otherwise… get the short SHA for the latest commit
-    #   lastly just give up.
-    branchName="$(git symbolic-ref --quiet --short HEAD 2> /dev/null || \
-        git describe --all --exact-match HEAD 2> /dev/null || \
-        git rev-parse --short HEAD 2> /dev/null || \
-        echo '(unknown)')";
+    readonly SYMBOL_GIT_BRANCH='⑂'
+    readonly SYMBOL_GIT_MODIFIED='*'
+    readonly SYMBOL_GIT_PUSH='↑'
+    readonly SYMBOL_GIT_PULL='↓'
 
+    __git_info() {
+        [[ $POWERLINE_GIT = 0 ]] && return # disabled
+        hash git 2>/dev/null || return # git not found
+        local git_eng="env LANG=C git"   # force git output in English to make our work easier
 
-    ## early exit for Chromium & Blink repo, as the dirty check takes ~5s
-    ## also recommended (via goo.gl/wAVZLa ) : sudo sysctl kern.maxvnodes=$((512*1024))
-    repoUrl=$(git config --get remote.origin.url)
-    if grep -q chromium.googlesource.com <<<$repoUrl; then
-        dirty=" ⁂"
-    else
+        # get current branch name
+        local ref=$($git_eng symbolic-ref --short HEAD 2>/dev/null)
 
-        # check if it's dirty (slow)
-        #   technique via github.com/git/git/blob/355d4e173/contrib/completion/git-prompt.sh#L472-L475
-        dirty=$(git diff --no-ext-diff --quiet --ignore-submodules --exit-code || echo -e "*")
+        if [[ -n "$ref" ]]; then
+            # prepend branch symbol
+            ref="$SYMBOL_GIT_BRANCH $ref"
+        else
+            # get tag name or short unique hash
+            ref=$($git_eng describe --tags --always 2>/dev/null)
+        fi
+
+        [[ -n "$ref" ]] || return  # not a git repo
 
         local marks
 
-        # Check for untracked files.
-        [ -n "$(git ls-files --others --exclude-standard)" ] && marks+="+"
+        # scan first two lines of output from `git status`
+        while IFS= read -r line; do
+            if [[ $line =~ ^## ]]; then # header line
+                [[ $line =~ ahead\ ([0-9]+) ]] && marks+=" $SYMBOL_GIT_PUSH${BASH_REMATCH[1]}"
+                [[ $line =~ behind\ ([0-9]+) ]] && marks+=" $SYMBOL_GIT_PULL${BASH_REMATCH[1]}"
+            else # branch is modified if output contains more lines after the header line
+                marks="$SYMBOL_GIT_MODIFIED$marks"
+                break
+            fi
+        done < <($git_eng status --porcelain --branch 2>/dev/null)  # note the space between the two <
 
-        # how many commits local branch is ahead/behind of remote?
-        local stat="$(git status --porcelain --branch | grep '^##' | grep -o '\[.\+\]$')"
-        local aheadN="$(echo $stat | grep -o 'ahead [[:digit:]]\+' | grep -o '[[:digit:]]\+')"
-        local behindN="$(echo $stat | grep -o 'behind [[:digit:]]\+' | grep -o '[[:digit:]]\+')"
-        [ -n "$aheadN" ] && marks+="⇡$aheadN"
-        [ -n "$behindN" ] && marks+="⇣$behindN"
+        # print the git branch segment without a trailing newline
+        printf " $ref$marks"
+    }
 
-        # mathias has a few more checks some may like:
-        #    github.com/mathiasbynens/dotfiles/blob/a8bd0d4300/.bash_prompt#L30-L43
-    fi
+    ps1() {
+        # Check the exit code of the previous command and display different
+        # colors in the prompt accordingly.
+        if [ $? -eq 0 ]; then
+            local symbol="$COLOR_SUCCESS $RESET"
+        else
+            local symbol="$COLOR_FAILURE $RESET"
+        fi
 
+        local cwd="$COLOR_CWD\w$RESET"
+        # Bash by default expands the content of PS1 unless promptvars is disabled.
+        # We must use another layer of reference to prevent expanding any user
+        # provided strings, which would cause security issues.
+        # POC: https://github.com/njhartwell/pw3nage
+        # Related fix in git-bash: https://github.com/git/git/blob/9d77b0405ce6b471cb5ce3a904368fc25e55643d/contrib/completion/git-prompt.sh#L324
+        if shopt -q promptvars; then
+            __powerline_git_info="$(__git_info)"
+            local git="$COLOR_GIT\${__powerline_git_info}$RESET"
+        else
+            # promptvars is disabled. Avoid creating unnecessary env var.
+            local git="$COLOR_GIT$(__git_info)$RESET"
+        fi
 
-    [ -n "${s}" ] && s=" [${s}]";
-    echo -e " ${1}${branchName}$marks${2}$dirty";
+        PS1="$cwd$git$symbol\n$ "
+    }
 
-    return
+    PROMPT_COMMAND="ps1${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
 }
 
-export PS1="\n\[$(tput bold)\]\[\033[38;5;3m\]\[\033[01;34m\]\w\[\033[00m\]\[\033[32m\]\$(prompt_git)\[\033[00m\]\n$ "
+__powerline
+unset __powerline
