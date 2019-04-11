@@ -9,9 +9,9 @@ export GOPATH="$HOME/Code/go"
 export NVM_DIR="$HOME/.nvm"
 
 BIN_HOME="$HOME/.bin"
-DEV_HOME="/Applications/Xcode.app/Contents/Developer/usr/bin"
+DENO_HOME="$HOME/.deno"
 GOTOOLS="/usr/local/opt/go/libexec/bin"
 LOCAL_NODEMODULES="./node_modules/.bin"
-CODE="/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+DEV_HOME="/Applications/Xcode.app/Contents/Developer/usr/bin"
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$BIN_HOME:$DEV_HOME:$GOTOOLS:$GOPATH/bin:$CODE"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$BIN_HOME:$DEV_HOME:$GOTOOLS:$GOPATH/bin:$DENO_HOME/bin"
