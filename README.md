@@ -1,5 +1,7 @@
 # Abe's dotfiles
 
+## NOTE: Migrated to `zsh`, here is my [`.zshrc`](https://gist.github.com/AbeEstrada/e2bf94f845a1cbacb31e9c03c12a2b30)
+
 This is mostly for personal use, but feel free to fork.
 
 Inspired by Paul Irish [dotfiles](https://github.com/paulirish/dotfiles)
