@@ -5,7 +5,6 @@
 	"draw_white_space": "selection",
 	"enable_tab_scrolling": false,
 	"ensure_newline_at_eof_on_save": true,
-	"fold_buttons": false,
 	"font_face": "InconsolataGo",
 	"font_size": 16,
 	"highlight_modified_tabs": true,
@@ -46,13 +45,12 @@
 		"draw_active"
 	],
 	"indent_to_bracket": true,
-	"line_padding_bottom": 1,
-	"line_padding_top": 1,
-	"rulers":
-	[
-		80,
-		120
-	],
+	"match_brackets": false,
+	"match_brackets_angle": false,
+	"match_brackets_braces": false,
+	"match_brackets_content": false,
+	"match_brackets_square": false,
+	"match_tags": false,
 	"scroll_past_end": true,
 	"show_definitions": false,
 	"show_encoding": true,
