@@ -1,0 +1,45 @@
+[
+  // Hide sidebar tree icons
+  {
+    "class": "icon_file_type",
+    "content_margin": 0,
+    "layer0.opacity": 1
+  },
+  {
+    "class": "icon_folder",
+    "content_margin": 0,
+    "layer0.opacity": 1
+  },
+  {
+    "class": "sidebar_tree",
+    "indent": 10,
+    "row_padding": [10, 2, 0, 2],
+  },
+  // Tab set
+  {
+    "class": "tabset_control",
+    "layer0.texture": "",
+    "layer0.opacity": 1,
+    "content_margin": 0,
+    "tab_overlap": -1,
+    "tab_height": 28,
+  },
+  // Tab element
+  {
+    "class": "tab_label",
+    "font.size": 12,
+  },
+  {
+    "class": "tab_control",
+    "content_margin": [8, 0],
+    // Normal
+    "layer0.texture": "",
+    "layer1.texture": "",
+    // Modified
+    "layer2.texture": "",
+    "layer2.opacity": 0,
+    // Current
+    "layer3.opacity": 0,
+    "layer3.texture": "",
+  },
+]
