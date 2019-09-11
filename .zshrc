@@ -53,6 +53,6 @@ alias j="jump"
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com 2> /dev/null || echo none"
 alias flushdns="sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache"
 alias dockerstop='docker stop $(docker ps -q)'
-alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
-s() { [ $# -eq 0 ] && {subl .} || subl "$@" } # Sublime Text
-o() { [ $# -eq 0 ] && {open .} || open "$@" } # Finder
+alias fixopenwith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
+alias o='open_command $PWD'
+s() { subl "${1:-.}"; }
