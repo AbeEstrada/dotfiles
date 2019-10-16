@@ -2,16 +2,13 @@ export PATH=$HOME/.bin:/usr/local/bin:$PATH
 
 export ZSH="/Users/Abe/.oh-my-zsh"
 
+# ZSH_THEME="simple"
 ZSH_THEME=""
 
 ZSH_AUTOSUGGEST_USE_ASYNC=true
 NVM_LAZY_LOAD=true
 
 plugins=(
-  zsh_reload
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-  zsh-nvm
   aws
   brew
   common-aliases
@@ -28,18 +25,17 @@ plugins=(
   osx
   sublime
   yarn
+  zsh_reload
+
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+  zsh-nvm
 )
 
 source $ZSH/oh-my-zsh.sh
 
 export LANG=en_US.UTF-8
-
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nano'
-else
-  export EDITOR='subl -w'
-fi
-
+export EDITOR='subl -w'
 export ARCHFLAGS="-arch x86_64"
 setopt HIST_FIND_NO_DUPS
 
