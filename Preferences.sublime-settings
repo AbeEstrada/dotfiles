@@ -51,6 +51,11 @@
 	"match_brackets_content": false,
 	"match_brackets_square": false,
 	"match_tags": false,
+	"rulers":
+	[
+		80,
+		120
+	],
 	"scroll_past_end": true,
 	"show_definitions": false,
 	"show_encoding": true,
