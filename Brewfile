@@ -15,10 +15,8 @@ brew "awscli"
 brew "bat"
 brew "cocoapods"
 brew "deno"
-brew "dprint"
 brew "exa"
-brew "fd"
-brew "folly"
+brew "exiftool"
 brew "fzf"
 brew "gettext"
 brew "git"
@@ -30,25 +28,21 @@ brew "hugo"
 brew "jq"
 brew "lame"
 brew "mas"
-brew "ncdu"
+brew "mitmproxy"
 brew "nvm"
 brew "pcre"
 brew "pkg-config"
-brew "publish"
 brew "qrencode"
 brew "rust"
-brew "smartmontools"
 brew "starship"
 brew "tidy-html5"
 brew "tldr"
 brew "trash"
-brew "watchman"
 brew "webp"
 brew "wget"
 brew "zsh"
 brew "teamookla/speedtest/speedtest"
 brew "yt-dlp/taps/yt-dlp"
-
 cask "appcleaner"
 cask "arq"
 cask "firefox"
@@ -62,13 +56,15 @@ cask "transmit"
 cask "vlc"
 
 mas "1Blocker", id: 1365531024
+mas "Compressor", id: 424390742
 mas "Final Cut Pro", id: 424389933
 mas "Keynote", id: 409183694
 mas "Logic Pro", id: 634148309
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
-mas "Peek", id: 1554235898
 mas "Pixelmator Pro", id: 1289583905
+mas "Reeder", id: 1529448980
 mas "Secrets", id: 973049011
 mas "StopTheMadness", id: 1376402589
+mas "WireGuard", id: 1451685025
 mas "Xcode", id: 497799835
