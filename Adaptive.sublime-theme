@@ -5,7 +5,9 @@
     // Hide sidebar heading
     {
       "class": "sidebar_heading",
-      "opacity": 0.0
+      "opacity": 0.0,
+      "font.size": 0,
+      "fg": "#101010",
     },
     // Hide sidebar tree icons
     {
@@ -16,17 +18,13 @@
       "class": "icon_folder",
       "content_margin": 0,
     },
+    // Make sidebar compact
     {
       "class": "sidebar_tree",
       "row_padding": [10, 2, 0, 2],
       "indent": 10,
     },
-    {
-      "class": "sidebar_heading",
-      "font.size": 0,
-      "fg": "#101010",
-    },
-    // Tab set
+    // Remove tabs extra space
     {
       "class": "tabset_control",
       "content_margin": [-5, 0, 0, 0],

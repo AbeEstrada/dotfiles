@@ -9,7 +9,7 @@
 	"caret_style": "phase",
 	"caret_extra_top": 0,
 	"caret_extra_bottom": 0,
-	"color_scheme": "Monokai Classic.sublime-color-scheme",
+	"color_scheme": "Monokai.sublime-color-scheme",
 	"enable_tab_scrolling": false,
 	"ensure_newline_at_eof_on_save": true,
 	"font_face": "Inconsolata",
@@ -61,4 +61,5 @@
 	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": "all",
 	"typescript_auto_format": true,
+	"dictionary": "Packages/Language - English/en_US.dic",
 }

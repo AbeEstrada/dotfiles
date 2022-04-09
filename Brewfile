@@ -4,7 +4,6 @@ tap "homebrew/core"
 tap "martido/graph"
 tap "teamookla/speedtest"
 tap "yt-dlp/taps"
-
 brew "ca-certificates"
 brew "gdbm"
 brew "readline"
@@ -20,7 +19,7 @@ brew "exiftool"
 brew "fzf"
 brew "gettext"
 brew "git"
-brew "git-delta"
+brew "go"
 brew "libpng"
 brew "guetzli"
 brew "htop"
@@ -29,15 +28,18 @@ brew "jq"
 brew "lame"
 brew "mas"
 brew "mitmproxy"
+brew "neofetch"
+brew "newsboat"
 brew "nvm"
 brew "pcre"
 brew "pkg-config"
-brew "qrencode"
 brew "rust"
+brew "ssh-copy-id"
 brew "starship"
 brew "tidy-html5"
 brew "tldr"
 brew "trash"
+brew "tz"
 brew "webp"
 brew "wget"
 brew "zsh"
@@ -54,9 +56,7 @@ cask "sublime-merge"
 cask "sublime-text"
 cask "transmit"
 cask "vlc"
-
 mas "1Blocker", id: 1365531024
-mas "Compressor", id: 424390742
 mas "Final Cut Pro", id: 424389933
 mas "Keynote", id: 409183694
 mas "Logic Pro", id: 634148309
@@ -64,7 +64,9 @@ mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Pixelmator Pro", id: 1289583905
 mas "Reeder", id: 1529448980
+mas "Refined GitHub", id: 1519867270
 mas "Secrets", id: 973049011
 mas "StopTheMadness", id: 1376402589
+mas "Tweaks for Twitter", id: 1567751529
 mas "WireGuard", id: 1451685025
 mas "Xcode", id: 497799835
