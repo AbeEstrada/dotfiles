@@ -9,7 +9,7 @@ More about dotfiles at [http://dotfiles.github.io/](http://dotfiles.github.io/)
 ## Brewfile
 
 ```sh
-brew bundle dump
+brew bundle dump --file=~/Downloads/Brewfile
 ```
 
 ## Sublime Text
