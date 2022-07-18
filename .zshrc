@@ -1,22 +1,21 @@
-# ZSH_THEME="simple"
-ZSH_THEME=""
-
+NVM_LAZY=true
 NVM_LAZY_LOAD=true
-NVM_COMPLETION=true
 ZSH_AUTOSUGGEST_USE_ASYNC=true
 ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
 plugins=(
   aws
+  aliases
   brew
   common-aliases
-  docker
-  docker-compose
+  # docker
+  # docker-compose
   encode64
   extract
   git
   gitignore
+  golang
   isodate
   jsontools
   jump
@@ -25,6 +24,7 @@ plugins=(
   python
   sublime
   sublime-merge
+  # web-search
   zsh-interactive-cd
   # third party
   zsh-nvm
@@ -35,15 +35,15 @@ plugins=(
   history-substring-search
 )
 
+stty -ixon
+
+unset zle_bracketed_paste # Disable paste highlight
+
 source $ZSH/oh-my-zsh.sh
 
 ENABLE_CORRECTION="true"
 HIST_STAMPS="yyyy/mm/dd"
 
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-export EDITOR='subl -w'
-export ARCHFLAGS="-arch x86_64"
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
@@ -62,6 +62,7 @@ alias l='exa --classify --long --header --git --no-permissions --no-user'
 alias ll='exa --classify --long --header --git --icons'
 alias la='exa --classify --long --header --git --icons --all'
 alias tree='exa --classify --tree'
+alias cat='bat'
 
 alias j='jump'
 alias ip='dig +short myip.opendns.com @resolver1.opendns.com 2> /dev/null || echo none'
@@ -73,7 +74,29 @@ alias o='open_command $PWD'
 alias w='curl wttr.in/cjs\?1q'
 alias c='cal -3'
 alias ytdl='yt-dlp -f mp4'
-alias todo="grep --exclude-dir={.git,node_modules,.next} -RIin -E '//\s?(TODO|FIXM?E?):?' ."
+alias todo="grep --color=always --exclude-dir={.git,node_modules,.next} -RIin -E '(//|#)\s?(TODO|FIXM?E?):?' . | sed -e 's/:[ \t]*/:/g'"
 # alias server="python3 -m http.server 3001"
 alias server='npx http-server -p 3001 --cors'
+alias n='~/.bin/nvim-osx64/bin/nvim'
 s() { subl "${1:-.}"; }
+
+# FIX: https://bitbucket.org/dougty/sublime-compare-side-by-side/raw/master/README_COMMANDS.md
+# compare() { subl --command 'sbs_compare_files {"A":"$1", "B":"$2"}'; }
+
+# https://github.com/addyosmani/dotfiles/blob/master/.functions#L1-L17
+# Simple calculator
+function calc() {
+  local result=""
+  result="$(printf "scale=10;$*\n" | bc --mathlib | tr -d '\\\n')"
+  #                       └─ default (when `--mathlib` is used) is 20
+  if [[ "$result" == *.* ]]; then
+    # improve the output for decimal numbers
+    printf "$result" |
+    sed -e 's/^\./0./'        `# add "0" for cases like ".5"` \
+        -e 's/^-\./-0./'      `# add "0" for cases like "-.5"`\
+        -e 's/0*$//;s/\.$//'   # remove trailing zeros
+  else
+    printf "$result"
+  fi
+  printf "\n"
+}
