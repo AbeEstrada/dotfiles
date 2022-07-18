@@ -3,11 +3,11 @@
     "variables": {},
     "globals": {
         "background": "#19171a",
+        "gutter": "#19171a",
         "selection": "#333",
         "selection_border": "#333",
-        "stack_guide": "var(grey)",
-        "active_guide": "var(purple)",
-        "line_highlight": "var(black3)",
+        "stack_guide": "var(black)",
+        "active_guide": "var(purple)"
     },
     "rules": []
 }
