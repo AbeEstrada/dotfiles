@@ -3,18 +3,19 @@
 {
 	"additional_path_items": [
 		"/Users/Abe/.bin",
-		"/Users/Abe/.nvm/versions/node/v14.19.0/bin"
+		"/Users/Abe/.nvm/versions/node/v16.15.0/bin"
 	],
 	"bold_folder_labels": true,
 	"caret_style": "phase",
 	"caret_extra_top": 0,
 	"caret_extra_bottom": 0,
-	"color_scheme": "Monokai.sublime-color-scheme",
+	"color_scheme": "Monokai Classic.sublime-color-scheme",
 	"enable_tab_scrolling": false,
 	"ensure_newline_at_eof_on_save": true,
 	"font_face": "Inconsolata",
 	"font_size": 16,
 	"hardware_acceleration": "opengl",
+	"highlight_line": true,
 	"ignored_packages":
 	[
 		"ActionScript",
@@ -61,5 +62,6 @@
 	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": "all",
 	"typescript_auto_format": true,
-	"dictionary": "Packages/Language - English/en_US.dic",
+	"dictionary": "Packages/Language - Spanish/es_ES.dic",
+	"auto_complete": true,
 }
