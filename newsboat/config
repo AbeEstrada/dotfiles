@@ -1,0 +1,85 @@
+browser "open -a safari '%u' &"
+auto-reload yes
+refresh-on-startup no
+suppress-first-reload yes
+download-timeout 60 # seconds
+reload-time 20 # minutes
+reload-threads 10
+keep-articles-days 30
+prepopulate-query-feeds yes
+cleanup-on-quit no
+confirm-exit yes
+error-log "~/.newsboat/error.log"
+
+show-read-feeds no
+show-read-articles no
+
+goto-next-feed no
+article-sort-order date-desc
+feed-sort-order firsttag
+feedlist-format "%12T %3U %t"
+datetime-format "%Y-%m-%d %H:%M:%S"
+articlelist-format "%D %?T?|%-20T| ?%t"
+
+feedlist-title-format "%N %V - %?F?Feeds& Your feeds? (%u unread, %t total)%?F? matching filter '%F'&?%?T? - tag '%T'&?"
+articlelist-title-format "%N %V - %T (%u unread, %t total)%?F? matching filter `%F'&?"
+itemview-title-format "%N %V - %F: %T"
+
+search-highlight-colors black yellow
+
+# highlight feedlist "Unread" green default
+highlight article "^(Feed|Title|Author|Links?|Date|Podcast Download URL):" default default bold
+highlight article "^(Title):.*$" green default bold
+highlight article "https?://[^ ]+" blue default
+highlight article "\\[image\\ [0-9].+\\]" cyan default dim
+
+color title              color255 color57 bold
+color info               color255 color57
+color hint-key           color255 color57 bold
+color listfocus          color57 default
+color listfocus_unread   color57 default bold
+color listnormal_unread  default default bold
+color end-of-text-marker color233 default
+
+unbind-key  j
+unbind-key  J
+unbind-key  k
+unbind-key  K
+unbind-key  n
+unbind-key  p
+unbind-key  q feedlist
+unbind-key  a
+unbind-key  A
+unbind-key  C
+unbind-key ^A
+unbind-key ^K
+
+bind-key a toggle-article-read articlelist
+bind-key a toggle-article-read searchresultslist
+bind-key j next-unread articlelist
+bind-key k prev-unread articlelist
+
+bind-key j next article
+bind-key k prev article
+
+bind-key o open-in-browser-noninteractively
+bind-key A mark-feed-read
+bind-key ^A mark-all-feeds-read
+
+bind-key j next feedlist
+bind-key k prev feedlist
+bind-key ESC quit feedlist
+
+bookmark-autopilot yes
+bookmark-cmd "~/.bin/newsboat-bookmark.sh" # // TODO
+
+# Browser
+macro o open-in-browser-noninteractively; toggle-article-read "read"
+# YouTube
+macro y set browser "vlc --quiet %u 2> /dev/null &" ; open-in-browser ; set browser "open -a safari '%u' &"
+# Podcast
+macro p set browser "vlc --quiet %u 2> /dev/null &" ; one ; set browser "open -a safari '%u' &"
+# Readability
+macro r set browser "curl -sS %u | readability %u | w3m -T text/html" ; open-in-browser ; set browser "open -a safari '%u' &"
+
+ignore-mode "display"
