@@ -80,6 +80,6 @@ macro y set browser "vlc --quiet %u 2> /dev/null &" ; open-in-browser ; set brow
 # Podcast
 macro p set browser "vlc --quiet %u 2> /dev/null &" ; one ; set browser "open -a safari '%u' &"
 # Readability
-macro r set browser "curl -sS %u | readability %u | w3m -T text/html" ; open-in-browser ; set browser "open -a safari '%u' &"
+macro r set browser "rdrview -B w3m '%u' --disable-sandbox" ; open-in-browser ; set browser "open -a safari '%u' &"
 
 ignore-mode "display"
