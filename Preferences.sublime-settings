@@ -3,7 +3,7 @@
 {
 	"additional_path_items": [
 		"/Users/Abe/.bin",
-		"/Users/Abe/.nvm/versions/node/v16.15.0/bin"
+		"/Users/Abe/Library/Application Support/fnm/aliases/default/bin"
 	],
 	"bold_folder_labels": true,
 	"caret_style": "phase",

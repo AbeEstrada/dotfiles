@@ -19,6 +19,7 @@ brew "coreutils"
 brew "deno"
 brew "exa"
 brew "exiftool"
+brew "fnm"
 brew "fzf"
 brew "gettext"
 brew "git"
@@ -34,7 +35,6 @@ brew "mas"
 brew "mitmproxy"
 brew "neofetch"
 brew "newsboat"
-brew "nvm"
 brew "pcre"
 brew "pkg-config"
 brew "rust"
@@ -72,7 +72,6 @@ mas "Logic Pro", id: 634148309
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Pixelmator Pro", id: 1289583905
-mas "Reeder", id: 1529448980
 mas "Secrets", id: 973049011
 mas "StopTheMadness", id: 1376402589
 mas "Tweaks for Twitter", id: 1567751529
