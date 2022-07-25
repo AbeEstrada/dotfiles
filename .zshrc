@@ -1,5 +1,3 @@
-NVM_LAZY=true
-NVM_LAZY_LOAD=true
 ZSH_AUTOSUGGEST_USE_ASYNC=true
 ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
@@ -13,6 +11,7 @@ plugins=(
   # docker-compose
   encode64
   extract
+  fnm
   git
   gitignore
   golang
@@ -27,7 +26,6 @@ plugins=(
   # web-search
   zsh-interactive-cd
   # third party
-  zsh-nvm
   zsh-completions
   zsh-autosuggestions
   zsh-syntax-highlighting
@@ -35,11 +33,11 @@ plugins=(
   history-substring-search
 )
 
+source $ZSH/oh-my-zsh.sh
+
 stty -ixon
 
 unset zle_bracketed_paste # Disable paste highlight
-
-source $ZSH/oh-my-zsh.sh
 
 ENABLE_CORRECTION="true"
 HIST_STAMPS="yyyy/mm/dd"
@@ -57,6 +55,9 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 # https://starship.rs/
 eval "$(starship init zsh)"
+
+# https://github.com/Schniz/fnm
+eval "$(fnm env --use-on-cd)"
 
 alias l='exa --classify --long --header --git --no-permissions --no-user'
 alias ll='exa --classify --long --header --git --icons'
@@ -100,3 +101,6 @@ function calc() {
   fi
   printf "\n"
 }
+
+# bun completions
+[ -s "/Users/Abe/.bun/_bun" ] && source "/Users/Abe/.bun/_bun"
