@@ -18,8 +18,8 @@ goto-next-feed no
 article-sort-order date-desc
 feed-sort-order firsttag
 feedlist-format "%12T %3U %t"
-datetime-format "%Y-%m-%d %H:%M:%S"
-articlelist-format "%D %?T?|%-20T| ?%t"
+datetime-format "%Y/%m/%d %H:%M:%S"
+articlelist-format "%D %?T?| %-20T| ?%t"
 
 feedlist-title-format "%N %V - %?F?Feeds& Your feeds? (%u unread, %t total)%?F? matching filter '%F'&?%?T? - tag '%T'&?"
 articlelist-title-format "%N %V - %T (%u unread, %t total)%?F? matching filter `%F'&?"
@@ -30,6 +30,7 @@ search-highlight-colors black yellow
 # highlight feedlist "Unread" green default
 highlight article "^(Feed|Title|Author|Links?|Date|Podcast Download URL):" default default bold
 highlight article "^(Title):.*$" green default bold
+highlight article "^(Title):" default default bold
 highlight article "https?://[^ ]+" blue default
 highlight article "\\[image\\ [0-9].+\\]" cyan default dim
 
