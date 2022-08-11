@@ -78,7 +78,8 @@ alias ytdl='yt-dlp -f mp4'
 alias todo="grep --color=always --exclude-dir={.git,node_modules,.next} -RIin -E '(//|#)\s?(TODO|FIXM?E?):?' . | sed -e 's/:[ \t]*/:/g'"
 # alias server="python3 -m http.server 3001"
 alias server='npx http-server -p 3001 --cors'
-alias n='~/.bin/nvim-osx64/bin/nvim'
+alias n='~/.bin/nvim-macos/bin/nvim'
+alias ss='fd --type f --hidden --exclude .git --exclude node_modules | fzf | xargs subl'
 s() { subl "${1:-.}"; }
 
 # FIX: https://bitbucket.org/dougty/sublime-compare-side-by-side/raw/master/README_COMMANDS.md
@@ -104,3 +105,7 @@ function calc() {
 
 # bun completions
 [ -s "/Users/Abe/.bun/_bun" ] && source "/Users/Abe/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

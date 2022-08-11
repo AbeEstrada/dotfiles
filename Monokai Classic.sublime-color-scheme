@@ -1,12 +1,16 @@
 // Documentation at https://www.sublimetext.com/docs/color_schemes.html
 {
-    "variables": {},
+    "variables": {
+        "bg": "#18161a",
+        "sel": "#3f3f46"
+    },
     "globals": {
-        "background": "#19171a",
-        "gutter": "#19171a",
-        "selection": "#333",
-        "selection_border": "#333",
-        "stack_guide": "var(black)",
+        "background": "var(bg)",
+        "gutter": "var(bg)",
+        "selection": "var(sel)",
+        "selection_border": "var(sel)",
+        "guide": "var(sel)",
+        "stack_guide": "var(sel)",
         "active_guide": "var(purple)"
     },
     "rules": []
