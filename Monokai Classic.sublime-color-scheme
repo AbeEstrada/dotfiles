@@ -1,17 +1,23 @@
 // Documentation at https://www.sublimetext.com/docs/color_schemes.html
+// https://alphredo.app
 {
     "variables": {
-        "bg": "#18161a",
-        "sel": "#3f3f46"
+        "bg": "#14161a",
+        "sel": "hsla(261,100%,75%,0.15)",
+        "guide": "hsla(261,100%,75%,0.25)",
     },
     "globals": {
+        "accent":"#ae81ff",
         "background": "var(bg)",
         "gutter": "var(bg)",
         "selection": "var(sel)",
-        "selection_border": "var(sel)",
-        "guide": "var(sel)",
-        "stack_guide": "var(sel)",
-        "active_guide": "var(purple)"
+        "selection_border": "hsla(261,100%,75%,0)",
+        "inactive_selection": "var(sel)",
+        "inactive_selection_border": "hsla(261,100%,75%,0)",
+        "guide": "var(guide)",
+        "stack_guide": "var(guide)",
+        "active_guide": "hsla(261,100%,75%,1)",
+        "find_highlight": "#fbbf24"
     },
     "rules": []
 }

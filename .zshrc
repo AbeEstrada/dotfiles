@@ -7,11 +7,12 @@ plugins=(
   aliases
   brew
   common-aliases
-  # docker
-  # docker-compose
+  docker
+  docker-compose
   encode64
   extract
   fnm
+  fzf
   git
   gitignore
   golang
@@ -23,7 +24,7 @@ plugins=(
   python
   sublime
   sublime-merge
-  # web-search
+  web-search
   zsh-interactive-cd
   # third party
   zsh-completions
@@ -47,7 +48,11 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_IGNORE_SPACE
+setopt HIST_REDUCE_BLANKS
+setopt INC_APPEND_HISTORY_TIME
+setopt EXTENDED_HISTORY
 setopt NO_SHARE_HISTORY
+unsetopt SHARE_HISTORY
 
 # zsh-completions
 autoload -U compinit && compinit
@@ -71,14 +76,18 @@ alias ips='ifconfig | grep broadcast'
 alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
 alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
 alias node_modules='find . -name "node_modules" -type d -prune -print | xargs du -chs'
+alias emptytrash='rm -rf ~/.Trash/*'
 alias o='open_command $PWD'
 alias w='curl wttr.in/cjs\?1q'
 alias c='cal -3'
-alias ytdl='yt-dlp -f mp4'
+alias h='history | fzf'
+alias ytdl='yt-dlp -f mp4 --id'
 alias todo="grep --color=always --exclude-dir={.git,node_modules,.next} -RIin -E '(//|#)\s?(TODO|FIXM?E?):?' . | sed -e 's/:[ \t]*/:/g'"
-# alias server="python3 -m http.server 3001"
+alias serve='python3 -m http.server 3001'
 alias server='npx http-server -p 3001 --cors'
 alias n='~/.bin/nvim-macos/bin/nvim'
+alias v="stty stop '' -ixoff; vim"
+alias vim="stty stop '' -ixoff; vim"
 alias ss='fd --type f --hidden --exclude .git --exclude node_modules | fzf | xargs subl'
 s() { subl "${1:-.}"; }
 
@@ -103,9 +112,14 @@ function calc() {
   printf "\n"
 }
 
+function newtab() {
+  osascript >/dev/null <<EOF
+  tell application "System Events"
+  tell process "Terminal" to keystroke "t" using command down
+    end tell
+  tell application "Terminal" to do script "$*" in front window
+EOF
+}
+
 # bun completions
 [ -s "/Users/Abe/.bun/_bun" ] && source "/Users/Abe/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"

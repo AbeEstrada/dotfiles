@@ -1,12 +1,15 @@
+# https://newsboat.org/releases/2.28/docs/newsboat.html
+
 browser "open -a safari '%u' &"
 auto-reload yes
 refresh-on-startup no
 suppress-first-reload yes
 download-timeout 60 # seconds
-reload-time 20 # minutes
+reload-time 30 # minutes
 reload-threads 10
-keep-articles-days 30
+keep-articles-days 7
 prepopulate-query-feeds yes
+notify-always yes
 cleanup-on-quit no
 confirm-exit yes
 error-log "~/.newsboat/error.log"
@@ -17,7 +20,7 @@ show-read-articles no
 goto-next-feed no
 article-sort-order date-desc
 feed-sort-order firsttag
-feedlist-format "%12T %3U %t"
+feedlist-format "%12T %4U %t"
 datetime-format "%Y/%m/%d %H:%M:%S"
 articlelist-format "%D %?T?| %-20T| ?%t"
 
@@ -74,13 +77,20 @@ bind-key ESC quit feedlist
 bookmark-autopilot yes
 bookmark-cmd "~/.bin/newsboat-bookmark.sh" # // TODO
 
+define-filter "2 days old" "age >= 2"
+
 # Browser
 macro o open-in-browser-noninteractively; toggle-article-read "read"
+
 # YouTube
 macro y set browser "vlc --quiet %u 2> /dev/null &" ; open-in-browser ; set browser "open -a safari '%u' &"
+
 # Podcast
 macro p set browser "vlc --quiet %u 2> /dev/null &" ; one ; set browser "open -a safari '%u' &"
-# Readability
-macro r set browser "rdrview -B w3m '%u' --disable-sandbox" ; open-in-browser ; set browser "open -a safari '%u' &"
+
+# Readability // https://github.com/mrusme/reader
+#macro r set browser "reader -i %u | less -R" ; open-in-browser ; set browser "open -a safari '%u' &"
+#https://github.com/mrusme/reader/issues/6
+macro r set browser "wget -qO - %u | reader -i - | less -R" ; open-in-browser ; set browser "open -a safari '%u' &"
 
 ignore-mode "display"
