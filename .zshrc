@@ -1,3 +1,15 @@
+# zsh-defer https://github.com/romkatv/zsh-defer
+source ~/.oh-my-zsh/custom/plugins/zsh-defer/zsh-defer.plugin.zsh
+
+# fnm https://github.com/Schniz/fnm
+zsh-defer -t 1 eval "$(fnm env --use-on-cd)"
+
+# zsh-completions https://github.com/zsh-users/zsh-completions
+fpath+=~/.oh-my-zsh/custom/plugins/zsh-completions/src
+
+# https://starship.rs/
+eval "$(starship init zsh)"
+
 ZSH_AUTOSUGGEST_USE_ASYNC=true
 ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
@@ -27,7 +39,6 @@ plugins=(
   web-search
   zsh-interactive-cd
   # third party
-  zsh-completions
   zsh-autosuggestions
   zsh-syntax-highlighting
   zsh-better-npm-completion
@@ -38,9 +49,8 @@ source $ZSH/oh-my-zsh.sh
 
 stty -ixon
 
-unset zle_bracketed_paste # Disable paste highlight
-
-ENABLE_CORRECTION="true"
+COMPLETION_WAITING_DOTS=true
+ENABLE_CORRECTION=true
 HIST_STAMPS="yyyy/mm/dd"
 
 setopt HIST_IGNORE_DUPS
@@ -54,22 +64,13 @@ setopt EXTENDED_HISTORY
 setopt NO_SHARE_HISTORY
 unsetopt SHARE_HISTORY
 
-# zsh-completions
-autoload -U compinit && compinit
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-
-# https://starship.rs/
-eval "$(starship init zsh)"
-
-# https://github.com/Schniz/fnm
-eval "$(fnm env --use-on-cd)"
+unset zle_bracketed_paste # Disable paste highlight
 
 alias l='exa --classify --long --header --git --no-permissions --no-user'
 alias ll='exa --classify --long --header --git --icons'
 alias la='exa --classify --long --header --git --icons --all'
 alias tree='exa --classify --tree'
 alias cat='bat'
-
 alias j='jump'
 alias ip='dig +short myip.opendns.com @resolver1.opendns.com 2> /dev/null || echo none'
 alias ips='ifconfig | grep broadcast'
@@ -122,4 +123,4 @@ EOF
 }
 
 # bun completions
-[ -s "/Users/Abe/.bun/_bun" ] && source "/Users/Abe/.bun/_bun"
+zsh-defer source "/usr/local/share/zsh/site-functions/_bun"
