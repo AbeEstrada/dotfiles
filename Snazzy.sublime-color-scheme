@@ -1,0 +1,21 @@
+// Documentation at https://www.sublimetext.com/docs/color_schemes.html
+{
+    "variables": {
+        "bg": "#22252F",
+        "sel": "hsla(261,100%,75%,0.15)",
+        "guide": "hsla(261,100%,75%,0.25)",
+    },
+    "globals": {
+        "background": "var(bg)",
+        // "gutter": "var(bg)",
+        "selection": "var(sel)",
+        "selection_border": "hsla(261,100%,75%,0)",
+        "inactive_selection": "var(sel)",
+        "inactive_selection_border": "hsla(261,100%,75%,0)",
+        "line_highlight": "var(sel)",
+        "guide": "var(guide)",
+        "stack_guide": "var(guide)",
+        "active_guide": "hsla(261,100%,75%,1)",
+    },
+    "rules": []
+}
