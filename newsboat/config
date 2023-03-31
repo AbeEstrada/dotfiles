@@ -10,7 +10,7 @@ reload-threads 10
 keep-articles-days 7
 prepopulate-query-feeds yes
 notify-always yes
-cleanup-on-quit no
+cleanup-on-quit yes
 confirm-exit yes
 error-log "~/.newsboat/error.log"
 
@@ -24,26 +24,29 @@ feedlist-format "%12T %4U %t"
 datetime-format "%Y/%m/%d %H:%M:%S"
 articlelist-format "%D %?T?| %-20T| ?%t"
 
-feedlist-title-format "%N %V - %?F?Feeds& Your feeds? (%u unread, %t total)%?F? matching filter '%F'&?%?T? - tag '%T'&?"
+feedlist-title-format "%N %V - %?F?Feeds& Your feeds? (%u unread, %t total)%?F? matching filter '%F'&?%?T? - tag '%T'&?"
 articlelist-title-format "%N %V - %T (%u unread, %t total)%?F? matching filter `%F'&?"
 itemview-title-format "%N %V - %F: %T"
 
 search-highlight-colors black yellow
 
+define-filter "2 days old" "age >= 2"
+
 # highlight feedlist "Unread" green default
 highlight article "^(Feed|Title|Author|Links?|Date|Podcast Download URL):" default default bold
-highlight article "^(Title):.*$" green default bold
-highlight article "^(Title):" default default bold
-highlight article "https?://[^ ]+" color12 default
-highlight article "\\[image\\ [0-9].+\\]" cyan default dim
+highlight article "^(Title):.*$"          green   default bold
+highlight article "^(Title):"             default default bold
+highlight article "https?://[^ ]+"        color75 default
+highlight article "\\[image\\ [0-9].+\\]" cyan    default dim
 
-color title              color255 color93 bold
-color info               color255 color93
-color hint-key           color255 color93 bold
-color listfocus          color5 default
-color listfocus_unread   color5 default bold
-color listnormal_unread  default default bold
-color end-of-text-marker color8 default
+color title              color255 color93 bold # purple
+color info               color255 color93      # purple
+color hint-key           color255 color93 bold # purple
+color listfocus          color5   default      # purple
+color listfocus_unread   color5   default bold # purple
+color listnormal         color249 default      # gray
+color listnormal_unread  color255 default bold # white
+color end-of-text-marker color235 default
 
 unbind-key  j
 unbind-key  J
@@ -57,10 +60,11 @@ unbind-key  C
 unbind-key ^A
 unbind-key ^K
 
+bind-key j next-unread         articlelist
+bind-key k prev-unread         articlelist
 bind-key a toggle-article-read articlelist
+bind-key a toggle-article-read article
 bind-key a toggle-article-read searchresultslist
-bind-key j next-unread articlelist
-bind-key k prev-unread articlelist
 
 bind-key j next article
 bind-key k prev article
@@ -72,26 +76,26 @@ bind-key ^A mark-all-feeds-read
 bind-key j next feedlist
 bind-key k prev feedlist
 
-#unbind-key  q feedlist
-#bind-key ESC quit feedlist
-
 bookmark-autopilot yes
-bookmark-cmd "~/.bin/newsboat-bookmark.sh" # // TODO
+bookmark-cmd "~/.bin/add_to_reading_list"
 
-define-filter "2 days old" "age >= 2"
+# Bookmark
+macro b bookmark
 
 # Browser
 macro o open-in-browser-noninteractively; toggle-article-read "read"
 
 # YouTube
-macro y set browser "vlc --quiet %u 2> /dev/null &" ; open-in-browser ; set browser "open -a safari '%u' &"
+#macro y set browser "yt-dlp -g -f mp4 '%u' | vlc --play-and-exit --no-video-title-show --quiet - 2> /dev/null &" ; open-in-browser ; set browser "open -a safari '%u' &"
+macro y set browser "open -a 'Quicktime Player' -u $(yt-dlp -g -f mp4 '%u') &" ; open-in-browser ; set browser "open -a safari '%u' &"
 
 # Podcast
-macro p set browser "vlc --quiet %u 2> /dev/null &" ; one ; set browser "open -a safari '%u' &"
+macro p set browser "vlc --quiet '%u' 2> /dev/null &" ; one ; set browser "open -a safari '%u' &"
 
 # Readability // https://github.com/mrusme/reader
+# https://github.com/mrusme/reader/issues/6
 #macro r set browser "reader -i %u | less -R" ; open-in-browser ; set browser "open -a safari '%u' &"
-#https://github.com/mrusme/reader/issues/6
-macro r set browser "wget -qO - %u | reader -i - | less -R" ; open-in-browser ; set browser "open -a safari '%u' &"
+#macro r set browser "wget -U 'mozilla' -qO - %u | reader -i - | less -R" ; open-in-browser ; set browser "open -a safari '%u' &"
+macro r set browser "curl -A 'Mozilla Firefox' -sL '%u' | reader - | less -R" ; open-in-browser ; set browser "open -a safari '%u' &"
 
 ignore-mode "display"
