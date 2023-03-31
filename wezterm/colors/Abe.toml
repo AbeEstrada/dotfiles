@@ -1,0 +1,52 @@
+[colors]
+ansi = [
+  '#1A1A1A',
+  '#DF3261',
+  '#A9DD4E',
+  '#EA893A',
+  '#49baff',
+  '#936CF6',
+  '#DF3261',
+  '#ededec',
+]
+brights = [
+  '#424242',
+  '#DF3261',
+  '#A9DD4E',
+  '#FEF5A3',
+  '#49baff',
+  '#936CF6',
+  '#DF3261',
+  '#7BCFE8',
+]
+
+background    = '#14161b'
+foreground    = '#dddddd'
+
+cursor_bg     = '#ffffff'
+cursor_border = '#ffffff'
+cursor_fg     = '#f6f6f6'
+
+selection_fg  = 'none'
+selection_bg  = 'rgba(140, 0, 255, 15%)'
+
+[colors.tab_bar]
+background = '#14161b'
+inactive_tab_edge = '#ffffff'
+
+[colors.tab_bar.active_tab]
+bg_color = '#8C00FF'
+fg_color = '#ffffff'
+intensity = 'Bold'
+
+[colors.tab_bar.inactive_tab]
+bg_color = '#14161b'
+fg_color = '#777777'
+
+[colors.tab_bar.inactive_tab_hover]
+bg_color = '#14161b'
+fg_color = '#ffffff'
+italic = false
+
+[metadata]
+name = 'Abe'
