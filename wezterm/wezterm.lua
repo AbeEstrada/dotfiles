@@ -35,18 +35,6 @@ wezterm.on("format-tab-title",
   end
 )
 
-wezterm.on("update-right-status",
-  function(window, pane)
-    -- local date = wezterm.strftime "%Y-%m-%d %H:%M:%S"
-    window:set_right_status(wezterm.format {
-      -- { Attribute = { Underline = "Single" } },
-      -- { Attribute = { Italic = true } },
-      -- { Text = "Hello " .. date .. " " },
-      { Text = "☕️ " },
-    })
-  end
-)
-
 wezterm.on("window-config-reloaded",
   function(window, pane)
     window:toast_notification("wezterm", "configuration reloaded!", nil, 3000)
@@ -54,7 +42,7 @@ wezterm.on("window-config-reloaded",
 )
 
 return {
-  default_cwd = "/Users/Abe",
+  default_cwd = os.getenv("HOME"),
   front_end = "WebGpu",
   color_scheme = "Abe",
   font = wezterm.font_with_fallback{
@@ -62,11 +50,11 @@ return {
     { family = "Symbols Nerd Font", weight = "Light", scale = 0.9 },
   },
   font_size = 16.0,
-  bold_brightens_ansi_colors = true,
-  initial_cols = 160,
-  initial_rows = 39,
+  initial_cols = 170,
+  initial_rows = 40,
   cursor_thickness = 1.5,
   default_cursor_style = "BlinkingBar",
+  -- bold_brightens_ansi_colors = true,
   window_background_opacity = 0.95,
   macos_window_background_blur = 6,
   native_macos_fullscreen_mode = true,
@@ -90,12 +78,12 @@ return {
   disable_default_key_bindings = true,
   keys = keys,
   mouse_bindings = {
-    { -- DO NOT OPEN HYPERLINKS ON CLICK
+    { -- DO NOT OPEN HYPERLINKS
       event = { Up = { streak = 1, button = "Left" } },
       mods = "NONE",
       action = wezterm.action.CompleteSelection("PrimarySelection"),
     },
-    { -- OPEN HYPERLINKS ON CMD + CLICK
+    { -- OPEN HYPERLINKS
       event = { Up = { streak = 1, button = "Left" } },
       mods = "CMD",
       action = wezterm.action.OpenLinkAtMouseCursor,

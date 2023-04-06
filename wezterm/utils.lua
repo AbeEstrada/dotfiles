@@ -6,7 +6,6 @@ function M.basename(s)
 	return string.gsub(s, "(.*[/\\])(.*)", "%2")
 end
 
-
 function M.convert_home_dir(path)
 	local cwd = path
 	local home = os.getenv("HOME")

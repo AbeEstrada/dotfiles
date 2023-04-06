@@ -10,6 +10,7 @@ return {
 
   { key = "b", mods = "ALT", action = wezterm.action.RotatePanes("CounterClockwise") },
   { key = "w", mods = "CMD", action = wezterm.action.CloseCurrentPane { confirm = true } },
+  { key = "q", mods = "CMD", action = wezterm.action.QuitApplication },
   { key = "|", mods = "CMD|SHIFT", action = wezterm.action.SplitHorizontal { domain = "CurrentPaneDomain" } },
   { key = "-", mods = "CMD|SHIFT", action = wezterm.action.SplitVertical { domain = "CurrentPaneDomain" } },
   { key = "0", mods = "CMD|SHIFT", action = wezterm.action.PaneSelect { alphabet = "1234567890" } },
@@ -26,10 +27,11 @@ return {
   { key = "f", mods = "CTRL|CMD", action = wezterm.action.ToggleFullScreen },
   { key = "m", mods = "CMD", action = wezterm.action.Hide },
   { key = "h", mods = "CMD", action = wezterm.action.HideApplication },
-  { key = "n", mods = "CMD", action = wezterm.action.SpawnCommandInNewWindow { cwd = "~" } },
-  { key = "t", mods = "CMD", action = wezterm.action.SpawnCommandInNewTab { cwd = "~" }, },
-  { key = "v", mods = "CMD", action = wezterm.action.PasteFrom "Clipboard" },
   { key = "c", mods = "CMD", action = wezterm.action.CopyTo "Clipboard" },
+  { key = "v", mods = "CMD", action = wezterm.action.PasteFrom "Clipboard" },
+  { key = "t", mods = "CMD", action = wezterm.action.SpawnCommandInNewTab { cwd = "~" }, },
+  { key = "n", mods = "CMD", action = wezterm.action.SpawnCommandInNewTab { cwd = "~" } },
+  { key = "n", mods = "CMD|SHIFT", action = wezterm.action.SpawnCommandInNewWindow { cwd = "~" } },
   { key = "f", mods = "CTRL|SHIFT", action = wezterm.action { Search = { CaseSensitiveString = "" } } },
 
   { key = "LeftArrow",  mods = "CMD", action = wezterm.action.SendString "\x01" },
