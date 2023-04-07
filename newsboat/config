@@ -59,30 +59,38 @@ unbind-key  A
 unbind-key  C
 unbind-key ^A
 unbind-key ^K
+unbind-key UP   feedlist
+unbind-key DOWN feedlist
+unbind-key UP   articlelist
+unbind-key DOWN articlelist
 
-bind-key j next-unread         articlelist
-bind-key k prev-unread         articlelist
-bind-key a toggle-article-read articlelist
-bind-key a toggle-article-read article
-bind-key a toggle-article-read searchresultslist
+bind-key j next feedlist
+bind-key k prev feedlist
 
 bind-key j next article
 bind-key k prev article
+
+bind-key j next articlelist
+bind-key k prev articlelist
+
+bind-key g home articlelist
+bind-key G end  articlelist
+
+bind-key a toggle-article-read article
+bind-key a toggle-article-read articlelist
+bind-key a toggle-article-read searchresultslist
 
 bind-key o open-in-browser-noninteractively
 bind-key A mark-feed-read
 bind-key ^A mark-all-feeds-read
 
-bind-key j next feedlist
-bind-key k prev feedlist
-
+# Bookmark
 bookmark-autopilot yes
 bookmark-cmd "~/.bin/add_to_reading_list"
-
-# Bookmark
 macro b bookmark
 
 # Browser
+macro . open-in-browser-noninteractively; toggle-article-read "read"
 macro o open-in-browser-noninteractively; toggle-article-read "read"
 
 # YouTube
