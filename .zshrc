@@ -37,6 +37,7 @@ plugins=(
   sublime
   sublime-merge
   web-search
+  zoxide
   zsh-interactive-cd
   # third party
   zsh-autosuggestions
@@ -66,60 +67,45 @@ unsetopt SHARE_HISTORY
 
 unset zle_bracketed_paste # Disable paste highlight
 
-alias l='exa --classify --long --header --git --no-permissions --no-user'
-alias ll='exa --classify --long --header --git --icons'
-alias la='exa --classify --long --header --git --icons --all'
-alias tree='exa --classify --tree'
+alias c='cal -3'
 alias cat='bat'
-alias j='jump'
+alias cd='z'
+alias emptytrash='rm -rf ~/.Trash/*'
+alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
+alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
+alias hist='history | fzf'
 alias ip='dig +short myip.opendns.com @resolver1.opendns.com 2> /dev/null || echo none'
 alias ips='ifconfig | grep broadcast'
-alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
-alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
+alias l='exa  --classify --long --header --git --no-permissions --no-user'
+alias la='exa --classify --long --header --git --icons --all'
+alias ll='exa --classify --long --header --git --icons'
+alias n='~/.bin/nvim-macos/bin/nvim'
+alias nvim='~/.bin/nvim-macos/bin/nvim'
 alias node_modules='find . -name "node_modules" -type d -prune -print | xargs du -chs'
-alias emptytrash='rm -rf ~/.Trash/*'
 alias o='open_command $PWD'
-alias w='curl wttr.in/cjs\?1q'
-alias c='cal -3'
-alias h='history | fzf'
-alias ytdl='yt-dlp -f mp4 --id'
-alias todo="grep --color=always --exclude-dir={.git,node_modules,.next} -RIin -E '(//|#)\s?(TODO|FIXM?E?):?' . | sed -e 's/:[ \t]*/:/g'"
 alias serve='python3 -m http.server 3001'
 alias server='npx http-server -p 3001 --cors'
-alias n='~/.bin/nvim-macos/bin/nvim'
+alias ss='fd --type f --hidden --exclude .git --exclude node_modules | fzf | xargs subl'
+alias todo="grep --color=always --exclude-dir={.git,node_modules,.next} -RIin -E '(//|#)\s?(TODO|FIXM?E?):?' . | sed -e 's/:[ \t]*/:/g'"
+alias tree='exa --classify --tree'
 alias v="stty stop '' -ixoff; vim"
 alias vim="stty stop '' -ixoff; vim"
-alias ss='fd --type f --hidden --exclude .git --exclude node_modules | fzf | xargs subl'
+alias ytdl='yt-dlp -f mp4 --id --cookies-from-browser safari'
+alias weather='curl wttr.in/cjs\?1q'
 s() { subl "${1:-.}"; }
 
 # FIX: https://bitbucket.org/dougty/sublime-compare-side-by-side/raw/master/README_COMMANDS.md
 # compare() { subl --command 'sbs_compare_files {"A":"$1", "B":"$2"}'; }
 
-# https://github.com/addyosmani/dotfiles/blob/master/.functions#L1-L17
-# Simple calculator
-function calc() {
-  local result=""
-  result="$(printf "scale=10;$*\n" | bc --mathlib | tr -d '\\\n')"
-  #                       └─ default (when `--mathlib` is used) is 20
-  if [[ "$result" == *.* ]]; then
-    # improve the output for decimal numbers
-    printf "$result" |
-    sed -e 's/^\./0./'        `# add "0" for cases like ".5"` \
-        -e 's/^-\./-0./'      `# add "0" for cases like "-.5"`\
-        -e 's/0*$//;s/\.$//'   # remove trailing zeros
-  else
-    printf "$result"
-  fi
-  printf "\n"
+function rr { # https://github.com/mrusme/reader
+  readonly u=${1:?"Reader: The url must be specified."}
+  # wget -U "Mozilla Firefox" -qO - "$u" | reader - | less -R
+  curl -A "Mozilla Firefox" -sL "$u" | reader - | less -R
 }
 
-function newtab() {
-  osascript >/dev/null <<EOF
-  tell application "System Events"
-  tell process "Terminal" to keystroke "t" using command down
-    end tell
-  tell application "Terminal" to do script "$*" in front window
-EOF
+function rdr { # https://github.com/eafer/rdrview
+  readonly u=${1:?"The url must be specified."}
+  curl -A "Mozilla Firefox" -sL "$u" | rdrview -B lynx --disable-sandbox
 }
 
 # bun completions
