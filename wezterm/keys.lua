@@ -11,10 +11,10 @@ return {
   { key = "b", mods = "ALT", action = wezterm.action.RotatePanes("CounterClockwise") },
   { key = "w", mods = "CMD", action = wezterm.action.CloseCurrentPane { confirm = true } },
   { key = "q", mods = "CMD", action = wezterm.action.QuitApplication },
-  { key = "|", mods = "CMD|SHIFT", action = wezterm.action.SplitHorizontal { domain = "CurrentPaneDomain" } },
-  { key = "-", mods = "CMD|SHIFT", action = wezterm.action.SplitVertical { domain = "CurrentPaneDomain" } },
-  { key = "0", mods = "CMD|SHIFT", action = wezterm.action.PaneSelect { alphabet = "1234567890" } },
   { key = "z", mods = "CTRL", action = wezterm.action.TogglePaneZoomState },
+  { key = "0", mods = "CMD|SHIFT", action = wezterm.action.PaneSelect { alphabet = "1234567890" } },
+  { key = "-", mods = "CMD|SHIFT", action = wezterm.action.SplitVertical { domain = "CurrentPaneDomain" } },
+  { key = "|", mods = "CMD|SHIFT", action = wezterm.action.SplitHorizontal { domain = "CurrentPaneDomain" } },
   { key = "LeftArrow" , mods = "SHIFT|CMD",  action = wezterm.action{ ActivateTabRelative = -1 } },
   { key = "RightArrow", mods = "SHIFT|CMD",  action = wezterm.action{ ActivateTabRelative =  1 } },
 

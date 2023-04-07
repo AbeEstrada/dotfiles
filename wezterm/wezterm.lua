@@ -6,29 +6,9 @@ local keys = require "keys"
 -- https://github.com/yutkat/dotfiles
 -- https://github.com/marcusramberg/dotfiles/blob/main/link/config/wezterm/pomodoro.lua
 
-local SOLID_FOLDER_OPEN = utf8.char(0xf0770)
-
-local function create_tab_title(tab, tabs, panes, config, hover, max_width)
-  local index = tab.tab_index + 1
-
-  local user_title = tab.active_pane.user_vars.panetitle
-  if user_title ~= nil and #user_title > 0 then
-    return "  " .. index .. ": " .. user_title .. "  "
-  end
-
-  local title = wezterm.truncate_right(utils.basename(tab.active_pane.foreground_process_name), max_width)
-  if title == "zsh" then
-    local dir = string.gsub(tab.active_pane.title, "(.*[: ])(.*)]", "%2")
-    dir = utils.convert_useful_path(dir)
-    title = SOLID_FOLDER_OPEN .. " " .. wezterm.truncate_left(dir, max_width)
-  end
-
-  return "  " .. index .. ": " .. title .. "  "
-end
-
 wezterm.on("format-tab-title",
   function(tab, tabs, panes, config, hover, max_width)
-    local title = create_tab_title(tab, tabs, panes, config, hover, max_width)
+    local title = utils.create_tab_title(tab, tabs, panes, config, hover, max_width)
     return {
       { Text = title },
     }
