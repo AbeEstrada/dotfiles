@@ -1,6 +1,7 @@
 local wezterm = require "wezterm"
 local utils = require "utils"
 local keys = require "keys"
+local font_rules = require "font_rules"
 
 -- https://github.com/KevinSilvester/wezterm-config
 -- https://github.com/yutkat/dotfiles
@@ -22,21 +23,24 @@ wezterm.on("window-config-reloaded",
 )
 
 return {
+  -- term = "wezterm",
   default_cwd = os.getenv("HOME"),
   front_end = "WebGpu",
   color_scheme = "Abe",
   font = wezterm.font_with_fallback{
-    { family = "Inconsolata", weight = "Medium" },
+    { family = "Inconsolata", weight = "Regular" },
     { family = "Symbols Nerd Font", weight = "Light", scale = 0.9 },
+    { family = "Apple Color Emoji" },
   },
+  font_rules = font_rules,
   font_size = 16.0,
   initial_cols = 170,
   initial_rows = 40,
   cursor_thickness = 1.5,
   default_cursor_style = "BlinkingBar",
-  -- bold_brightens_ansi_colors = true,
+  bold_brightens_ansi_colors = true,
   window_background_opacity = 0.95,
-  macos_window_background_blur = 6,
+  macos_window_background_blur = 5,
   native_macos_fullscreen_mode = true,
   tab_max_width = 48,
   use_fancy_tab_bar = false,
@@ -57,16 +61,4 @@ return {
   debug_key_events = false,
   disable_default_key_bindings = true,
   keys = keys,
-  mouse_bindings = {
-    { -- DO NOT OPEN HYPERLINKS
-      event = { Up = { streak = 1, button = "Left" } },
-      mods = "NONE",
-      action = wezterm.action.CompleteSelection("PrimarySelection"),
-    },
-    { -- OPEN HYPERLINKS
-      event = { Up = { streak = 1, button = "Left" } },
-      mods = "CMD",
-      action = wezterm.action.OpenLinkAtMouseCursor,
-    },
-  }
 }

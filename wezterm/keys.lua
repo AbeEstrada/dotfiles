@@ -50,6 +50,6 @@ return {
   { key = "9", mods = "CMD", action = wezterm.action { ActivateTab = -1 } },
 
   { key = "0", mods = "CMD", action = wezterm.action.ResetFontSize },
-  { key = "=", mods = "CMD", action = wezterm.action.IncreaseFontSize },
-  { key = "-", mods = "CMD", action = wezterm.action.DecreaseFontSize },
+  -- { key = "=", mods = "CMD", action = wezterm.action.IncreaseFontSize },
+  -- { key = "-", mods = "CMD", action = wezterm.action.DecreaseFontSize },
 }
