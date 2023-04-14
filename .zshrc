@@ -67,9 +67,12 @@ unsetopt SHARE_HISTORY
 
 unset zle_bracketed_paste # Disable paste highlight
 
-alias c='cal -3'
+alias ssh="kitty +kitten ssh"
+alias imgcat="kitty +kitten icat"
+
 alias cat='bat'
 alias cd='z'
+alias c='cal -3'
 alias emptytrash='rm -rf ~/.Trash/*'
 alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
 alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
@@ -92,20 +95,13 @@ alias v="stty stop '' -ixoff; vim"
 alias vim="stty stop '' -ixoff; vim"
 alias ytdl='yt-dlp -f mp4 --id --cookies-from-browser safari'
 alias weather='curl wttr.in/cjs\?1q'
+alias pp_xml="python3 -c 'import sys; import xml.dom.minidom; s=sys.stdin.read(); print(xml.dom.minidom.parseString(s).toprettyxml(indent=\"  \"))'"
 s() { subl "${1:-.}"; }
-
-# FIX: https://bitbucket.org/dougty/sublime-compare-side-by-side/raw/master/README_COMMANDS.md
-# compare() { subl --command 'sbs_compare_files {"A":"$1", "B":"$2"}'; }
 
 function rr { # https://github.com/mrusme/reader
   readonly u=${1:?"Reader: The url must be specified."}
   # wget -U "Mozilla Firefox" -qO - "$u" | reader - | less -R
   curl -A "Mozilla Firefox" -sL "$u" | reader - | less -R
-}
-
-function rdr { # https://github.com/eafer/rdrview
-  readonly u=${1:?"The url must be specified."}
-  curl -A "Mozilla Firefox" -sL "$u" | rdrview -B lynx --disable-sandbox
 }
 
 # bun completions
