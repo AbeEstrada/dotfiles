@@ -6,7 +6,7 @@ return {
     italic = true,
     font = wezterm.font_with_fallback({
       { family = "Inconsolata", weight = "Bold" },
-      { family = "Symbols Nerd Font", weight = "Light", scale = 0.9 },
+      { family = "Symbols Nerd Font", weight = "Regular", scale = 0.9 },
       { family = "Apple Color Emoji", scale = 2 },
     }),
   },
@@ -15,7 +15,7 @@ return {
     italic = false,
     font = wezterm.font_with_fallback({
       { family = "Inconsolata", weight = "Bold" },
-      { family = "Symbols Nerd Font", weight = "Light", scale = 0.9 },
+      { family = "Symbols Nerd Font", weight = "Regular", scale = 0.9 },
       { family = "Apple Color Emoji", scale = 2 },
     }),
   },
@@ -24,7 +24,7 @@ return {
     italic = true,
     font = wezterm.font_with_fallback({
       { family = "Inconsolata", weight = "Medium" },
-      { family = "Symbols Nerd Font", weight = "Light", scale = 0.9 },
+      { family = "Symbols Nerd Font", weight = "Regular", scale = 0.9 },
       { family = "Apple Color Emoji", scale = 2 },
     }),
   },
@@ -33,7 +33,7 @@ return {
     italic = false,
     font = wezterm.font_with_fallback({
       { family = "Inconsolata", weight = "Medium" },
-      { family = "Symbols Nerd Font", weight = "Light", scale = 0.9 },
+      { family = "Symbols Nerd Font", weight = "Regular", scale = 0.9 },
       { family = "Apple Color Emoji", scale = 2 },
     }),
   },
