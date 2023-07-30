@@ -8,19 +8,26 @@ local M = {}
 
 local HOME = os.getenv("HOME")
 
-local OUTLINE_FOLDER_OPEN = nerdfonts.fa_folder_open_o
-
 local process_icons = {
-  ["btm"]  = nerdfonts.md_chart_donut_variant,
+  ["aria2c"] = nerdfonts.md_cloud_download_outline,
+  ["bash"] = nerdfonts.md_bash,
+  ["btm"]  = nerdfonts.cod_graph_line,
   ["curl"] = nerdfonts.md_arrow_down_box,
   ["git"]  = nerdfonts.dev_git,
+  ["man"] = nerdfonts.fae_book_open_o,
   ["newsboat"] = nerdfonts.fa_newspaper_o,
   ["node"] = nerdfonts.md_nodejs,
-  ["sftp"] = nerdfonts.md_console_network,
+  ["ruby"] = nerdfonts.fae_ruby_o,
+  ["sftp"] = nerdfonts.md_folder_network_outline,
+  ["ssh"] = nerdfonts.md_folder_key_network,
+  ["toot"] = nerdfonts.md_mastodon,
+  ["zsh"] = nerdfonts.fa_folder_open_o,
 }
 
-function M.basename(s)
-  return string.gsub(s, "(.*[/\\])(.*)", "%2")
+function M.basename(str)
+  str = string.gsub(str, "(.*[/\\])(.*)", "%2")
+  str = string.gsub(str, "%s+", "") -- trim
+  return str
 end
 
 function M.convert_useful_path(dir)
@@ -29,11 +36,11 @@ function M.convert_useful_path(dir)
     cwd = string.gsub(cwd, "^file://(.*).local", "") -- remove hostname
     cwd = string.gsub(cwd, HOME, "~")
     local folders = {}
-    for token in cwd:gmatch("[^/%s]+") do -- split
+    for token in cwd:gmatch("[^/%s]+") do -- split folders
       folders[#folders + 1] = token
     end
     if (#folders > 3) then -- truncate
-      return string.format("…/%s", table.concat(folders, '\n', #folders))
+      return string.format("…/%s", table.concat(folders, "\n", #folders))
     end
     return cwd
   end
@@ -41,29 +48,32 @@ function M.convert_useful_path(dir)
 end
 
 function M.create_tab_title(tab, tabs, panes, config, hover, max_width)
+  local pane = tab.active_pane
   local index = tab.tab_index + 1
 
-  local user_title = tab.active_pane.user_vars.panetitle
+  local user_title = pane.user_vars.panetitle
   if user_title ~= nil and #user_title > 0 then
     return wezterm.format({
       { Text = string.format(" %s: %s ", index, user_title) },
     })
   end
 
-  local title = M.basename(tab.active_pane.foreground_process_name)
-  if title == "zsh" then -- no process
-    local dir = M.convert_useful_path(tab.active_pane.current_working_dir)
-    title = string.format("%s  %s", OUTLINE_FOLDER_OPEN , dir)
+  local process = M.basename(pane.foreground_process_name)
+  if process == "zsh" then -- "no process"
+    local dir = M.convert_useful_path(pane.current_working_dir)
+    return wezterm.format({
+      { Text = string.format(" %s: %s  %s ", index, process_icons[process], dir) },
+    })
   end
 
-  if process_icons[title] ~= nil then -- add icon
+  if process_icons[pane.title] ~= nil then -- add icon
     return wezterm.format({
-      { Text = string.format(" %s: %s %s ", index, process_icons[title], title) },
+      { Text = string.format(" %s: %s %s ", index, process_icons[pane.title], pane.title) },
     })
   end
 
   return wezterm.format({
-    { Text = string.format(" %s: %s ", index, title) },
+    { Text = string.format(" %s: %s ", index, pane.title) },
   })
 end
 
