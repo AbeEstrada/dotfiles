@@ -1,22 +1,21 @@
 // Settings in here override those in "Default/Preferences.sublime-settings",
 // and are overridden in turn by syntax-specific settings.
 {
-	"additional_path_items": [
-		"/Users/Abe/.bin",
-		"/Users/Abe/Library/Application Support/fnm/aliases/default/bin"
-	],
-	"bold_folder_labels": true,
-	"caret_style": "phase",
-	"caret_extra_top": 0,
-	"caret_extra_bottom": 0,
-	"color_scheme": "Snazzy.sublime-color-scheme",
-	"enable_tab_scrolling": false,
-	"ensure_newline_at_eof_on_save": true,
-	"font_face": "Inconsolata Nerd Font",
-	"font_size": 16,
-	"highlight_line": true,
-	"ignored_packages":
-	[
+  "additional_path_items": [
+    "/Users/Abe/.bin",
+    "/Users/Abe/Library/Application Support/fnm/aliases/default/bin"
+  ],
+  "bold_folder_labels": true,
+  "caret_style": "phase",
+  "caret_extra_top": 0,
+  "caret_extra_bottom": 0,
+  "color_scheme": "Abe.sublime-color-scheme",
+  "enable_tab_scrolling": false,
+  "font_face": "Inconsolata Nerd Font",
+  "font_size": 14,
+  "highlight_line": true,
+  "ignored_packages":
+  [
     "ActionScript",
     "AppleScript",
     "ASP",
@@ -26,7 +25,6 @@
     "Erlang",
     "Groovy",
     "Haskell",
-    "JavaScript",
     "LaTeX",
     "Lisp",
     "Matlab",
@@ -39,22 +37,14 @@
     "TCL",
     "Textile",
     "Vintage",
-	],
-	"indent_guide_options": ["draw_normal", "draw_active"],
-	"indent_to_bracket": true,
-	"line_padding_top": 1,
-	"rulers":
-	[
-		80,
-		120
-	],
-	"scroll_past_end": 0.2,
-	"show_encoding": true,
-	"show_line_endings": true,
-	"theme": "Adaptive.sublime-theme",
-	"translate_tabs_to_spaces": true,
-	"trim_trailing_white_space_on_save": "all",
-	"typescript_auto_format": true,
-	"dictionary": "Packages/Language - Spanish/es_ES.dic",
-	"auto_complete": true,
+  ],
+  "indent_guide_options": ["draw_normal", "draw_active"],
+  "indent_to_bracket": true,
+  "rulers": [80, 120],
+  "scroll_past_end": 0.2,
+  "show_encoding": true,
+  "show_line_endings": true,
+  "theme": "Adaptive.sublime-theme",
+  "translate_tabs_to_spaces": true,
+  "trim_trailing_white_space_on_save": "all",
 }
