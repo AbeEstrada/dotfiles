@@ -17,10 +17,13 @@ local process_icons = {
   ["man"] = nerdfonts.fae_book_open_o,
   ["newsboat"] = nerdfonts.fa_newspaper_o,
   ["node"] = nerdfonts.md_nodejs,
+  ["nvim"] = nerdfonts.custom_vim,
   ["ruby"] = nerdfonts.fae_ruby_o,
   ["sftp"] = nerdfonts.md_folder_network_outline,
   ["ssh"] = nerdfonts.md_folder_key_network,
+  ["ticker"] = nerdfonts.md_finance,
   ["toot"] = nerdfonts.md_mastodon,
+  ["vim"] = nerdfonts.custom_vim,
   ["zsh"] = nerdfonts.fa_folder_open_o,
 }
 
