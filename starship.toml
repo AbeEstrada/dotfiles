@@ -1,22 +1,22 @@
 format = "$all$fill$time$line_break$jobs$battery$status$container$shell$character"
 
 [character]
-success_symbol = "[❯](purple)"
-error_symbol = "[❯](red)"
-vimcmd_symbol = "[❮](green)"
+success_symbol = "[❯](128)" # purple
+error_symbol   = "[❯](160)" # red
+vimcmd_symbol  = "[❮](2)"   # green
 
 [cmd_duration]
+style = "11" # yellow
 format = "[$duration]($style) "
-style = "yellow"
 
 [aws]
 symbol = " "
 disabled = true
 
 [directory]
-read_only = " "
-style = "blue"
-truncation_length = 4
+style = "38" # cyan
+read_only = " 󰌾 "
+truncation_length = 8
 truncation_symbol = "…/"
 
 [fill]
@@ -28,16 +28,16 @@ python_binary = "python3"
 
 [time]
 disabled = false
-format = "[$time]($style) "
 style = "white dimmed"
+format = "[$time]($style) "
 
 [[battery.display]]
+style = "bold 2" # red
 threshold = 10
-style = "bold red"
 
 [[battery.display]]
+style = "bold 11" # yellow
 threshold = 30
-style = "bold yellow"
 
 # Nerd Font Symbols
 
@@ -84,7 +84,7 @@ symbol = " "
 symbol = " "
 
 [memory_usage]
-symbol = " "
+symbol = " "
 
 [meson]
 symbol = "喝 "
@@ -99,7 +99,7 @@ symbol = " "
 symbol = " "
 
 [package]
-symbol = " "
+symbol = " "
 
 [rlang]
 symbol = "ﳒ "
