@@ -1,0 +1,957 @@
+{
+  "name": "Abe",
+  "variables": {
+    "bg_old": "#13151A",
+    "bg": "#1D212D",
+    "fg": "#fefefe",
+    "color01": "#2a2b2e",
+    "color02": "#86e1fc",
+    "color03": "#a9dc76",
+    "color04": "#52525b",
+    "color05": "#a3a3a3",
+    "color06": "#c9c8c8",
+    "color07": "#fb923c",
+    "color08": "#c084fc",
+    "color09": "#ff6188",
+    "color10": "#fcfcfa",
+    "color11": "#fff7a0",
+    "color12": "#faca16",
+    "color13": "#7A36D9",
+    "color25": "#82aaff",
+    "color26": "#0db9d7",
+    "color29": "#4fd6be",
+  },
+  "globals": {
+    "accent": "var(color08)",
+    "active_guide": "var(color08)",
+    "background": "var(bg)",
+    "block_caret": "color(var(color10) a(0.4))",
+    "bracket_contents_options": "underline",
+    "caret": "var(fg)",
+    "find_highlight": "var(color12)",
+    "find_highlight_foreground": "var(bg)",
+    "fold_marker": "var(color11)",
+    "foreground": "var(fg)",
+    "guide": "color(var(fg) alpha(0.1))",
+    "gutter": "var(bg)",
+    "gutter_foreground": "var(color04)",
+    "highlight": "var(color04)",
+    "invisibles": "var(color04)",
+    "inactive_selection": "color(var(color08) alpha(0.15))",
+    "line_diff_added": "var(color03)",
+    "line_diff_deleted": "var(color09)",
+    "line_diff_modified": "var(color11)",
+    "line_diff_width": "2",
+    "line_highlight": "color(var(color01) a(0.5))",
+    "misspelling": "var(color09)",
+    "selection": "color(var(color13) alpha(0.3))",
+    "selection_border": "color(var(color13) alpha(0.4))",
+    "selection_border_width": "1",
+    "selection_corner_radius": "2",
+    "selection_corner_style": "round",
+    "shadow": "#00000000",
+    "shadow_width": "0",
+    "stack_guide": "color(var(fg) alpha(0.1))",
+    "tags_options": "stippled_underline",
+    "popup_css": "html { --background: #14161b; --foreground: #fefefd; --redish: #ff6188; --orangish: #fb923c; --yellowish: #fff7a0; --greenish: #a9dc76; --bluish: #99d5ff; --purplish: #c084fc; --pinkish: #ff6188; background-color: #14161b; color: #fefefd; } a { color: var(--yellowish); }"
+  },
+  "rules": [
+    {
+      "name": "Comments and overrides inside comments",
+      "scope": "comment, comment keyword, comment markup.underline.link, comment string, comment punctuation.definition, comment punctuation, comment text",
+      "font_style": "italic",
+      "foreground": "#727072"
+    },
+    {
+      "name": "JSDoc storage type",
+      "scope": "comment storage.type",
+      "foreground": "#727072"
+    },
+    {
+      "name": "JSDoc entity name",
+      "scope": "comment entity.name.type",
+      "foreground": "var(color06)"
+    },
+    {
+      "name": "JSDoc variable",
+      "scope": "comment variable, comment variable.other",
+      "foreground": "var(color06)"
+    },
+    {
+      "name": "Comment TODO / FIXME (at least in VSCode Python)",
+      "scope": "comment keyword.codetag.notation",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "Git status remote",
+      "scope": "comment.git-status.header.remote",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "Git status local",
+      "scope": "comment.git-status.header.local",
+      "foreground": "var(color02)"
+    },
+    {
+      "name": "Git status remote",
+      "scope": "comment.other.git-status.head",
+      "foreground": "var(color10)"
+    },
+    {
+      "name": "Docstring",
+      "scope": "string.quoted.docstring, string.quoted.docstring punctuation.definition",
+      "foreground": "#727072"
+    },
+    {
+      "name": "Constant",
+      "scope": "constant",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "Constant",
+      "scope": "constant.other",
+      "foreground": "var(color10)"
+    },
+    {
+      "name": "Constant",
+      "scope": "constant.other.caps",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "Placeholders in C",
+      "scope": "constant.other.placeholder.c",
+      "foreground": "var(color07)"
+    },
+    {
+      "name": "Constant as property",
+      "scope": "constant.other.property",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "Constant in latex",
+      "scope": "constant.other.citation.latex",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "Constant as color (in css / sass)",
+      "scope": "constant.other.color",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "Constant as character class escape (e.g. in regex)",
+      "scope": "constant.other.character-class.escape",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "Constant as key (e.g. in puppet manifests)",
+      "scope": "constant.other.key",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "Constant as symbol (e.g. in ruby)",
+      "scope": "constant.other.symbol",
+      "foreground": "var(color07)"
+    },
+    {
+      "name": "Constants in elm",
+      "scope": "constant.other.elm",
+      "foreground": "var(color02)"
+    },
+    {
+      "name": "Number",
+      "scope": "constant.numeric",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "Constant",
+      "scope": "constant.language",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "Character escape",
+      "scope": "constant.character.escape",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "Search result line numbers",
+      "scope": "constant.numeric.line-number.find-in-files",
+      "foreground": "var(color04)"
+    },
+    {
+      "name": "Search result matched line numbes",
+      "scope": "constant.numeric.line-number.match.find-in-files",
+      "foreground": "var(color11)"
+    },
+    {
+      "name": "Sections",
+      "scope": "entity.name.section",
+      "foreground": "var(color11)"
+    },
+    {
+      "name": "Functions",
+      "scope": "entity.name.function, entity.name.function.templated, entity.name.function.member.static",
+      "foreground": "var(color03)"
+    },
+    {
+      "name": "Class template",
+      "scope": "entity.name.type.class.templated, entity.name.type.class.generic, entity.name.type.namespace",
+      "foreground": "var(color02)"
+    },
+    {
+      "name": "label",
+      "scope": "entity.name.label",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "Macros",
+      "scope": "entity.name.function.preprocessor",
+      "foreground": "var(color02)"
+    },
+    {
+      "name": "Entity name",
+      "scope": "entity.name",
+      "foreground": "var(color03)"
+    },
+    {
+      "name": "Class name",
+      "scope": "entity.name.class",
+      "foreground": "var(color02)"
+    },
+    {
+      "name": "Constant name",
+      "scope": "entity.name.constant",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "Namespace",
+      "scope": "entity.name.namespace",
+      "foreground": "var(color10)"
+    },
+    {
+      "name": "Inherited class",
+      "scope": "entity.other.inherited-class",
+      "font_style": "italic",
+      "foreground": "var(color02)"
+    },
+    {
+      "name": "Function name",
+      "scope": "entity.name.function",
+      "foreground": "var(color03)"
+    },
+    {
+      "name": "Tag name",
+      "scope": "entity.name.tag, entity.name.tag.js.jsx support.class.component.js.jsx, entity.name.tag support.class.component, source.vue support.class.component",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "Operator",
+      "scope": "entity.name.function.operator",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "Operator",
+      "scope": "meta.brackets entity.name.function.operator, punctuation.separator entity.name.function.operator",
+      "foreground": "var(color05)"
+    },
+    {
+      "name": "Entity name type",
+      "scope": "entity.name.type, entity.name.type.class.reference, entity.name.type.class.value",
+      "foreground": "var(color02)"
+    },
+    {
+      "name": "Tag attribute",
+      "scope": "entity.other.attribute-name",
+      "font_style": "italic",
+      "foreground": "var(color02)"
+    },
+    {
+      "name": "CSS class",
+      "scope": "entity.other.attribute-name.class.css, entity.other.attribute-name.parent-selector-suffix.css, entity.other.attribute-name.parent-selector-suffix.css punctuation.definition.entity.css, entity.other.attribute-name.css, entity.other.animation-name.css",
+      "foreground": "var(color03)"
+    },
+    {
+      "name": "CSS id",
+      "scope": "entity.other.attribute-name.id.css",
+      "foreground": "var(color07)"
+    },
+    {
+      "name": "CSS pseudo class",
+      "scope": "entity.other.attribute-name.pseudo-class.css, entity.other.pseudo-class.css, entity.other.pseudo-element.css",
+      "font_style": "italic",
+      "foreground": "var(color02)"
+    },
+    {
+      "name": "Function names / calls",
+      "scope": "entity.name.function, support.function",
+      "foreground": "var(color03)"
+    },
+    {
+      "name": "git status commit hex",
+      "scope": "entity.other.git-status.hex",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "jinja delimiters",
+      "scope": "entity.other.jinja2.delimiter",
+      "foreground": "var(color05)"
+    },
+    {
+      "name": "custom literal",
+      "scope": "entity.name.operator.custom-literal",
+      "foreground": "var(color10)"
+    },
+    {
+      "name": "custom literal string",
+      "scope": "entity.name.operator.custom-literal.string",
+      "foreground": "var(color11)"
+    },
+    {
+      "name": "custom literal number",
+      "scope": "entity.name.operator.custom-literal.number",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "rust specific",
+      "scope": "entity.name.type.rust",
+      "foreground": "var(color02)"
+    },
+    {
+      "name": "rust specific",
+      "scope": "entity.name.lifetime.rust",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "Invalid",
+      "scope": "invalid",
+      "foreground": "var(color09)",
+      "font_style": "italic underline"
+    },
+    {
+      "name": "Invalid deprecated",
+      "scope": "invalid.deprecated",
+      "foreground": "var(color07)",
+      "font_style": "italic underline"
+    },
+    {
+      "name": "Keyword",
+      "scope": "keyword",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "Control keywords examples include if, try, end and while. Some syntaxes prefer to mark if and else with the conditional variant. The import variant is often used in appropriate situations.",
+      "scope": "keyword.control",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "keyword control directive",
+      "scope": "keyword.control.directive",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "Operator",
+      "scope": "keyword.operator, keyword.operator.member, keyword.operator.new",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "Substitution string",
+      "scope": "keyword.other.substitution",
+      "foreground": "var(color05)"
+    },
+    {
+      "name": "Template literal begin / end",
+      "scope": "keyword.other.template.begin, keyword.other.template.end",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "RestructuredText heading, table markup",
+      "scope": "keyword.operator.heading.restructuredtext, keyword.operator.table.row.restructuredtext keyword.operator.table.data.restructuredtext",
+      "foreground": "var(color05)"
+    },
+    {
+      "name": "elm parenthesis",
+      "scope": "keyword.other.parenthesis.elm",
+      "foreground": "var(color05)"
+    },
+    {
+      "name": "rust specific",
+      "scope": "keyword.other.fn.rust, keyword.other.rust, keyword.other.unsafe.rust, keyword.other.where.rust",
+      "foreground": "var(color02)"
+    },
+    {
+      "name": "rust specific",
+      "scope": "keyword.control.rust, keyword.operator.misc.rust",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "ruby specific",
+      "scope": "keyword.declaration.class.ruby, keyword.declaration.function.ruby, keyword.declaration.namespace.ruby",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "Italic",
+      "scope": "markup.italic",
+      "font_style": "italic"
+    },
+    {
+      "name": "Bold",
+      "scope": "markup.bold",
+      "font_style": "bold"
+    },
+    {
+      "name": "Heading",
+      "scope": "markup.heading",
+      "foreground": "var(color11)"
+    },
+    {
+      "name": "Raw",
+      "scope": "markup.raw",
+      "foreground": "var(color07)"
+    },
+    {
+      "name": "Underline",
+      "scope": "markup.underline",
+      "font_style": "underline"
+    },
+    {
+      "name": "Link",
+      "scope": "markup.underline.link",
+      "foreground": "var(color03)"
+    },
+    {
+      "name": "Markdown: links",
+      "scope": "markup.underline.link punctuation",
+      "foreground": "var(color03)",
+    },
+    {
+      "name": "Diff inserted",
+      "scope": "markup.inserted, markup.inserted punctuation.definition.inserted",
+      "foreground": "var(color03)"
+    },
+    {
+      "name": "Diff deleted",
+      "scope": "markup.deleted, markup.deleted punctuation.definition.deleted",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "Diff changed",
+      "scope": "markup.changed, markup.changed punctuation.definition.changed",
+      "foreground": "var(color11)"
+    },
+    {
+      "name": "Diff ignored",
+      "scope": "markup.ignored, markup.ignored punctuation.definition.ignored",
+      "foreground": "var(color05)"
+    },
+    {
+      "name": "Diff untracked",
+      "scope": "markup.untracked",
+      "foreground": "var(color05)"
+    },
+    {
+      "name": "Markup quote",
+      "scope": "markup.quote",
+      "font_style": "italic"
+    },
+    {
+      "name": "Braces, delimiters",
+      "scope": "meta.brace.round, meta.brace.square, meta.brace.curly, meta.delimiter.comma.js, meta.function-call.without-arguments.js, meta.function-call.method.without-arguments.js",
+      "foreground": "var(color05)"
+    },
+    {
+      "name": "Function call (vs)",
+      "scope": "meta.function-call.generic.python, support.function.builtin.python",
+      "foreground": "var(color03)"
+    },
+    {
+      "name": "Function arguments (vs)",
+      "scope": "meta.function-call.python meta.function-call.arguments.python",
+      "foreground": "var(color10)"
+    },
+    {
+      "name": "Constructor (new MyClass())",
+      "scope": "meta.instance.constructor",
+      "foreground": "var(color03)"
+    },
+    {
+      "name": "Class string name (i.e. in html attributes)",
+      "scope": "meta.attribute-with-value.class string, meta.attribute.class.html string",
+      "foreground": "var(color03)"
+    },
+    {
+      "name": "ID string name (i.e. in html attributes)",
+      "scope": "meta.attribute-with-value.id string, meta.attribute.id.html string",
+      "foreground": "var(color07)"
+    },
+    {
+      "name": "Object Key",
+      "scope": "source.js meta.function.js meta.block.js meta.try.js meta.block.js meta.function-call.js meta.group.js meta.mapping.js meta.mapping.key.js string.unquoted.js",
+      "foreground": "var(color29)"
+    },
+    {
+      "name": "JSON Key - Level 0",
+      "scope": "source.json meta.mapping.key.json string.quoted.double.json, source.json meta.structure.dictionary.json string.quoted.double.json",
+      "foreground": "var(color25)"
+    },
+    {
+      "name": "JSON Key - Level 1",
+      "scope": "source.json meta.mapping.value.json meta.sequence.json meta.mapping.key.json string.quoted.double.json, source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.quoted.double.json",
+      "foreground": "var(color26)"
+    },
+    {
+      "name": "JSON Key - Level 2",
+      "scope": "source.json meta.mapping.value.json meta.sequence.json meta.mapping.value.json meta.mapping.key.json string.quoted.double.json, source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.quoted.double.json",
+      "foreground": "var(color02)"
+    },
+    {
+      "name": "JSON Key - Level 3",
+      "scope": "source.json meta.mapping.value.json meta.mapping.value.json meta.sequence.json meta.mapping.value.json meta.mapping.value.json meta.sequence.json meta.mapping.key.json string.quoted.double.json, source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json string.quoted.double.json, source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.quoted.double.json",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "JSON Key - Level 4",
+      "scope": "source.json meta.mapping.value.json meta.mapping.value.json meta.sequence.json meta.mapping.value.json meta.mapping.value.json meta.sequence.json meta.mapping.value.json meta.sequence.json meta.mapping.key.json string.quoted.double.json, source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json meta.structure.dictionary.json string.quoted.double.json",
+      "foreground": "var(color11)"
+    },
+    {
+      "name": "JSON Key - Level 5",
+      "scope": "source.json meta.mapping.value.json meta.mapping.value.json meta.sequence.json meta.mapping.value.json meta.mapping.value.json meta.sequence.json meta.mapping.value.json meta.sequence.json meta.mapping.value.json meta.sequence.json meta.mapping.key.json string.quoted.double.json, source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json meta.structure.dictionary.json string.quoted.double.json",
+      "foreground": "var(color26)"
+    },
+    {
+      "name": "JSON Key - Level 6",
+      "scope": "source.json meta.mapping.value.json meta.mapping.value.json meta.sequence.json meta.mapping.value.json meta.mapping.value.json meta.sequence.json meta.mapping.value.json meta.sequence.json meta.mapping.value.json meta.sequence.json meta.mapping.value.json meta.sequence.json meta.mapping.key.json string.quoted.double.json, source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json meta.structure.dictionary.json string.quoted.double.json",
+      "foreground": "var(color29)"
+    },
+    {
+      "name": "JSON Key - Level 7",
+      "scope": "source.json meta.mapping.value.json meta.mapping.value.json meta.sequence.json meta.mapping.value.json meta.mapping.value.json meta.sequence.json meta.mapping.value.json meta.sequence.json meta.mapping.value.json meta.sequence.json meta.mapping.value.json meta.sequence.json meta.mapping.value.json meta.sequence.json meta.mapping.key.json string.quoted.double.json",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "JSON Key - Level 8",
+      "scope": "source.json meta.mapping.value.json meta.mapping.value.json meta.sequence.json meta.mapping.value.json meta.mapping.value.json meta.sequence.json meta.mapping.value.json meta.sequence.json meta.mapping.value.json meta.sequence.json meta.mapping.value.json meta.sequence.json meta.mapping.value.json meta.sequence.json meta.mapping.key.json string.quoted.double.json punctuation.definition.string.end.json",
+      "foreground": "var(color03)"
+    },
+    {
+      "name": "JSON Key - value",
+      "scope": "source.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json, source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json, source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json, source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json, source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json, source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json, source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json",
+      "foreground": "var(color03)"
+    },
+    {
+      "name": "JSON Brackets",
+      "scope": "source.json meta.mapping.json punctuation.section.mapping.begin.json, source.json meta.mapping.json punctuation.section.mapping.end.json",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "JSON Brackets",
+      "scope": "source.json meta.mapping.value.json meta.sequence.json punctuation.section.sequence.begin.json, source.json meta.mapping.value.json meta.sequence.json punctuation.section.sequence.end.json",
+      "foreground": "var(color03)"
+    },
+    {
+      "name": "YAML keys",
+      "scope": "source.yaml meta.mapping.key string",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "Object members",
+      "scope": "meta.object.member",
+      "foreground": "var(color10)"
+    },
+    {
+      "name": "SCSS Variable",
+      "scope": "meta.property-list.css variable.other",
+      "foreground": "var(color07)"
+    },
+    {
+      "name": "Preprocessor",
+      "scope": "entity.name.constant.preprocessor, meta.preprocessor",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "git diff header",
+      "scope": "meta.diff.git-diff.header",
+      "foreground": "var(color11)"
+    },
+    {
+      "name": "rust specific (brackets and certain type names)",
+      "scope": "meta.type_params.rust",
+      "foreground": "var(color10)"
+    },
+    {
+      "name": "rust specific (variable.language.rust is 'self' keyword.",
+      "scope": "meta.attribute.rust, meta.annotation.rust, variable.language.rust, variable.annotation.rust, meta.annotation.rust string, meta.annotation.rust keyword, meta.annotation.rust keyword.operator, meta.attribute.rust string",
+      "foreground": "var(color06)"
+    },
+    {
+      "name": "Punctuation",
+      "scope": "punctuation",
+      "foreground": "var(color05)"
+    },
+    {
+      "name": "Punctuation tags",
+      "scope": "punctuation.definition.tag, punctuation.definition.tag source, punctuation.definition.group.begin.ruby, punctuation.definition.group.end.ruby, punctuation.definition.group.begin.css, punctuation.definition.group.end.css, punctuation.definition.string.end.html source.css",
+      "foreground": "var(color05)"
+    },
+    {
+      "name": "Group (i.e. in regex)",
+      "scope": "punctuation.definition.group",
+      "foreground": "var(color10)"
+    },
+    {
+      "name": "Comment start / end",
+      "scope": "punctuation.definition.comment",
+      "foreground": "#727072"
+    },
+    {
+      "name": "Variable indicator (i.e. in php or in include directives in sass)",
+      "scope": "punctuation.definition.variable, punctuation.definition.keyword.scss, punctuation.definition.entity.css",
+      "foreground": "var(color06)"
+    },
+    {
+      "name": "Punctuation section embedded (i.e. ?php blocks in html)",
+      "scope": "punctuation.section.embedded, punctuation.section.embedded entity.name.tag, punctuation.section.embedded constant.other, punctuation.section.embedded source, punctuation.section.embedded.begin",
+      "foreground": "var(color07)"
+    },
+    {
+      "name": "Punctuation template string (`example`)",
+      "scope": "punctuation.template-string.element.begin, punctuation.template-string.element.end, punctuation.definition.string.template.begin, punctuation.definition.string.template.end, string.quoted.template punctuation.definition.string.begin, string.quoted.template punctuation.definition.string.end, punctuation.definition.template-expression.begin, punctuation.definition.template-expression.end",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "Punctuation hard line break in Markdown",
+      "scope": "meta.paragraph.markdown meta.dummy.line-break, meta.paragraph.markdown meta.hard-line-break.markdown",
+      "background": "var(color08)"
+    },
+    {
+      "name": "region red color",
+      "scope": "region.redish",
+      "foreground": "var(color09)",
+      "background": "color(var(color09) a(0.5))"
+    },
+    {
+      "name": "region orange color",
+      "scope": "region.orangish",
+      "foreground": "var(color07)",
+      "background": "color(var(color07) a(0.5))"
+    },
+    {
+      "name": "region yellow color",
+      "scope": "region.yellowish",
+      "foreground": "var(color11)",
+      "background": "color(var(color11) a(0.5))"
+    },
+    {
+      "name": "region green color",
+      "scope": "region.greenish",
+      "foreground": "var(color03)",
+      "background": "color(var(color03) a(0.5))"
+    },
+    {
+      "name": "region blue color",
+      "scope": "region.bluish",
+      "foreground": "var(color02)",
+      "background": "color(var(color02) a(0.5))"
+    },
+    {
+      "name": "region purple color",
+      "scope": "region.purplish",
+      "foreground": "var(color08)",
+      "background": "color(var(color08) a(0.5))"
+    },
+    {
+      "name": "region pink color",
+      "scope": "region.pinkish",
+      "foreground": "var(color09)",
+      "background": "color(var(color09) a(0.5))"
+    },
+    {
+      "name": "White for ST3 for non-colorized scheme",
+      "scope": "region.whitish",
+      "foreground": "#FFFFFF"
+    },
+    {
+      "name": "source",
+      "scope": "source",
+      "foreground": "var(color10)"
+    },
+    {
+      "name": "SASS, SCSS default",
+      "scope": "source.scss, source.sass",
+      "foreground": "var(color05)"
+    },
+    {
+      "name": "SASS, SCSS and LESS variables",
+      "scope": "source.sass variable.other, source.sass variable.sass, source.scss variable.other, source.scss variable.scss, source.scss variable.sass, source.css variable.other, source.css variable.scss, source.less variable.other, source.less variable.other.less, source.less variable.declaration.less",
+      "font_style": "italic",
+      "foreground": "var(color07)"
+    },
+    {
+      "name": "git",
+      "scope": "source.git-show.commit.sha",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "git",
+      "scope": "source.git-show.author, source.git-show.date, source.git-diff.command, source.git-diff.command meta.diff.git-diff.header.from-file, source.git-diff.command meta.diff.git-diff.header.to-file",
+      "foreground": "var(color05)"
+    },
+    {
+      "name": "git diff header hash",
+      "scope": "source.git-show meta.diff.git-diff.header.extended.index.from-sha, source.git-show meta.diff.git-diff.header.extended.index.to-sha",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "git diff header range",
+      "scope": "source.git-show meta.diff.range.unified",
+      "foreground": "var(color07)"
+    },
+    {
+      "name": "git diff header files",
+      "scope": "source.git-show meta.diff.header.from-file, source.git-show meta.diff.header.to-file",
+      "foreground": "var(color05)"
+    },
+    {
+      "name": "Storage",
+      "scope": "storage",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "Types and definition / declaration keywords should use the following scope. Examples include int, bool, char, func, function, class and def. Depending on the language and semantics, const may be this or storage.modifier.",
+      "scope": "storage.type",
+      "font_style": "italic",
+      "foreground": "var(color02)"
+    },
+    {
+      "name": "Extends",
+      "scope": "storage.type.extends",
+      "font_style": "normal",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "Fat arrow function",
+      "scope": "storage.type.function.arrow",
+      "font_style": "normal",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "Keywords that affect the storage of a variable, function or data structure should use the following scope. Examples include static, inline, const, public and private.",
+      "scope": "storage.modifier, storage.type.modifier",
+      "font_style": "italic",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "refs (Restructured text)",
+      "scope": "storage.class.restructuredtext.ref",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "rust specific",
+      "scope": "storage.modifier.visibility.rust, storage.modifier.lifetime.rust",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "rust specific",
+      "scope": "storage.modifier.const.rust, storage.modifier.dyn.rust, storage.modifier.mut.rust, storage.modifier.static.rust, storage.type.rust, storage.type.core.rust, storage.class.std.rust",
+      "foreground": "var(color02)"
+    },
+    {
+      "name": "rust specific (adjust blue to red)",
+      "scope": "storage.type.rust, storage.modifier.const.rust, storage.modifier.dyn.rust, storage.modifier.mut.rust, storage.modifier.static.rust, keyword.other.rust, keyword.other.where.rust",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "String",
+      "scope": "string",
+      "foreground": "var(color11)"
+    },
+    {
+      "name": "String label",
+      "scope": "string.unquoted.label",
+      "foreground": "var(color10)"
+    },
+    {
+      "name": "Source in template string",
+      "scope": "string source",
+      "foreground": "var(color10)"
+    },
+    {
+      "name": "Embedded punctuation begin / end in template string",
+      "scope": "string source punctuation.section.embedded, string punctuation.definition.string source",
+      "foreground": "var(color05)"
+    },
+    {
+      "name": "link title",
+      "scope": "string.other.link.title, string.other.link.description",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "link description",
+      "scope": "string.other.link.description.title",
+      "foreground": "var(color02)"
+    },
+    {
+      "name": "String regexp begin / end",
+      "scope": "string.regexp punctuation.definition.string.begin, string.regexp punctuation.definition.string.end",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "refs (Restructured text)",
+      "scope": "string.other.ref, string.other.restructuredtext.ref",
+      "foreground": "var(color03)"
+    },
+    {
+      "name": "git key in git status help text",
+      "scope": "string.other.git-status.help.key",
+      "foreground": "var(color06)"
+    },
+    {
+      "name": "git status remote",
+      "scope": "string.other.git-status.remote",
+      "foreground": "var(color09)"
+    },
+    {
+      "name": "Library constant",
+      "scope": "support.constant",
+      "foreground": "var(color02)"
+    },
+    {
+      "name": "Handlebars start / end",
+      "scope": "support.constant.handlebars",
+      "foreground": "var(color05)"
+    },
+    {
+      "name": "vendor prefix",
+      "scope": "support.type.vendor-prefix.css",
+      "foreground": "var(color06)"
+    },
+    {
+      "name": "Function name",
+      "scope": "support.function",
+      "foreground": "var(color03)"
+    },
+    {
+      "name": "function brackets, comma's",
+      "scope": "support.function.delimiter.elm",
+      "foreground": "var(color05)"
+    },
+    {
+      "name": "Library type",
+      "scope": "support.type, entity.name.type.object.console",
+      "font_style": "italic",
+      "foreground": "var(color02)"
+    },
+    {
+      "name": "Support variables",
+      "scope": "support.variable",
+      "foreground": "var(color02)"
+    },
+    {
+      "name": "Library type property, JSON keys",
+      "scope": "support.type.property-name",
+      "font_style": "normal",
+      "foreground": "var(color10)"
+    },
+    {
+      "name": "Library class",
+      "scope": "support.class",
+      "foreground": "var(color02)"
+    },
+    {
+      "name": "rust specific",
+      "scope": "support.constant.core.rust",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "text",
+      "scope": "text",
+      "foreground": "var(color10)"
+    },
+    {
+      "name": "Search result",
+      "scope": "text.find-in-files",
+      "foreground": "var(color10)"
+    },
+    {
+      "name": "Variable",
+      "scope": "variable, variable.other",
+      "foreground": "var(color10)"
+    },
+    {
+      "name": "Function arguments",
+      "scope": "variable.parameter, parameters variable.function",
+      "font_style": "italic",
+      "foreground": "var(color07)"
+    },
+    {
+      "name": "Reserved variable names that are specified by the language, such as this, self, super, arguments. Also in function arguments (e.g. like in Python)",
+      "scope": "variable.language, variable.parameter.function.language.special.self.python, variable.parameter.function.language.special.cls.python",
+      "font_style": "italic",
+      "foreground": "var(color06)"
+    },
+    {
+      "name": "Reserved variable names: 'arguments'",
+      "scope": "variable.language.arguments",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "Library function",
+      "scope": "variable.other.class",
+      "foreground": "var(color02)"
+    },
+    {
+      "name": "Immutable variables, often via a const modifier, should receive the following scope. Depending on the language and semantics, entity.name.constant may be a better choice.",
+      "scope": "variable.other.constant",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "read/write variables",
+      "scope": "variable.other.readwrite",
+      "foreground": "var(color10)"
+    },
+    {
+      "name": "Fields, properties, members and attributes of a class or other data structure should use:",
+      "scope": "variable.other.member",
+      "foreground": "var(color10)"
+    },
+    {
+      "name": "Enum member",
+      "scope": "variable.other.enummember",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "Variable property",
+      "scope": "variable.other.property, variable.other.property.static, variable.other.event",
+      "foreground": "var(color10)"
+    },
+    {
+      "name": "Function and method names should be scoped using the following, but only when they are being invoked. When defined, they should use entity.name.function.",
+      "scope": "variable.function",
+      "foreground": "var(color03)"
+    },
+    {
+      "name": "Substitution (restructured text)",
+      "scope": "variable.other.substitution",
+      "foreground": "var(color07)"
+    },
+    {
+      "name": "Ruby instance variables",
+      "scope": "source.ruby variable.other.readwrite.instance.ruby, source.ruby variable.other.readwrite.class.ruby",
+      "foreground": "var(color08)"
+    },
+    {
+      "name": "jinja2 variable block",
+      "scope": "source.jinja2 variable.other.jinja2.block",
+      "foreground": "var(color03)"
+    },
+    {
+      "name": "jinja2 variable",
+      "scope": "source.jinja2 variable.other.jinja2",
+      "foreground": "var(color07)"
+    },
+    {
+      "name": "Go variable",
+      "scope": "source.go meta.block.go variable.other.go",
+      "foreground": "var(color10)"
+    }
+  ]
+}
