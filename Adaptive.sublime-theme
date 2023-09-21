@@ -1,13 +1,14 @@
 // Documentation at https://www.sublimetext.com/docs/themes.html
 {
-  "variables": {},
+  "variables": {
+    "file_tab_selected_label_color": "color(var(--purplish) blend(black 90%))",
+  },
   "rules": [
     // Hide sidebar heading
     {
       "class": "sidebar_heading",
       "opacity": 0.0,
       "font.size": 0,
-      "fg": "#101010",
     },
     // Hide sidebar tree icons
     {
