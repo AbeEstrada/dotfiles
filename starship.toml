@@ -1,12 +1,12 @@
-format = "$all$fill$time$line_break$jobs$battery$status$container$shell$character"
+format = "$all$fill$time$battery$line_break$jobs$status$container$shell$character"
 
 [character]
-success_symbol = "[❯](128)" # purple
-error_symbol   = "[❯](160)" # red
-vimcmd_symbol  = "[❮](2)"   # green
+success_symbol = "[❯](purple)"
+error_symbol   = "[❯](red)"
+vimcmd_symbol  = "[❮](green)"
 
 [cmd_duration]
-style = "11" # yellow
+style = "yellow"
 format = "[$duration]($style) "
 
 [aws]
@@ -14,7 +14,7 @@ symbol = " "
 disabled = true
 
 [directory]
-style = "38" # cyan
+style = "cyan"
 read_only = " 󰌾 "
 truncation_length = 8
 truncation_symbol = "…/"
@@ -24,7 +24,7 @@ symbol = " "
 
 [python]
 symbol = " "
-python_binary = "python3"
+python_binary = ["./venv/bin/python", "./bin/python", "python", "python3", "python2"]
 
 [time]
 disabled = false
@@ -32,14 +32,29 @@ style = "white dimmed"
 format = "[$time]($style) "
 
 [[battery.display]]
-style = "bold 2" # red
+style = "bold red" # red
 threshold = 10
 
 [[battery.display]]
-style = "bold 11" # yellow
+style = "bold yellow"
 threshold = 30
 
+[[battery.display]]
+style = "purple"
+threshold = 100
+
+[custom.git_simple]
+command = "git-simple"
+require_repo = true
+when = true
+ignore_timeout = true
+style = ""
+disabled = true
+
 # Nerd Font Symbols
+
+[bun]
+symbol = "󱜚  "
 
 [buf]
 symbol = " "
