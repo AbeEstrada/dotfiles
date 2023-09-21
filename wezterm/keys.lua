@@ -1,55 +1,91 @@
 local wezterm = require "wezterm"
+local act = wezterm.action
 
 -- https://wezfurlong.org/wezterm/config/default-keys.html?h=default
 
 return {
-  { key = "p", mods = "CMD|SHIFT", action = wezterm.action.ActivateCommandPalette },
+  { key = "p", mods = "CMD|SHIFT", action = act.ActivateCommandPalette },
 
-  { key = "{", mods = "SHIFT|ALT", action = wezterm.action.MoveTabRelative(-1) },
-  { key = "}", mods = "SHIFT|ALT", action = wezterm.action.MoveTabRelative(1)  },
+  { key = "{", mods = "CMD|SHIFT", action = act.MoveTabRelative(-1) },
+  { key = "}", mods = "CMD|SHIFT", action = act.MoveTabRelative(1)  },
+  { key = "LeftArrow" , mods = "SHIFT|CMD", action = act { ActivateTabRelative = -1 } },
+  { key = "RightArrow", mods = "SHIFT|CMD", action = act { ActivateTabRelative =  1 } },
+  { key = "UpArrow",    mods = "ALT|SHIFT", action = act.ActivatePaneDirection "Up" },
+  { key = "DownArrow",  mods = "ALT|SHIFT", action = act.ActivatePaneDirection "Down" },
+  { key = "LeftArrow",  mods = "ALT|SHIFT", action = act.ActivatePaneDirection "Left" },
+  { key = "RightArrow", mods = "ALT|SHIFT", action = act.ActivatePaneDirection "Right" },
 
-  { key = "b", mods = "ALT",  action = wezterm.action.RotatePanes("CounterClockwise") },
-  { key = "w", mods = "CMD",  action = wezterm.action.CloseCurrentPane { confirm = true } },
-  { key = "q", mods = "CMD",  action = wezterm.action.QuitApplication },
-  { key = "f", mods = "CTRL|CMD",   action = wezterm.action.ToggleFullScreen },
-  { key = "z", mods = "CTRL|SHIFT", action = wezterm.action.TogglePaneZoomState },
-  { key = "0", mods = "CMD|SHIFT", action = wezterm.action.PaneSelect      { alphabet = "1234567890" } },
-  { key = "-", mods = "CMD|SHIFT", action = wezterm.action.SplitVertical   { domain = "CurrentPaneDomain" } },
-  { key = "|", mods = "CMD|SHIFT", action = wezterm.action.SplitHorizontal { domain = "CurrentPaneDomain" } },
-  { key = "LeftArrow" , mods = "SHIFT|CMD", action = wezterm.action { ActivateTabRelative = -1 } },
-  { key = "RightArrow", mods = "SHIFT|CMD", action = wezterm.action { ActivateTabRelative =  1 } },
+  { key = "l", mods = "ALT",  action = act.ShowLauncher },
+  { key = "9", mods = "ALT",  action = act.ShowLauncherArgs { flags = "FUZZY|TABS" } },
+  { key = "0", mods = "ALT",  action = act.ShowLauncherArgs { flags = "FUZZY|WORKSPACES" } },
+  { key = "w", mods = "CMD",  action = act.CloseCurrentPane { confirm = true } },
+  { key = "q", mods = "CMD",  action = act.QuitApplication },
+  { key = "f", mods = "CTRL|CMD",   action = act.ToggleFullScreen },
+  { key = "z", mods = "CTRL|SHIFT", action = act.TogglePaneZoomState },
 
-  { key = "UpArrow",    mods = "SHIFT|CTRL", action = wezterm.action.ActivatePaneDirection "Up" },
-  { key = "DownArrow",  mods = "SHIFT|CTRL", action = wezterm.action.ActivatePaneDirection "Down" },
-  { key = "LeftArrow",  mods = "SHIFT|CTRL", action = wezterm.action.ActivatePaneDirection "Left" },
-  { key = "RightArrow", mods = "SHIFT|CTRL", action = wezterm.action.ActivatePaneDirection "Right" },
+  { key = "b", mods = "ALT",  action = act.RotatePanes("CounterClockwise") },
+  { key = "0", mods = "CMD|SHIFT", action = act.PaneSelect      { alphabet = "1234567890" } },
+  { key = "-", mods = "CMD|SHIFT", action = act.SplitVertical   { domain = "CurrentPaneDomain" } },
+  { key = "|", mods = "CMD|SHIFT", action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
 
-  { key = "r", mods = "CMD", action = wezterm.action.ReloadConfiguration },
-  { key = "m", mods = "CMD", action = wezterm.action.Hide },
-  { key = "h", mods = "CMD", action = wezterm.action.HideApplication },
-  { key = "c", mods = "CMD", action = wezterm.action.CopyTo "Clipboard" },
-  { key = "v", mods = "CMD", action = wezterm.action.PasteFrom "Clipboard" },
-  { key = "t", mods = "CMD", action = wezterm.action.SpawnCommandInNewTab { cwd = "~" }, },
-  { key = "n", mods = "CMD", action = wezterm.action.SpawnCommandInNewTab { cwd = "~" } },
-  { key = "n", mods = "CMD|SHIFT",  action = wezterm.action.SpawnCommandInNewWindow { cwd = "~" } },
-  { key = "f", mods = "CTRL|SHIFT", action = wezterm.action { Search = { CaseSensitiveString = "" } } },
+  { key = "UpArrow",   mods = "SHIFT", action = act.ScrollByLine(-1) },
+  { key = "DownArrow", mods = "SHIFT", action = act.ScrollByLine(1)  },
+  { key = "PageUp",    mods = "SHIFT", action = act.ScrollByPage(-1) },
+  { key = "PageDown",  mods = "SHIFT", action = act.ScrollByPage(1)  },
+  {
+    key = "K", mods = "CTRL|SHIFT",
+    action = act.Multiple {
+      act.ClearScrollback "ScrollbackAndViewport",
+      act.SendKey { key = "L", mods = "CTRL" },
+    },
+  },
 
-  { key = "LeftArrow",  mods = "CMD", action = wezterm.action.SendString "\x01" },
-  { key = "RightArrow", mods = "CMD", action = wezterm.action.SendString "\x05" },
-  { key = "LeftArrow",  mods = "ALT", action = wezterm.action.SendString "\x1bb" },
-  { key = "RightArrow", mods = "ALT", action = wezterm.action.SendString "\x1bf" },
+  {
+    key = "W",
+    mods = "CTRL|SHIFT",
+    action = act.PromptInputLine {
+      description = wezterm.format {
+        { Attribute = { Intensity = "Bold" } },
+        { Foreground = { Color = "#A9DD4E" } },
+        { Text = "Enter name for new workspace" },
+      },
+      action = wezterm.action_callback(function(window, pane, line)
+        if line then
+          window:perform_action(
+            act.SwitchToWorkspace { name = line },
+            pane
+          )
+        end
+      end),
+    },
+  },
 
-  { key = "1", mods = "CMD", action = wezterm.action { ActivateTab = 0  } },
-  { key = "2", mods = "CMD", action = wezterm.action { ActivateTab = 1  } },
-  { key = "3", mods = "CMD", action = wezterm.action { ActivateTab = 2  } },
-  { key = "4", mods = "CMD", action = wezterm.action { ActivateTab = 3  } },
-  { key = "5", mods = "CMD", action = wezterm.action { ActivateTab = 4  } },
-  { key = "6", mods = "CMD", action = wezterm.action { ActivateTab = 5  } },
-  { key = "7", mods = "CMD", action = wezterm.action { ActivateTab = 6  } },
-  { key = "8", mods = "CMD", action = wezterm.action { ActivateTab = 7  } },
-  { key = "9", mods = "CMD", action = wezterm.action { ActivateTab = -1 } },
+  { key = "r", mods = "CMD", action = act.ReloadConfiguration },
+  { key = "m", mods = "CMD", action = act.Hide },
+  { key = "h", mods = "CMD", action = act.HideApplication },
+  { key = "c", mods = "CMD", action = act.CopyTo "Clipboard" },
+  { key = "v", mods = "CMD", action = act.PasteFrom "Clipboard" },
+  { key = "t", mods = "CMD", action = act.SpawnCommandInNewTab { cwd = "~" }, },
+  { key = "n", mods = "CMD", action = act.SpawnCommandInNewTab { cwd = "~" } },
+  { key = "n", mods = "CMD|SHIFT",  action = act.SpawnCommandInNewWindow { cwd = "~" } },
+  { key = "f", mods = "CTRL|SHIFT", action = act { Search = { CaseSensitiveString = "" } } },
 
-  { key = "0", mods = "CMD", action = wezterm.action.ResetFontSize },
-  -- { key = "=", mods = "CMD", action = wezterm.action.IncreaseFontSize },
-  -- { key = "-", mods = "CMD", action = wezterm.action.DecreaseFontSize },
+  { key = "LeftArrow",  mods = "CMD", action = act.SendString "\x01" },
+  { key = "RightArrow", mods = "CMD", action = act.SendString "\x05" },
+  { key = "LeftArrow",  mods = "ALT", action = act.SendString "\x1bb" },
+  { key = "RightArrow", mods = "ALT", action = act.SendString "\x1bf" },
+
+  { key = "1", mods = "CMD", action = act { ActivateTab = 0  } },
+  { key = "2", mods = "CMD", action = act { ActivateTab = 1  } },
+  { key = "3", mods = "CMD", action = act { ActivateTab = 2  } },
+  { key = "4", mods = "CMD", action = act { ActivateTab = 3  } },
+  { key = "5", mods = "CMD", action = act { ActivateTab = 4  } },
+  { key = "6", mods = "CMD", action = act { ActivateTab = 5  } },
+  { key = "7", mods = "CMD", action = act { ActivateTab = 6  } },
+  { key = "8", mods = "CMD", action = act { ActivateTab = 7  } },
+  { key = "9", mods = "CMD", action = act { ActivateTab = -1 } },
+
+  { key = "0", mods = "CMD", action = act.ResetFontSize },
+  -- { key = "=", mods = "CMD", action = act.IncreaseFontSize },
+  -- { key = "-", mods = "CMD", action = act.DecreaseFontSize },
 }

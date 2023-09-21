@@ -3,7 +3,8 @@ ansi =    ["#1A1A1A", "#DD2355", "#B0E05C", "#EC9147", "#55BEFF", "#9A75F6", "#E
 brights = ["#424242", "#DF3261", "#A9DD4E", "#FEF5A3", "#49baff", "#936CF6", "#DF3261", "#7BCFE8"]
 
 #background    = "#14161b"
-background    = "#1A1D24"
+# background    = "#1A1D24"
+background    = "#1D212D"
 foreground    = "#dddddd"
 
 cursor_bg     = "#ffffff"
@@ -11,10 +12,10 @@ cursor_border = "#ffffff"
 cursor_fg     = "#f6f6f6"
 
 selection_fg  = "none"
-selection_bg  = "rgba(140, 0, 255, 30%)"
+selection_bg  = "rgba(122, 54, 217, 30%)"
 
 [colors.tab_bar]
-background    = "#1A1D24"
+background    = "#1D212D"
 inactive_tab_edge = "#ffffff"
 
 [colors.tab_bar.active_tab]
@@ -23,21 +24,21 @@ fg_color = "#ffffff"
 intensity = "Bold"
 
 [colors.tab_bar.inactive_tab]
-bg_color = "#1A1D24"
+bg_color = "#1D212D"
 fg_color = "#777777"
 
 [colors.tab_bar.inactive_tab_hover]
-bg_color = "#1A1D24"
+bg_color = "#1D212D"
 fg_color = "#ffffff"
 italic = false
 
 [colors.tab_bar.new_tab]
-bg_color = "#1A1D24"
+bg_color = "#1D212D"
 fg_color = "#FFFFFF"
 italic = false
 
 [colors.tab_bar.new_tab_hover]
-bg_color = "#1A1D24"
+bg_color = "#1D212D"
 fg_color = "#8C00FF"
 italic = false
 intensity = "Bold"

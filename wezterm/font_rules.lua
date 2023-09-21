@@ -1,12 +1,12 @@
 local wezterm = require "wezterm"
 
 -- wezterm.font("Inconsolata", { weight="Black" })
+-- wezterm.font("Inconsolata", { weight="ExtraBold" })
 -- wezterm.font("Inconsolata", { weight="Bold" })
 -- wezterm.font("Inconsolata", { weight="DemiBold" })
--- wezterm.font("Inconsolata", { weight="ExtraBold" })
--- wezterm.font("Inconsolata", { weight="Light" })
 -- wezterm.font("Inconsolata", { weight="Medium" })
 -- wezterm.font("Inconsolata", { weight="Regular" })
+-- wezterm.font("Inconsolata", { weight="Light" })
 -- wezterm.font("Inconsolata", { weight=275 })
 
 return {

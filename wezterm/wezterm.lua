@@ -2,6 +2,8 @@ local wezterm = require "wezterm"
 local utils = require "utils"
 local keys = require "keys"
 local font_rules = require "font_rules"
+local launch_menu = require "launch_menu"
+local custom_colors = require "custom_colors"
 
 -- https://github.com/yutkat/dotfiles
 -- https://github.com/KevinSilvester/wezterm-config
@@ -9,10 +11,31 @@ local font_rules = require "font_rules"
 -- https://github.com/marcusramberg/dotfiles/blob/main/link/config/wezterm/pomodoro.lua
 -- https://github.com/protiumx/.dotfiles/blob/main/stow/wezterm/.config/wezterm/wezterm.lua
 
+local mux = wezterm.mux
+wezterm.on("gui-startup", function(cmd)
+  local tab, pane, window = mux.spawn_window(cmd or
+    {
+      cwd = os.getenv("HOME"),
+      position = { x = 750, y = 480},
+    }
+  )
+  mux.set_active_workspace "default"
+end)
+
 wezterm.on("format-tab-title",
   function(tab, tabs, panes, config, hover, max_width)
     local title = utils.create_tab_title(tab, tabs, panes, config, hover, max_width)
     return {{ Text = title }}
+  end
+)
+
+wezterm.on("update-status",
+  function(window, pane)
+    window:set_right_status(wezterm.format {
+      { Attribute = { Italic = true } },
+      { Foreground = { Color = "#a6e3a1" } }, -- green
+      { Text = window:active_workspace() },
+    })
   end
 )
 
@@ -22,9 +45,10 @@ wezterm.on("window-config-reloaded",
   end
 )
 
-return {
-  color_scheme = "Abe",
+local config = {
   default_cwd = os.getenv("HOME"),
+  default_workspace = "default",
+  enable_kitty_graphics = true,
   font = wezterm.font_with_fallback{
     { family = "Inconsolata", weight = "Regular" },
     { family = "Symbols Nerd Font Mono", weight = "Regular", scale = 0.9 },
@@ -60,5 +84,8 @@ return {
   use_fancy_tab_bar = false,
   debug_key_events = false,
   disable_default_key_bindings = true,
+  launch_menu = launch_menu,
   keys = keys,
 }
+for k,v in pairs(custom_colors) do config[k] = v end
+return config

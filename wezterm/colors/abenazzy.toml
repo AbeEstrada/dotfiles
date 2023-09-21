@@ -1,0 +1,66 @@
+[colors]
+
+# https://github.com/Gogh-Co/Gogh/blob/master/themes/Snazzy.yml
+
+ansi =    [
+  # "#282A36", # Black (Host)
+  "#343646", # Black (Host)
+  "#F07396", # Red (Syntax string)
+  "#A6E3A1", # Green (Command)
+  "#F7D792", # Yellow (Command second)
+  "#6FA4F9", # Blue (Path)
+  "#BD93F9", # Magenta (Syntax var)
+  "#9AEDFE", # Cyan (Prompt)
+  "#F1F1F0", # White
+]
+brights = [
+  "#686868", # Bright Black
+  "#F07396", # Bright Red (Command error)
+  "#A6E3A1", # Bright Green (Exec)
+  "#F7D792", # Bright Yellow
+  "#6FA4F9", # Bright Blue (Folder)
+  "#BD93F9", # Bright Magenta
+  "#9AEDFE", # Bright Cyan
+  "#EFF0EB", # Bright White
+]
+
+background    = "#1e1e2e"
+foreground    = "#EFF0EB"
+
+cursor_fg     = "#97979B"
+cursor_bg     = "#ffffff"
+cursor_border = "#ffffff"
+
+selection_fg  = "none"
+selection_bg  = "rgba(122, 54, 217, 25%)"
+
+[colors.tab_bar]
+background    = "#1e1e2e"
+inactive_tab_edge = "#ffffff"
+
+[colors.tab_bar.active_tab]
+bg_color = "#1e1e2e"
+fg_color = "#BD93F9"
+intensity = "Bold"
+
+[colors.tab_bar.inactive_tab]
+bg_color = "#1e1e2e"
+fg_color = "#686868"
+
+[colors.tab_bar.inactive_tab_hover]
+bg_color = "#1e1e2e"
+fg_color = "#EFF0EB"
+italic = false
+
+[colors.tab_bar.new_tab]
+bg_color = "#1e1e2e"
+fg_color = "#EFF0EB"
+italic = false
+
+[colors.tab_bar.new_tab_hover]
+bg_color = "#1e1e2e"
+fg_color = "#BD93F9"
+italic = false
+
+[metadata]
+name = "Abenazzy"
