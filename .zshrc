@@ -1,6 +1,9 @@
 # zsh-defer https://github.com/romkatv/zsh-defer
 source ~/.oh-my-zsh/custom/plugins/zsh-defer/zsh-defer.plugin.zsh
 
+# https://github.com/catppuccin/zsh-syntax-highlighting
+#source ~/.oh-my-zsh/custom/themes/zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
+
 # fnm https://github.com/Schniz/fnm
 zsh-defer -t 1 eval "$(fnm env --use-on-cd)"
 
@@ -39,6 +42,7 @@ plugins=(
   zoxide
   zsh-interactive-cd
   # third party
+  fzf-tab
   history-substring-search
   zsh-autosuggestions
   zsh-better-npm-completion
@@ -52,7 +56,6 @@ stty -ixon
 COMPLETION_WAITING_DOTS=true
 ENABLE_CORRECTION=true
 HIST_STAMPS="yyyy/mm/dd"
-
 
 setopt CORRECT
 setopt COMBINING_CHARS
@@ -69,19 +72,23 @@ setopt NO_SHARE_HISTORY
 unsetopt SHARE_HISTORY
 unset zle_bracketed_paste # Disable paste highlight
 
+# alias imgcat='~/.iterm2/imgcat'
+# alias ssh='wezterm ssh'
+# alias serial='wezterm serial'
+# alias imgcat='wezterm imgcat'
+
 alias c='cal -3'
-alias cat='bat'
-alias cd='z'
 alias emptytrash='rm -rf ~/.Trash/*'
 alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
 alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
 alias hist='history | fzf'
 alias ip='dig +short myip.opendns.com @resolver1.opendns.com 2> /dev/null || echo none'
 alias ips='ifconfig | grep broadcast'
-alias l='exa  --classify --long --header --git --time-style=long-iso --no-permissions --no-user'
-alias la='exa --classify --long --header --git --time-style=long-iso --no-permissions --no-user --icons --all'
-alias ll='exa --classify --long --header --git --time-style=long-iso --icons'
+alias l='eza  --classify --long --header --git --time-style=long-iso --no-permissions --no-user --no-icons'
+alias la='eza --classify --long --header --git --time-style=long-iso --no-permissions --no-user --no-icons --all'
+alias ll='eza --classify --long --header --git --time-style=long-iso --octal-permissions --icons'
 alias n='~/.bin/nvim-macos/bin/nvim'
+alias neovim='~/.bin/nvim-macos/bin/nvim'
 alias node_modules='find . -name "node_modules" -type d -prune -print | xargs du -chs'
 alias nvim='~/.bin/nvim-macos/bin/nvim'
 alias o='open_command $PWD'
@@ -95,11 +102,13 @@ alias todo="grep --color=always --exclude-dir={.git,node_modules,.next} -RIin -E
 alias tree='exa --classify --tree'
 alias v="stty stop '' -ixoff; vim"
 alias vim="stty stop '' -ixoff; vim"
-alias weather='curl wttr.in/cjs\?1q'
+alias weather='curl wttr.in/cjs\?0q'
 alias ytdl='yt-dlp -f mp4 --id --cookies-from-browser safari'
 s() { subl "${1:-.}"; }
 
 function rr { # https://github.com/mrusme/reader
   readonly u=${1:?"Reader: The url must be specified."}
-  curl -A "Mozilla Gecko Firefox" -sL "$u" | reader - | less -R
+  curl -A "Mozilla Firefox" -sL "$u" | reader - | less -R
 }
+
+# test -e ~/.iterm2_shell_integration.zsh && source ~/.iterm2_shell_integration.zsh || true
