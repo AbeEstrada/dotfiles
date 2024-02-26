@@ -16,7 +16,7 @@ wezterm.on("gui-startup", function(cmd)
   local tab, pane, window = mux.spawn_window(cmd or
     {
       cwd = os.getenv("HOME"),
-      position = { x = 750, y = 480},
+      position = { x = 750, y = 480 },
     }
   )
   mux.set_active_workspace "default"
@@ -25,7 +25,7 @@ end)
 wezterm.on("format-tab-title",
   function(tab, tabs, panes, config, hover, max_width)
     local title = utils.create_tab_title(tab, tabs, panes, config, hover, max_width)
-    return {{ Text = title }}
+    return { { Text = title } }
   end
 )
 
@@ -49,21 +49,22 @@ local config = {
   default_cwd = os.getenv("HOME"),
   default_workspace = "default",
   enable_kitty_graphics = true,
-  font = wezterm.font_with_fallback{
-    { family = "Inconsolata", weight = "Regular" },
+  font = wezterm.font_with_fallback {
+    { family = "Inconsolata",            weight = "Medium" },
     { family = "Symbols Nerd Font Mono", weight = "Regular", scale = 0.9 },
     { family = "Apple Color Emoji" },
   },
   font_rules = font_rules,
-  font_size = 16.0,
+  font_size = 15.0,
   initial_cols = 170,
   initial_rows = 45,
   cursor_thickness = 1.5,
   default_cursor_style = "BlinkingBar",
+  scrollback_lines = 7000,
   enable_scroll_bar = true,
   bold_brightens_ansi_colors = true,
-  window_background_opacity = 0.96,
-  macos_window_background_blur = 3,
+  window_background_opacity = 0.92,
+  macos_window_background_blur = 5,
   native_macos_fullscreen_mode = true,
   show_new_tab_button_in_tab_bar = true,
   quit_when_all_windows_are_closed = false,
@@ -87,5 +88,7 @@ local config = {
   launch_menu = launch_menu,
   keys = keys,
 }
-for k,v in pairs(custom_colors) do config[k] = v end
+
+for k, v in pairs(custom_colors) do config[k] = v end
+
 return config

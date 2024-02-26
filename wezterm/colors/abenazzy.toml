@@ -34,6 +34,8 @@ cursor_border = "#ffffff"
 selection_fg  = "none"
 selection_bg  = "rgba(122, 54, 217, 25%)"
 
+scrollbar_thumb = "#BD93F9"
+
 [colors.tab_bar]
 background    = "#1e1e2e"
 inactive_tab_edge = "#ffffff"

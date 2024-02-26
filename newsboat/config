@@ -3,15 +3,15 @@
 browser "open -gj -a Safari '%u' &"
 auto-reload yes
 refresh-on-startup no
+reload-threads 16
 suppress-first-reload yes
-download-timeout 60 # seconds
-reload-time 30 # minutes
-reload-threads 10
+reload-time 60 # minutes
+download-timeout 90 # seconds
 keep-articles-days 7
 prepopulate-query-feeds yes
+confirm-exit yes
 notify-always yes
 cleanup-on-quit yes
-confirm-exit yes
 error-log "~/.config/newsboat/error.log"
 
 show-read-feeds no
@@ -33,10 +33,20 @@ search-highlight-colors black yellow
 
 define-filter "2 days old" "age >= 2"
 
+# Theme: Abe
+# color end-of-text-marker color235 default
+# color hint-key           color255 color93 bold # purple
+# color info               color255 color93      # purple
+# color listfocus          color5   default      # purple
+# color listfocus_unread   color5   default bold # purple
+# color listnormal         color249 default      # gray
+# color listnormal_unread  color255 default bold # white
+# color title              color255 color93 bold # purple
+
 color end-of-text-marker black default
 color listfocus          magenta default
 color listfocus_unread   magenta default bold
-color listnormal         white   default dim
+color listnormal         color250   default dim
 color listnormal_unread  white   default bold
 color title              cyan    black bold
 color info               cyan    black
@@ -51,13 +61,13 @@ highlight article "^(Title):"             default  default bold
 highlight article "https?://[^ ]+"        blue     default
 highlight article "\\[image\\ [0-9].+\\]" yellow   default
 
-highlight-article "title =~ \"S3\"             and tags # \"AWS\""    color183 default bold
-highlight-article "title =~ \"Lambda\"         and tags # \"AWS\""    color183 default bold
-highlight-article "title =~ \"Amplify\"        and tags # \"AWS\""    color183 default bold
-highlight-article "title =~ \"DynamoDB\"       and tags # \"AWS\""    color183 default bold
-highlight-article "title =~ \"AppRunner\"      and tags # \"AWS\""    color183 default bold
-highlight-article "title =~ \"App Runner\"     and tags # \"AWS\""    color183 default bold
-highlight-article "title =~ \"Everyday Carry\" and tags # \"Mnmlst\"" color183 default bold
+highlight-article "title =~ \"S3\"             and tags # \"AWS\""    red default bold
+highlight-article "title =~ \"Lambda\"         and tags # \"AWS\""    red default bold
+highlight-article "title =~ \"Amplify\"        and tags # \"AWS\""    red default bold
+highlight-article "title =~ \"DynamoDB\"       and tags # \"AWS\""    red default bold
+highlight-article "title =~ \"AppRunner\"      and tags # \"AWS\""    red default bold
+highlight-article "title =~ \"App Runner\"     and tags # \"AWS\""    red default bold
+highlight-article "title =~ \"Everyday Carry\" and tags # \"Mnmlst\"" red default bold
 
 unbind-key  j
 unbind-key  J
@@ -137,8 +147,8 @@ macro t set browser "pane_id=$(wezterm cli spawn) && echo 'browsh '\''%u'\''' | 
 
 # Images
 # https://github.com/wez/wezterm/discussions/2202
-macro i set browser "pane_id=$(wezterm cli spawn) && echo 'imgcat -u '\''%u'\''' | wezterm cli send-text --no-paste --pane-id $pane_id" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
-macro j set browser "curl -A 'Mozilla Gecko Firefox' -sL '%u' | imgcat | less -r" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
+# macro i set browser "pane_id=$(wezterm cli spawn) && echo 'imgcat -u '\''%u'\''' | wezterm cli send-text --no-paste --pane-id $pane_id" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
+macro j set browser "curl -A 'Mozilla Gecko Firefox' -sL '%u' | wezterm imgcat | less -r" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
 
 # Podboat
 player "open -gj -a 'Quicktime Player'"

@@ -9,32 +9,37 @@ local M = {}
 local HOME = os.getenv("HOME")
 
 local process_icons = {
-  ["aria2c"] = nerdfonts.md_cloud_download_outline,
-  ["bash"] = nerdfonts.md_bash,
-  ["brew"]  = nerdfonts.md_glass_mug_variant,
-  ["btm"]  = nerdfonts.cod_graph_line,
-  ["bubc"]  = nerdfonts.md_glass_mug_variant,
-  ["bubo"]  = nerdfonts.md_glass_mug_variant,
-  ["curl"] = nerdfonts.md_cloud_download_outline,
-  ["git"]  = nerdfonts.dev_git,
-  ["go"]  = nerdfonts.seti_go,
-  ["hugo"]  = nerdfonts.md_hexagon,
-  ["man"] = nerdfonts.fae_book_open_o,
+  ["aria2c"]   = nerdfonts.md_cloud_download_outline,
+  ["aws"]      = nerdfonts.md_aws,
+  ["bash"]     = nerdfonts.md_bash,
+  ["brew"]     = nerdfonts.md_glass_mug_variant,
+  ["btm"]      = nerdfonts.cod_graph_line,
+  ["bubc"]     = nerdfonts.md_glass_mug_variant,
+  ["bubo"]     = nerdfonts.md_glass_mug_variant,
+  ["curl"]     = nerdfonts.md_cloud_download_outline,
+  ["git"]      = nerdfonts.dev_git,
+  ["go"]       = nerdfonts.seti_go,
+  ["hugo"]     = nerdfonts.md_hexagon,
+  ["hx"]       = nerdfonts.md_dna,
+  ["man"]      = nerdfonts.fae_book_open_o,
+  ["n"]        = nerdfonts.custom_vim,
   ["newsboat"] = nerdfonts.fa_newspaper_o,
-  ["node"] = nerdfonts.md_nodejs,
-  ["nvim"] = nerdfonts.custom_vim,
-  ["python"] = nerdfonts.fae_python,
-  ["ruby"] = nerdfonts.fae_ruby_o,
-  ["sftp"] = nerdfonts.md_folder_network_outline,
-  ["ssh"] = nerdfonts.md_folder_key_network,
-  ["ticker"] = nerdfonts.md_finance,
-  ["toot"] = nerdfonts.md_mastodon,
-  ["vim"] = nerdfonts.dev_vim,
-  ["zsh"] = nerdfonts.fa_folder_open_o,
+  ["node"]     = nerdfonts.md_nodejs,
+  ["nvim"]     = nerdfonts.custom_vim,
+  ["py"]       = nerdfonts.fae_python,
+  ["python"]   = nerdfonts.fae_python,
+  ["ruby"]     = nerdfonts.fae_ruby_o,
+  ["sftp"]     = nerdfonts.md_folder_network_outline,
+  ["ssh"]      = nerdfonts.md_folder_key_network,
+  ["ticker"]   = nerdfonts.md_finance,
+  ["toot"]     = nerdfonts.md_mastodon,
+  ["v"]        = nerdfonts.dev_vim,
+  ["vim"]      = nerdfonts.dev_vim,
+  ["zsh"]      = nerdfonts.fa_folder_open_o,
 }
 
 function M.basename(str)
-	str = string.gsub(str, "(.*[/\\])(.*)", "%2")
+  str = string.gsub(str, "(.*[/\\])(.*)", "%2")
   str = string.gsub(str, "%s+", "") -- trim
   return str
 end
@@ -53,7 +58,7 @@ function M.convert_useful_path(dir)
     end
     return cwd
   end
-	return M.basename(dir)
+  return M.basename(dir)
 end
 
 function M.create_tab_title(tab, tabs, panes, config, hover, max_width)

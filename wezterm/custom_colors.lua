@@ -1,33 +1,33 @@
 local wezterm = require("wezterm")
 
 -- local custom = wezterm.color.get_builtin_schemes()["Catppuccin Mocha"]
-local custom = wezterm.color.get_builtin_schemes()["Snazzy (Gogh)"]
-custom.background = "#181825"
+local custom = wezterm.color.get_builtin_schemes()["tokyonight_moon"]
+custom.background = "#1e1e2e"
 custom.tab_bar = {
-  background = "#181825",
+  background = "#1e1e2e",
 }
 custom.tab_bar.active_tab = {
-  fg_color = "#FAF9F9",
-  bg_color = "#AF5FFF",
-  -- intensity = "Bold",
+  fg_color = "#BD93F9",
+  bg_color = "#1e1e2e",
+  intensity = "Bold",
 }
 custom.tab_bar.inactive_tab = {
-  fg_color = "#FAF9F9",
-  bg_color = "#181825",
+  fg_color = "#686868",
+  bg_color = "#1e1e2e",
 }
 custom.tab_bar.inactive_tab_hover = {
-  fg_color = "#AF5FFF",
-  bg_color = "#FAF9F9",
+  fg_color = "#EFF0EB",
+  bg_color = "#1e1e2e",
   italic = false,
 }
 custom.tab_bar.new_tab = {
-  fg_color = "#AF5FFF",
-  bg_color = "#181825",
+  fg_color = "#EFF0EB",
+  bg_color = "#1e1e2e",
   intensity = "Bold",
 }
 custom.tab_bar.new_tab_hover = {
-  fg_color = "#AF5FFF",
-  bg_color = "#FAF9F9",
+  fg_color = "#BD93F9",
+  bg_color = "#1e1e2e",
   italic = false,
   intensity = "Bold",
 }
@@ -37,4 +37,5 @@ return {
     ["AbeCustom"] = custom,
   },
   color_scheme = "Abenazzy",
+  -- color_scheme = "AbeCustom",
 }
