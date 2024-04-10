@@ -16,7 +16,7 @@ wezterm.on("gui-startup", function(cmd)
   local tab, pane, window = mux.spawn_window(cmd or
     {
       cwd = os.getenv("HOME"),
-      position = { x = 750, y = 480 },
+      position = { x = 1024, y = 512 },
     }
   )
   mux.set_active_workspace "default"
@@ -56,20 +56,22 @@ local config = {
   },
   font_rules = font_rules,
   font_size = 15.0,
-  initial_cols = 170,
-  initial_rows = 45,
+  initial_cols = 200,
+  initial_rows = 50,
   cursor_thickness = 1.5,
   default_cursor_style = "BlinkingBar",
   scrollback_lines = 7000,
   enable_scroll_bar = true,
   bold_brightens_ansi_colors = true,
-  window_background_opacity = 0.92,
+  window_background_opacity = 0.98,
   macos_window_background_blur = 5,
   native_macos_fullscreen_mode = true,
   show_new_tab_button_in_tab_bar = true,
   quit_when_all_windows_are_closed = false,
   switch_to_last_active_tab_when_closing_tab = true,
   adjust_window_size_when_changing_font_size = false,
+  send_composed_key_when_left_alt_is_pressed = true,
+  send_composed_key_when_right_alt_is_pressed = false,
   window_padding = {
     top = "0.25cell",
     bottom = "0.25cell",
@@ -77,8 +79,8 @@ local config = {
     left = "0.4cell",
   },
   inactive_pane_hsb = {
-    saturation = 0.9,
-    brightness = 0.7,
+    saturation = 0.95,
+    brightness = 0.5,
   },
   tab_max_width = 48,
   enable_tab_bar = true,

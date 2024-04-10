@@ -4,18 +4,20 @@ local act = wezterm.action
 -- https://wezfurlong.org/wezterm/config/default-keys.html?h=default
 
 return {
-  -- Send 'Ctrl + s'
+  -- Send Ctrl + s
   { key = "s",          mods = "CMD",        action = act.SendString("\x13") }, -- C-s
+  -- Try to use menu shortcut
+  { key = "|",          mods = "CTRL|SHIFT", action = wezterm.action.DisableDefaultAssignment },
 
   { key = "p",          mods = "CMD|SHIFT",  action = act.ActivateCommandPalette },
   { key = "{",          mods = "CMD|SHIFT",  action = act.MoveTabRelative(-1) },
   { key = "}",          mods = "CMD|SHIFT",  action = act.MoveTabRelative(1) },
   { key = "LeftArrow",  mods = "SHIFT|CMD",  action = act { ActivateTabRelative = -1 } },
   { key = "RightArrow", mods = "SHIFT|CMD",  action = act { ActivateTabRelative = 1 } },
-  { key = "UpArrow",    mods = "ALT|SHIFT",  action = act.ActivatePaneDirection "Up" },
-  { key = "DownArrow",  mods = "ALT|SHIFT",  action = act.ActivatePaneDirection "Down" },
-  { key = "LeftArrow",  mods = "ALT|SHIFT",  action = act.ActivatePaneDirection "Left" },
-  { key = "RightArrow", mods = "ALT|SHIFT",  action = act.ActivatePaneDirection "Right" },
+  { key = "UpArrow",    mods = "ALT|CMD",    action = act.ActivatePaneDirection "Up" },
+  { key = "DownArrow",  mods = "ALT|CMD",    action = act.ActivatePaneDirection "Down" },
+  { key = "LeftArrow",  mods = "ALT|CMD",    action = act.ActivatePaneDirection "Left" },
+  { key = "RightArrow", mods = "ALT|CMD",    action = act.ActivatePaneDirection "Right" },
 
   { key = "l",          mods = "ALT",        action = act.ShowLauncher },
   { key = "9",          mods = "ALT",        action = act.ShowLauncherArgs { flags = "FUZZY|TABS" } },
@@ -42,7 +44,14 @@ return {
       act.SendKey { key = "L", mods = "CTRL" },
     },
   },
-
+  {
+    key = "U",
+    mods = "SHIFT|CTRL",
+    action = wezterm.action.CharSelect {
+      copy_on_select = true,
+      copy_to = "ClipboardAndPrimarySelection",
+    },
+  },
   {
     key = "W",
     mods = "CTRL|SHIFT",
@@ -73,10 +82,13 @@ return {
   { key = "n",          mods = "CMD|SHIFT",  action = act.SpawnCommandInNewWindow { cwd = "~" } },
   { key = "f",          mods = "CTRL|SHIFT", action = act { Search = { CaseSensitiveString = "" } } },
 
-  { key = "LeftArrow",  mods = "CMD",        action = act.SendString "\x01" },
-  { key = "RightArrow", mods = "CMD",        action = act.SendString "\x05" },
-  { key = "LeftArrow",  mods = "ALT",        action = act.SendString "\x1bb" },
-  { key = "RightArrow", mods = "ALT",        action = act.SendString "\x1bf" },
+  -- { key = "LeftArrow",  mods = "CMD",        action = act.SendString "\x01" },
+  -- { key = "RightArrow", mods = "CMD",        action = act.SendString "\x05" },
+  -- { key = "LeftArrow",  mods = "ALT",        action = act.SendString "\x1bb" },
+  -- { key = "RightArrow", mods = "ALT",        action = act.SendString "\x1bf" },
+
+  { key = "LeftArrow",  mods = "CTRL|SHIFT", action = "DisableDefaultAssignment" },
+  { key = "RightArrow", mods = "CTRL|SHIFT", action = "DisableDefaultAssignment" },
 
   { key = "1",          mods = "CMD",        action = act { ActivateTab = 0 } },
   { key = "2",          mods = "CMD",        action = act { ActivateTab = 1 } },
@@ -89,6 +101,6 @@ return {
   { key = "9",          mods = "CMD",        action = act { ActivateTab = -1 } },
 
   { key = "0",          mods = "CMD",        action = act.ResetFontSize },
-  -- { key = "=", mods = "CMD", action = act.IncreaseFontSize },
-  -- { key = "-", mods = "CMD", action = act.DecreaseFontSize },
+  { key = "=",          mods = "CMD",        action = act.IncreaseFontSize },
+  { key = "-",          mods = "CMD",        action = act.DecreaseFontSize },
 }
