@@ -1,0 +1,43 @@
+theme = "catppuccin_mocha_transparent"
+
+[editor]
+  color-modes = true
+  auto-format = true
+  scrolloff = 5
+  rulers = [80, 120]
+  popup-border = "all"
+  bufferline = "always"
+  shell = ["zsh", "-cu"]
+   
+[editor.cursor-shape]
+  insert = "bar"
+  normal = "block"
+  select = "underline"
+
+[editor.whitespace.render]
+  tab = "all"
+  tabpad = "all"
+  space = "all"
+  newline = "none"
+
+[editor.indent-guides]
+  render = true
+  character = "▌"
+  skip-levels = 1
+
+[editor.whitespace.characters]
+  space = "·"
+
+[editor.statusline]
+  center = ["version-control"]
+  mode.normal = "NORMAL"
+  mode.insert = "INSERT"
+  mode.select = "SELECT"
+
+[keys.normal]
+  C-A-right = "goto_next_buffer"
+  C-A-left  = "goto_previous_buffer"
+  C-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
+  C-k = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
+  C-g = ["search_selection", "extend_search_next"]
+  X = ["extend_line_up", "extend_to_line_bounds"]

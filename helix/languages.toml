@@ -1,0 +1,42 @@
+[language-server]
+biome = { command = "biome", args = ["lsp-proxy"] }
+
+[[language]]
+name = "html"
+auto-format = true
+formatter = { command = "tidy", args = ["-q", "-i", "--"] }
+
+[[language]]
+name = "javascript"
+language-servers = [ "biome" ]
+auto-format = true
+formatter = { command = "biome", args = ["format", "--stdin-file-path", "test.js"] }
+
+[[language]]
+name = "json"
+language-servers = [ "biome" ]
+auto-format = true
+formatter = { command = "biome", args = ["format", "--stdin-file-path", "test.json", "--json-formatter-indent-style", "space"] }
+
+[[language]]
+name = "typescript"
+language-servers = [ "biome" ]
+auto-format = true
+formatter = { command = "biome", args = ["format", "--stdin-file-path", "test.ts"] }
+
+[[language]]
+name = "tsx"
+language-servers = [ "biome" ]
+auto-format = true
+formatter = { command = "biome", args = ["format", "--stdin-file-path", "test.tsx"] }
+
+[[language]]
+name = "jsx"
+language-servers = [ "biome" ]
+auto-format = true
+formatter = { command = "biome", args = ["format", "--stdin-file-path", "test.jsx"] }
+
+[[language]]
+name = "python"
+auto-format = true
+formatter = { command = "ruff", args = ["format", "-"] }
