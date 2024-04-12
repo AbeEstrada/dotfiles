@@ -24,8 +24,8 @@ return {
   { key = "0",          mods = "ALT",        action = act.ShowLauncherArgs { flags = "FUZZY|WORKSPACES" } },
   { key = "w",          mods = "CMD",        action = act.CloseCurrentPane { confirm = true } },
   { key = "q",          mods = "CMD",        action = act.QuitApplication },
+  { key = "z",          mods = "CTRL",       action = act.TogglePaneZoomState },
   { key = "f",          mods = "CTRL|CMD",   action = act.ToggleFullScreen },
-  { key = "z",          mods = "CTRL|SHIFT", action = act.TogglePaneZoomState },
 
   { key = "b",          mods = "ALT",        action = act.RotatePanes("CounterClockwise") },
   { key = "0",          mods = "CMD|SHIFT",  action = act.PaneSelect { alphabet = "1234567890" } },
@@ -82,8 +82,8 @@ return {
   { key = "n",          mods = "CMD|SHIFT",  action = act.SpawnCommandInNewWindow { cwd = "~" } },
   { key = "f",          mods = "CTRL|SHIFT", action = act { Search = { CaseSensitiveString = "" } } },
 
-  -- { key = "LeftArrow",  mods = "CMD",        action = act.SendString "\x01" },
-  -- { key = "RightArrow", mods = "CMD",        action = act.SendString "\x05" },
+  { key = "LeftArrow",  mods = "CMD",        action = act.SendString "\x01" },
+  { key = "RightArrow", mods = "CMD",        action = act.SendString "\x05" },
   -- { key = "LeftArrow",  mods = "ALT",        action = act.SendString "\x1bb" },
   -- { key = "RightArrow", mods = "ALT",        action = act.SendString "\x1bf" },
 

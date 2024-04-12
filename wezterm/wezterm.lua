@@ -51,7 +51,7 @@ local config = {
   enable_kitty_graphics = true,
   font = wezterm.font_with_fallback {
     { family = "Inconsolata",            weight = "Medium" },
-    { family = "Symbols Nerd Font Mono", weight = "Regular", scale = 0.9 },
+    { family = "Symbols Nerd Font Mono", weight = "Regular", scale = 0.75 },
     { family = "Apple Color Emoji" },
   },
   font_rules = font_rules,
