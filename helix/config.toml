@@ -30,6 +30,7 @@ theme = "catppuccin_mocha_transparent"
 
 [editor.statusline]
   center = ["version-control"]
+  right = ["diagnostics", "primary-selection-length", "selections", "register", "position", "file-encoding", "file-line-ending"]
   mode.normal = "NORMAL"
   mode.insert = "INSERT"
   mode.select = "SELECT"
@@ -39,5 +40,4 @@ theme = "catppuccin_mocha_transparent"
   C-A-left  = "goto_previous_buffer"
   C-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
   C-k = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
-  C-g = ["search_selection", "extend_search_next"]
   X = ["extend_line_up", "extend_to_line_bounds"]
