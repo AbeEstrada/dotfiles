@@ -50,13 +50,15 @@ plugins=(
   zsh-shift-select
 )
 
+source $ZSH/oh-my-zsh.sh
+
 stty -ixon
 
 bindkey -e  # (default) emacs
 bindkey "^[[1;3D" backward-word      # Alt + Left
 bindkey "^[[1;3C" forward-word       # Alt + Right
-bindkey "^[[C"    beginning-of-line  # Cmd + Left
-bindkey "^[[D"    end-of-line        # Cmd + Right
+# bindkey "^[[C"    beginning-of-line  # Cmd + Left
+# bindkey "^[[D"    end-of-line        # Cmd + Right
 
 COMPLETION_WAITING_DOTS=true
 ENABLE_CORRECTION=true
@@ -76,22 +78,22 @@ setopt HIST_NO_STORE
 setopt HIST_REDUCE_BLANKS
 setopt HIST_SAVE_NO_DUPS
 setopt INC_APPEND_HISTORY_TIME
-setopt SHARE_HISTORY
+# setopt SHARE_HISTORY
 
 unset zle_bracketed_paste # Disable paste highlight
-
-source $ZSH/oh-my-zsh.sh
 
 # alias ssh='wezterm ssh'
 # alias serial='wezterm serial'
 alias imgcat='wezterm imgcat'
 
 alias c='cal -3'
+alias cat='bat --paging=never'
 alias emptytrash='rm -rf ~/.Trash/*'
 alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
 alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
 alias ghn='gh api notifications --template "{{range .}}{{tablerow .subject.title .subject.url}}{{end}}"'
 alias gitui='gitui -t mocha.ron'
+alias h='hx'
 alias hist='history | fzf'
 alias ip='dig +short myip.opendns.com @resolver1.opendns.com 2> /dev/null || echo none'
 alias ips='ifconfig | grep broadcast'
