@@ -69,6 +69,7 @@ highlight-article "title =~ \"AppRunner\"      and tags # \"AWS\""    red defaul
 highlight-article "title =~ \"App Runner\"     and tags # \"AWS\""    red default bold
 highlight-article "title =~ \"Everyday Carry\" and tags # \"Mnmlst\"" red default bold
 
+unbind-key  u
 unbind-key  j
 unbind-key  J
 unbind-key  k
@@ -115,6 +116,7 @@ bind-key a toggle-article-read article
 bind-key a toggle-article-read articlelist
 bind-key a toggle-article-read searchresultslist
 
+bind-key i show-urls
 bind-key o open-in-browser-noninteractively
 bind-key A mark-feed-read
 bind-key ^A mark-all-feeds-read
@@ -156,3 +158,4 @@ delete-played-files yes
 download-path "~/Music/Podcasts"
 
 ignore-mode "display"
+ignore-article "regex:https://www.youtube.com/.*"      "title =~ \"#Shorts\""
