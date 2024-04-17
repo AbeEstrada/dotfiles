@@ -1,43 +1,69 @@
-theme = "catppuccin_mocha_transparent"
+theme = "onedark_transparent"
 
 [editor]
-  color-modes = true
-  auto-format = true
-  scrolloff = 5
-  rulers = [80, 120]
-  popup-border = "all"
-  bufferline = "always"
-  shell = ["zsh", "-cu"]
-   
+true-color = true
+color-modes = true
+auto-format = true
+scrolloff = 20
+rulers = [80, 120]
+popup-border = "all"
+bufferline = "always"
+shell = ["zsh", "-cu"]
+
+[editor.lsp]
+display-inlay-hints = true
+
 [editor.cursor-shape]
-  insert = "bar"
-  normal = "block"
-  select = "underline"
+insert = "bar"
+normal = "block"
+select = "underline"
 
 [editor.whitespace.render]
-  tab = "all"
-  tabpad = "all"
-  space = "all"
-  newline = "none"
+tab = "all"
+tabpad = "all"
+space = "all"
+newline = "none"
 
 [editor.indent-guides]
-  render = true
-  character = "▌"
-  skip-levels = 1
+render = true
+# character = "▌"
+skip-levels = 1
 
 [editor.whitespace.characters]
-  space = "·"
+space = "·"
 
 [editor.statusline]
-  center = ["version-control"]
-  right = ["diagnostics", "primary-selection-length", "selections", "register", "position", "file-encoding", "file-line-ending"]
-  mode.normal = "NORMAL"
-  mode.insert = "INSERT"
-  mode.select = "SELECT"
+center = ["version-control"]
+right = [
+  "diagnostics",
+  "primary-selection-length",
+  "selections",
+  "register",
+  "position",
+  "file-encoding",
+  "file-line-ending",
+]
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
 
 [keys.normal]
-  C-A-right = "goto_next_buffer"
-  C-A-left  = "goto_previous_buffer"
-  C-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
-  C-k = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
-  X = ["extend_line_up", "extend_to_line_bounds"]
+S-A-right = "goto_next_buffer"
+S-A-left = "goto_previous_buffer"
+C-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
+C-k = [
+  "extend_to_line_bounds",
+  "delete_selection",
+  "move_line_up",
+  "paste_before",
+]
+X = ["extend_line_up", "extend_to_line_bounds"]
+w = ["move_next_word_end", "move_prev_word_start", "move_next_word_end"]
+W = [
+  "move_next_long_word_end",
+  "move_prev_long_word_start",
+  "move_next_long_word_end",
+]
+
+[keys.normal.space]
+F = "file_picker_in_current_buffer_directory"

@@ -1,10 +1,51 @@
-[language-server]
-biome = { command = "biome", args = ["lsp-proxy"] }
+[language-server.biome]
+command = "biome"
+args = ["lsp-proxy"]
+
+[language-server.ruff]
+command = "ruff-lsp"
+
+[language-server.astro]
+command = "astro-ls"
+args = ["--stdio"]
+config = { typescript = { tsdk = "/Users/Abe/.bun/install/global/node_modules/typescript/lib" }, environment = "node" }
+
+
+[[language]]
+name = "astro"
+auto-format = true
+language-servers = ["astro"]
+
+[[language]]
+name = "go"
+auto-format = true
+formatter = { command = "goimports" }
 
 [[language]]
 name = "html"
 auto-format = true
 formatter = { command = "tidy", args = ["-q", "-i", "--"] }
+
+[[language]]
+name = "lua"
+auto-format = true
+
+[[language]]
+name = "python"
+language-servers = ["pylsp", "ruff"]
+auto-format = true
+formatter = { command = "ruff", args = ["format", "-n", "-"] }
+
+[[language]]
+name = "toml"
+auto-format = true
+formatter = { command = "taplo", args = ["format", "-"] }
+
+[[language]]
+name = "xml"
+auto-format = true
+formatter = { command = "xmllint", args = ["--format", "-"] }
+
 
 [[language]]
 name = "javascript"
@@ -57,17 +98,3 @@ formatter = { command = "biome", args = [
   "--stdin-file-path",
   "test.jsx",
 ] }
-
-[[language]]
-name = "python"
-auto-format = true
-formatter = { command = "ruff", args = ["format", "-"] }
-
-[[language]]
-name = "lua"
-auto-format = true
-
-[[language]]
-name = "toml"
-auto-format = true
-formatter = { command = "taplo", args = ["format", "-"] }

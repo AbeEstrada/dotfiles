@@ -1,0 +1,17 @@
+inherits = "onedark"
+
+"ui.background" = { bg = "" }
+"ui.virtual.ruler" = { bg = "light-black" }
+"ui.virtual.whitespace" = { fg = "light-black" }
+"ui.virtual.indent-guide" = { fg = "light-black" }
+
+"ui.cursor" = { bg = "light-gray" }
+
+"ui.bufferline" = { fg = "white" }
+"ui.bufferline.active" = { fg = "#BD93F9", bg = "#1e1e2e", modifiers = [
+  "bold",
+] }
+"ui.bufferline.background" = { bg = "light-black" }
+
+[palette]
+white = "#F1F1F0"
