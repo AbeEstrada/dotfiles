@@ -24,7 +24,7 @@ return {
   { key = "0",          mods = "ALT",        action = act.ShowLauncherArgs { flags = "FUZZY|WORKSPACES" } },
   { key = "w",          mods = "CMD",        action = act.CloseCurrentPane { confirm = true } },
   { key = "q",          mods = "CMD",        action = act.QuitApplication },
-  { key = "z",          mods = "CTRL",       action = act.TogglePaneZoomState },
+  { key = "z",          mods = "ALT|SHIFT",  action = act.TogglePaneZoomState },
   { key = "f",          mods = "CTRL|CMD",   action = act.ToggleFullScreen },
 
   { key = "b",          mods = "ALT",        action = act.RotatePanes("CounterClockwise") },
