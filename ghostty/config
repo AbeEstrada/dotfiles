@@ -1,0 +1,38 @@
+font-size = 15
+font-family = "Inconsolata Medium"
+font-family-bold = "Inconsolata SemiBold"
+
+background-opacity = 0.95
+background-blur-radius = 20
+
+window-width = 180
+window-height = 45
+window-title-font-family = "SF Pro Light"
+cursor-style = bar
+adjust-cursor-thickness = 1
+
+keybind = super+n=new_tab
+keybind = super+shift+n=new_window
+
+background = 191B26
+foreground = eff0eb
+cursor-color = ffffff
+
+
+# AbeDark
+palette = 0=#343646
+palette = 1=#F07396
+palette = 2=#A6E3A1
+palette = 3=#F7E992
+palette = 4=#4BA4ED
+palette = 5=#A374E9
+palette = 6=#9AEDFE
+palette = 7=#F1F1F0
+palette = 8=#686868
+palette = 9=#F07396
+palette = 10=#A6E3A1
+palette = 11=#F7E992
+palette = 12=#4BA4ED
+palette = 13=#A374E9
+palette = 14=#9AEDFE
+palette = 15=#EFF0EB
