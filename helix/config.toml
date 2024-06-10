@@ -1,4 +1,4 @@
-theme = "onedark_transparent"
+theme = "abedark"
 
 [editor]
 true-color = true
@@ -26,11 +26,7 @@ newline = "none"
 
 [editor.indent-guides]
 render = true
-# character = "▌"
 skip-levels = 1
-
-[editor.whitespace.characters]
-space = "·"
 
 [editor.statusline]
 center = ["version-control"]
@@ -43,9 +39,6 @@ right = [
   "file-encoding",
   "file-line-ending",
 ]
-mode.normal = "NORMAL"
-mode.insert = "INSERT"
-mode.select = "SELECT"
 
 [keys.normal]
 S-A-right = "goto_next_buffer"

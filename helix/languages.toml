@@ -1,11 +1,12 @@
-[language-server.biome]
+[language-server.biome-ls]
 command = "biome"
 args = ["lsp-proxy"]
 
-[language-server.ruff]
-command = "ruff-lsp"
+[language-server.gopls.config.hints]
 
-[language-server.astro]
+[language-server.typescript-language-server.config.javascript.inlayHints]
+
+[language-server.astro-ls]
 command = "astro-ls"
 args = ["--stdio"]
 config = { typescript = { tsdk = "/Users/Abe/.bun/install/global/node_modules/typescript/lib" }, environment = "node" }
@@ -13,8 +14,27 @@ config = { typescript = { tsdk = "/Users/Abe/.bun/install/global/node_modules/ty
 
 [[language]]
 name = "astro"
+scope = "source.astro"
+injection-regex = "astro"
+file-types = ["astro"]
+language-servers = ["astro-ls"]
 auto-format = true
-language-servers = ["astro"]
+formatter = { command = "prettier", args = [
+  "--plugin",
+  "prettier-plugin-astro",
+  "--parser",
+  "astro",
+] }
+
+[[language]]
+name = "csv"
+file-types = ["csv"]
+scope = "source.csv"
+
+[[grammar]]
+name = "csv"
+source.git = "https://github.com/weartist/rainbow-csv-tree-sitter"
+source.rev = "896e6d09b23a1b0d87e45bf97ca34a249f41495c"
 
 [[language]]
 name = "go"
@@ -31,15 +51,24 @@ name = "lua"
 auto-format = true
 
 [[language]]
+name = "markdown"
+auto-format = true
+soft-wrap.enable = true
+
+[[language]]
 name = "python"
-language-servers = ["pylsp", "ruff"]
 auto-format = true
 formatter = { command = "ruff", args = ["format", "-n", "-"] }
 
 [[language]]
 name = "toml"
 auto-format = true
-formatter = { command = "taplo", args = ["format", "-"] }
+formatter = { command = "taplo", args = [
+  "format",
+  "--stdin-filepath",
+  "file.toml",
+  "-",
+] }
 
 [[language]]
 name = "xml"
@@ -49,52 +78,47 @@ formatter = { command = "xmllint", args = ["--format", "-"] }
 
 [[language]]
 name = "javascript"
-language-servers = ["biome"]
 auto-format = true
 formatter = { command = "biome", args = [
   "format",
   "--stdin-file-path",
-  "test.js",
+  "file.js",
 ] }
 
 [[language]]
 name = "json"
-language-servers = ["biome"]
 auto-format = true
 formatter = { command = "biome", args = [
   "format",
   "--stdin-file-path",
-  "test.json",
+  "file.json",
   "--json-formatter-indent-style",
   "space",
 ] }
 
 [[language]]
 name = "typescript"
-language-servers = ["biome"]
 auto-format = true
 formatter = { command = "biome", args = [
   "format",
   "--stdin-file-path",
-  "test.ts",
+  "file.ts",
 ] }
 
 [[language]]
 name = "tsx"
-language-servers = ["biome"]
 auto-format = true
 formatter = { command = "biome", args = [
   "format",
   "--stdin-file-path",
-  "test.tsx",
+  "file.tsx",
 ] }
 
 [[language]]
 name = "jsx"
-language-servers = ["biome"]
 auto-format = true
 formatter = { command = "biome", args = [
   "format",
   "--stdin-file-path",
-  "test.jsx",
+  "file.jsx",
 ] }
