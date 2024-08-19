@@ -1,31 +1,45 @@
 format = "$all$fill$cmd_duration$time$battery$line_break$jobs$status$container$shell$character"
-command_timeout = 700
+command_timeout = 1000
 
 [character]
 success_symbol = "[❯](purple)"
-error_symbol   = "[❯](red)"
-vimcmd_symbol  = "[❮](green)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[](green)"
 
 [cmd_duration]
 style = "yellow"
 format = "[$duration  ]($style)"
 
 [aws]
-symbol = " "
-disabled = true
+symbol = "  "
+# disabled = true
 
 [directory]
 style = "cyan"
-read_only = " 󰌾 "
+read_only = " 󰌾"
 truncation_length = 8
 truncation_symbol = "…/"
 
 [fill]
 symbol = " "
 
+[jobs]
+symbol = ""
+style = "blue"
+
+[nodejs]
+symbol = " "
+detect_files = ["package.json", ".node-version", "!bunfig.toml", "!bun.lockb"]
+
 [python]
 symbol = " "
-python_binary = ["./venv/bin/python", "./bin/python", "python", "python3", "python2"]
+python_binary = [
+  "./venv/bin/python",
+  "./bin/python",
+  "python",
+  "python3",
+  "python2",
+]
 
 [time]
 disabled = false
@@ -33,7 +47,7 @@ style = "white dimmed"
 format = "[$time]($style) "
 
 [[battery.display]]
-style = "bold red" # red
+style = "bold red"
 threshold = 10
 
 [[battery.display]]
@@ -52,98 +66,19 @@ ignore_timeout = true
 style = ""
 disabled = true
 
-# Nerd Font Symbols
-
-[bun]
-symbol = "󱜚  "
-
-[buf]
-symbol = " "
-
-[c]
-symbol = " "
-
-[conda]
-symbol = " "
-
-[dart]
-symbol = " "
-
-[docker_context]
-symbol = " "
-
-[elixir]
-symbol = " "
-
-[elm]
-symbol = " "
-
-[git_branch]
-symbol = " "
-
-[golang]
-symbol = " "
-
-[haskell]
-symbol = " "
-
-[hg_branch]
-symbol = " "
-
-[java]
-symbol = " "
-
-[julia]
-symbol = " "
-
-[lua]
-symbol = " "
-
-[memory_usage]
-symbol = " "
-
-[meson]
-symbol = "喝 "
-
-[nim]
-symbol = " "
-
-[nix_shell]
-symbol = " "
-
-[nodejs]
-symbol = " "
-
-[package]
-symbol = " "
-
-[rlang]
-symbol = "ﳒ "
-
-[ruby]
-symbol = " "
-
-[rust]
-symbol = " "
-
-[scala]
-symbol = " "
-
-[spack]
-symbol = "🅢 "
 
 [palettes.snazzy]
-bg     = "#282a36"
-fg     = "#eff0eb"
-red    = "#ff5c57"
+bg = "#282a36"
+fg = "#eff0eb"
+red = "#ff5c57"
 yellow = "#f3f99d"
-green  = "#5af78e"
-blue   = "#57c7ff"
-cyan   = "#9aedfe"
+green = "#5af78e"
+blue = "#57c7ff"
+cyan = "#9aedfe"
 purple = "#ff6ac1"
 orange = "#ff9f43"
-brown  = "#b2643c"
-pink   = "#FF5370"
+brown = "#b2643c"
+pink = "#FF5370"
 
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"
@@ -172,3 +107,117 @@ surface0 = "#313244"
 base = "#1e1e2e"
 mantle = "#181825"
 crust = "#11111b"
+
+[bun]
+symbol = "󱜚 "
+
+[buf]
+symbol = " "
+
+[c]
+symbol = " "
+
+[conda]
+symbol = " "
+
+[crystal]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[fennel]
+symbol = " "
+
+[fossil_branch]
+symbol = " "
+
+[git_branch]
+symbol = " "
+
+[golang]
+symbol = " "
+
+[guix_shell]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[haxe]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[hostname]
+ssh_symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[kotlin]
+symbol = " "
+
+[lua]
+symbol = " "
+
+[memory_usage]
+symbol = "󰍛 "
+
+[meson]
+symbol = "󰔷 "
+
+[nim]
+symbol = "󰆥 "
+
+[nix_shell]
+symbol = " "
+
+[ocaml]
+symbol = " "
+
+[os.symbols]
+Macos = " "
+
+[package]
+symbol = "󰏗 "
+
+[perl]
+symbol = " "
+
+[php]
+symbol = " "
+
+[pijul_channel]
+symbol = " "
+
+[rlang]
+symbol = "󰟔 "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = " "
+
+[scala]
+symbol = " "
+
+[swift]
+symbol = " "
+
+[zig]
+symbol = " "
