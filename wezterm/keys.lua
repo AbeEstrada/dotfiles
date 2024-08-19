@@ -5,37 +5,39 @@ local act = wezterm.action
 
 return {
   -- Send Ctrl + s
-  { key = "s",          mods = "CMD",        action = act.SendString("\x13") }, -- C-s
-  -- Try to use menu shortcut
-  { key = "|",          mods = "CTRL|SHIFT", action = wezterm.action.DisableDefaultAssignment },
+  -- { key = "s",          mods = "CMD",        action = act.SendString("\x13") }, -- C-s
+  { key = "LeftArrow",  mods = "CMD",       action = act.SendString "\x01" },
+  { key = "RightArrow", mods = "CMD",       action = act.SendString "\x05" },
 
-  { key = "p",          mods = "CMD|SHIFT",  action = act.ActivateCommandPalette },
-  { key = "{",          mods = "CMD|SHIFT",  action = act.MoveTabRelative(-1) },
-  { key = "}",          mods = "CMD|SHIFT",  action = act.MoveTabRelative(1) },
-  { key = "LeftArrow",  mods = "SHIFT|CMD",  action = act { ActivateTabRelative = -1 } },
-  { key = "RightArrow", mods = "SHIFT|CMD",  action = act { ActivateTabRelative = 1 } },
-  { key = "UpArrow",    mods = "ALT|CMD",    action = act.ActivatePaneDirection "Up" },
-  { key = "DownArrow",  mods = "ALT|CMD",    action = act.ActivatePaneDirection "Down" },
-  { key = "LeftArrow",  mods = "ALT|CMD",    action = act.ActivatePaneDirection "Left" },
-  { key = "RightArrow", mods = "ALT|CMD",    action = act.ActivatePaneDirection "Right" },
 
-  { key = "l",          mods = "ALT",        action = act.ShowLauncher },
-  { key = "9",          mods = "ALT",        action = act.ShowLauncherArgs { flags = "FUZZY|TABS" } },
-  { key = "0",          mods = "ALT",        action = act.ShowLauncherArgs { flags = "FUZZY|WORKSPACES" } },
-  { key = "w",          mods = "CMD",        action = act.CloseCurrentPane { confirm = true } },
-  { key = "q",          mods = "CMD",        action = act.QuitApplication },
-  { key = "z",          mods = "ALT|SHIFT",  action = act.TogglePaneZoomState },
-  { key = "f",          mods = "CTRL|CMD",   action = act.ToggleFullScreen },
+  { key = "p",          mods = "CMD|SHIFT", action = act.ActivateCommandPalette },
+  { key = "{",          mods = "CMD|SHIFT", action = act.MoveTabRelative(-1) },
+  { key = "}",          mods = "CMD|SHIFT", action = act.MoveTabRelative(1) },
+  { key = "LeftArrow",  mods = "CMD|SHIFT", action = act { ActivateTabRelative = -1 } },
+  { key = "RightArrow", mods = "CMD|SHIFT", action = act { ActivateTabRelative = 1 } },
+  { key = "UpArrow",    mods = "ALT|CMD",   action = act.ActivatePaneDirection "Up" },
+  { key = "DownArrow",  mods = "ALT|CMD",   action = act.ActivatePaneDirection "Down" },
+  { key = "LeftArrow",  mods = "ALT|CMD",   action = act.ActivatePaneDirection "Left" },
+  { key = "RightArrow", mods = "ALT|CMD",   action = act.ActivatePaneDirection "Right" },
 
-  { key = "b",          mods = "ALT",        action = act.RotatePanes("CounterClockwise") },
-  { key = "0",          mods = "CMD|SHIFT",  action = act.PaneSelect { alphabet = "1234567890" } },
-  { key = "-",          mods = "CMD|SHIFT",  action = act.SplitVertical { domain = "CurrentPaneDomain" } },
-  { key = "|",          mods = "CMD|SHIFT",  action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
+  { key = "\\",         mods = "CMD",       action = act.ShowLauncher },
+  { key = "0",          mods = "ALT",       action = act.ShowLauncherArgs { flags = "FUZZY|TABS" } },
+  { key = "0",          mods = "CTRL",      action = act.ShowLauncherArgs { flags = "FUZZY|WORKSPACES" } },
+  { key = "w",          mods = "CMD",       action = act.CloseCurrentPane { confirm = true } },
+  { key = "q",          mods = "CMD",       action = act.QuitApplication },
+  { key = "z",          mods = "ALT|SHIFT", action = act.TogglePaneZoomState },
+  { key = "f",          mods = "CTRL|CMD",  action = act.ToggleFullScreen },
 
-  { key = "UpArrow",    mods = "SHIFT",      action = act.ScrollByLine(-1) },
-  { key = "DownArrow",  mods = "SHIFT",      action = act.ScrollByLine(1) },
-  { key = "PageUp",     mods = "SHIFT",      action = act.ScrollByPage(-1) },
-  { key = "PageDown",   mods = "SHIFT",      action = act.ScrollByPage(1) },
+  { key = "n",          mods = "CTRL",      action = act.RotatePanes("Clockwise") },
+  { key = "b",          mods = "CTRL",      action = act.RotatePanes("CounterClockwise") },
+  { key = "/",          mods = "CMD",       action = act.PaneSelect { alphabet = "1234567890" } },
+  { key = "-",          mods = "CMD|SHIFT", action = act.SplitVertical { domain = "CurrentPaneDomain" } },
+  { key = "|",          mods = "CMD|SHIFT", action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
+
+  { key = "UpArrow",    mods = "SHIFT",     action = act.ScrollByLine(-1) },
+  { key = "DownArrow",  mods = "SHIFT",     action = act.ScrollByLine(1) },
+  { key = "PageUp",     mods = "SHIFT",     action = act.ScrollByPage(-1) },
+  { key = "PageDown",   mods = "SHIFT",     action = act.ScrollByPage(1) },
   {
     key = "K",
     mods = "CTRL|SHIFT",
@@ -46,7 +48,7 @@ return {
   },
   {
     key = "U",
-    mods = "SHIFT|CTRL",
+    mods = "CTRL|SHIFT",
     action = wezterm.action.CharSelect {
       copy_on_select = true,
       copy_to = "ClipboardAndPrimarySelection",
@@ -81,12 +83,7 @@ return {
   { key = "n",          mods = "CMD",        action = act.SpawnCommandInNewTab { cwd = "~" } },
   { key = "n",          mods = "CMD|SHIFT",  action = act.SpawnCommandInNewWindow { cwd = "~" } },
   { key = "f",          mods = "CTRL|SHIFT", action = act { Search = { CaseSensitiveString = "" } } },
-
-  { key = "LeftArrow",  mods = "CMD",        action = act.SendString "\x01" },
-  { key = "RightArrow", mods = "CMD",        action = act.SendString "\x05" },
-  -- { key = "LeftArrow",  mods = "ALT",        action = act.SendString "\x1bb" },
-  -- { key = "RightArrow", mods = "ALT",        action = act.SendString "\x1bf" },
-
+  { key = "Space",      mods = "CTRL|SHIFT", action = act.QuickSelect },
   { key = "LeftArrow",  mods = "CTRL|SHIFT", action = "DisableDefaultAssignment" },
   { key = "RightArrow", mods = "CTRL|SHIFT", action = "DisableDefaultAssignment" },
 

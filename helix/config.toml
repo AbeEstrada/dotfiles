@@ -1,4 +1,4 @@
-theme = "abedark"
+theme = "abedarker"
 
 [editor]
 true-color = true
@@ -29,13 +29,14 @@ render = true
 skip-levels = 1
 
 [editor.statusline]
-center = ["version-control"]
+center = ["register", "version-control"]
 right = [
   "diagnostics",
   "primary-selection-length",
   "selections",
   "register",
   "position",
+  # "file-type",
   "file-encoding",
   "file-line-ending",
 ]
@@ -43,6 +44,7 @@ right = [
 [keys.normal]
 S-A-right = "goto_next_buffer"
 S-A-left = "goto_previous_buffer"
+S-A-up = "expand_selection"
 C-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
 C-k = [
   "extend_to_line_bounds",
@@ -60,3 +62,4 @@ W = [
 
 [keys.normal.space]
 F = "file_picker_in_current_buffer_directory"
+t = { s = ":toggle soft-wrap.enable" }

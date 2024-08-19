@@ -1,6 +1,0 @@
-inherits = "catppuccin_mocha"
-
-"ui.background" = { fg = "text" }
-"ui.virtual.whitespace" = { fg = "black" }
-"ui.bufferline.background" = { bg = "black" }
-"ui.bufferline" = { bg = "" }

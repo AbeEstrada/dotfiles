@@ -1,0 +1,56 @@
+# https://github.com/helix-editor/helix/blob/master/runtime/themes/zed_onedark.toml
+
+inherits = "zed_onedark"
+
+"tag".fg = "red"
+"function.method" = { fg = "blue", modifiers = ["bold"] }
+"operator".fg = "purple"
+"punctuation.bracket".fg = "light-gray"
+"punctuation.delimiter".fg = "light-gray"
+
+"diff.plus" = "green"
+"diff.delta" = "orange"
+"diff.minus" = "red"
+
+"ui.background".bg = "bg"
+"ui.virtual.ruler".bg = "faint-gray"
+"ui.virtual.whitespace".fg = "faint-gray"
+"ui.virtual.indent-guide".fg = "faint-gray"
+"ui.virtual.jump-label" = { bg = "faint-gray", fg = "purple" }
+
+"ui.statusline" = { fg = "white", bg = "faint-gray" }
+
+"ui.gutter".bg = "bg"
+"ui.linenr.selected" = { fg = "yellow", modifiers = ["bold"] }
+
+"ui.selection.primary".bg = "faint-gray"
+
+"ui.cursor" = { fg = "white", bg = "light-gray", modifiers = ["reversed"] }
+"ui.cursor.primary" = { fg = "white", modifiers = ["reversed"] }
+"ui.cursor.match" = { fg = "white", modifiers = ["underlined"] }
+"ui.cursor.insert" = { fg = "white", bg = "gray" }
+
+"ui.bufferline" = { fg = "white", bg = "light-black" }
+"ui.bufferline.active" = { fg = "yellow", bg = "bg", modifiers = ["bold"] }
+"ui.bufferline.background".bg = "faint-gray"
+
+
+[palette]
+bg = "#1F2132"
+
+blue = "#41a7fc"
+cyan = "#34bfd0"
+faint-gray = "#373A58"
+green = "#89ca78"
+light-black = "#2B2E45"
+light-gray = "#5C6370"
+orange = "#dd9046"
+pink = "#F4C7F0"
+purple = "#d55fde"
+red = "#FD6D80"
+white = "#FAFAFA"
+yellow = "#FFD46C"
+
+linenr = "#4B5263"
+ui-text = "#E0E2E7"          # white
+ui-text-reversed = "#282c33" # black

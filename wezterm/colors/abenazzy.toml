@@ -2,7 +2,7 @@
 
 # https://github.com/Gogh-Co/Gogh/blob/master/themes/Snazzy.yml
 
-ansi =    [
+ansi = [
   # "#282A36", # Black (Host)
   "#343646", # Black (Host)
   "#F07396", # Red (Syntax string)
@@ -24,20 +24,21 @@ brights = [
   "#EFF0EB", # Bright White
 ]
 
-background    = "#1e1e2e"
-foreground    = "#EFF0EB"
+# background = "#1e1e2e"
+background = "#191B26"
+foreground = "#EFF0EB"
 
-cursor_fg     = "#97979B"
-cursor_bg     = "#ffffff"
+cursor_fg = "#97979B"
+cursor_bg = "#ffffff"
 cursor_border = "#ffffff"
 
-selection_fg  = "none"
-selection_bg  = "rgba(122, 54, 217, 25%)"
+selection_fg = "none"
+selection_bg = "rgba(122, 54, 217, 50%)"
 
 scrollbar_thumb = "#BD93F9"
 
 [colors.tab_bar]
-background    = "#1e1e2e"
+background = "#1e1e2e"
 inactive_tab_edge = "#ffffff"
 
 [colors.tab_bar.active_tab]

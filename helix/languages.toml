@@ -1,10 +1,31 @@
-[language-server.biome-ls]
+[language-server.biome]
 command = "biome"
 args = ["lsp-proxy"]
 
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
+environment = { "RUFF_TRACE" = "messages" }
+
+[language-server.ruff.config.settings]
+logLevel = "debug"
+
 [language-server.gopls.config.hints]
+# assignVariableTypes = true
+# compositeLiteralFields = true
+# constantValues = true
+# functionTypeParameters = true
+# parameterNames = true
+# rangeVariableTypes = true
 
 [language-server.typescript-language-server.config.javascript.inlayHints]
+# includeInlayEnumMemberValueHints = true
+# includeInlayFunctionLikeReturnTypeHints = true
+# includeInlayFunctionParameterTypeHints = true
+# includeInlayParameterNameHints = "all"
+# includeInlayParameterNameHintsWhenArgumentMatchesName = true
+# includeInlayPropertyDeclarationTypeHints = true
+# includeInlayVariableTypeHints = true
 
 [language-server.astro-ls]
 command = "astro-ls"
@@ -18,6 +39,7 @@ scope = "source.astro"
 injection-regex = "astro"
 file-types = ["astro"]
 language-servers = ["astro-ls"]
+# roots = ["package.json", "astro.config.mjs"]
 auto-format = true
 formatter = { command = "prettier", args = [
   "--plugin",
@@ -34,7 +56,7 @@ scope = "source.csv"
 [[grammar]]
 name = "csv"
 source.git = "https://github.com/weartist/rainbow-csv-tree-sitter"
-source.rev = "896e6d09b23a1b0d87e45bf97ca34a249f41495c"
+source.rev = "d3dbf916446131417e4c2ea9eb8591b23b466d27"
 
 [[language]]
 name = "go"
@@ -54,9 +76,11 @@ auto-format = true
 name = "markdown"
 auto-format = true
 soft-wrap.enable = true
+# soft-wrap.wrap-at-text-width = true
 
 [[language]]
 name = "python"
+language-servers = ["pylsp", "ruff"]
 auto-format = true
 formatter = { command = "ruff", args = ["format", "-n", "-"] }
 

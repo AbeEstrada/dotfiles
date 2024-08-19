@@ -12,27 +12,9 @@ local wezterm = require "wezterm"
 return {
   {
     intensity = "Bold",
-    italic = true,
-    font = wezterm.font_with_fallback({
-      { family = "Inconsolata",            weight = "Bold" },
-      { family = "Symbols Nerd Font Mono", weight = "Regular", scale = .75 },
-      { family = "Apple Color Emoji",      scale = 2 },
-    }),
-  },
-  {
-    intensity = "Bold",
     italic = false,
     font = wezterm.font_with_fallback({
-      { family = "Inconsolata",            weight = "Bold" },
-      { family = "Symbols Nerd Font Mono", weight = "Regular", scale = .75 },
-      { family = "Apple Color Emoji",      scale = 2 },
-    }),
-  },
-  {
-    intensity = "Half",
-    italic = true,
-    font = wezterm.font_with_fallback({
-      { family = "Inconsolata",            weight = "Regular" },
+      { family = "Inconsolata",            weight = "DemiBold" },
       { family = "Symbols Nerd Font Mono", weight = "Regular", scale = .75 },
       { family = "Apple Color Emoji",      scale = 2 },
     }),
@@ -41,7 +23,7 @@ return {
     intensity = "Half",
     italic = false,
     font = wezterm.font_with_fallback({
-      { family = "Inconsolata",            weight = "Regular" },
+      { family = "Inconsolata",            weight = "Medium" },
       { family = "Symbols Nerd Font Mono", weight = "Regular", scale = .75 },
       { family = "Apple Color Emoji",      scale = 2 },
     }),

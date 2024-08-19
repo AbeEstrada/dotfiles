@@ -1,6 +1,10 @@
 -- ALT + l
 return {
   {
+    label = "Helix",
+    args = { "/opt/homebrew/bin/hx" }
+  },
+  {
     label = "Bottom",
     args = { "/opt/homebrew/bin/btm" },
   },

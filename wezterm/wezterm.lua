@@ -13,7 +13,7 @@ local custom_colors = require "custom_colors"
 
 local mux = wezterm.mux
 wezterm.on("gui-startup", function(cmd)
-  local tab, pane, window = mux.spawn_window(cmd or
+  mux.spawn_window(cmd or
     {
       cwd = os.getenv("HOME"),
       position = { x = 1024, y = 512 },
@@ -30,7 +30,7 @@ wezterm.on("format-tab-title",
 )
 
 wezterm.on("update-status",
-  function(window, pane)
+  function(window)
     window:set_right_status(wezterm.format {
       { Attribute = { Italic = true } },
       { Foreground = { Color = "#a6e3a1" } }, -- green
@@ -40,7 +40,7 @@ wezterm.on("update-status",
 )
 
 wezterm.on("window-config-reloaded",
-  function(window, pane)
+  function(window)
     window:toast_notification("wezterm", "configuration reloaded!", nil, 3000)
   end
 )
@@ -50,21 +50,24 @@ local config = {
   default_workspace = "default",
   enable_kitty_graphics = true,
   font = wezterm.font_with_fallback {
-    { family = "Inconsolata",            weight = "Medium" },
+    { family = "Inconsolata",            weight = "Regular" },
     { family = "Symbols Nerd Font Mono", weight = "Regular", scale = 0.75 },
     { family = "Apple Color Emoji" },
   },
   font_rules = font_rules,
   font_size = 15.0,
-  initial_cols = 200,
-  initial_rows = 50,
+  initial_cols = 180,
+  initial_rows = 45,
+  max_fps = 120,
+  front_end = "WebGpu",
   cursor_thickness = 1.5,
   default_cursor_style = "BlinkingBar",
   scrollback_lines = 7000,
   enable_scroll_bar = true,
+  pane_focus_follows_mouse = true,
   bold_brightens_ansi_colors = true,
   window_background_opacity = 0.98,
-  macos_window_background_blur = 5,
+  macos_window_background_blur = 8,
   native_macos_fullscreen_mode = true,
   show_new_tab_button_in_tab_bar = true,
   quit_when_all_windows_are_closed = false,
@@ -73,10 +76,10 @@ local config = {
   send_composed_key_when_left_alt_is_pressed = true,
   send_composed_key_when_right_alt_is_pressed = false,
   window_padding = {
-    top = "0.25cell",
+    top = "0.1cell",
     bottom = "0.25cell",
-    right = "0.4cell",
-    left = "0.4cell",
+    right = "0.25cell",
+    left = "0.25cell",
   },
   inactive_pane_hsb = {
     saturation = 0.95,
@@ -91,6 +94,8 @@ local config = {
   keys = keys,
 }
 
-for k, v in pairs(custom_colors) do config[k] = v end
+-- for k, v in pairs(custom_colors) do config[k] = v end
+-- config.color_scheme = "Eldritch"
+config.color_scheme = "Abenazzy"
 
 return config
