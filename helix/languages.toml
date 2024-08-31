@@ -74,25 +74,24 @@ auto-format = true
 
 [[language]]
 name = "markdown"
-auto-format = true
 soft-wrap.enable = true
 # soft-wrap.wrap-at-text-width = true
+auto-format = true
+formatter = { command = "dprint", args = ["fmt", "--stdin", "md"] }
 
 [[language]]
 name = "python"
-language-servers = ["pylsp", "ruff"]
+language-servers = ["pylsp"]
 auto-format = true
 formatter = { command = "ruff", args = ["format", "-n", "-"] }
+
+[language-server.pylsp.config.pylsp.plugins]
+jedi = { environment = "venv/" }
 
 [[language]]
 name = "toml"
 auto-format = true
-formatter = { command = "taplo", args = [
-  "format",
-  "--stdin-filepath",
-  "file.toml",
-  "-",
-] }
+formatter = { command = "taplo", args = ["format", "-"] }
 
 [[language]]
 name = "xml"
@@ -102,47 +101,49 @@ formatter = { command = "xmllint", args = ["--format", "-"] }
 
 [[language]]
 name = "javascript"
+language-servers = [
+  { name = "typescript-language-server", except-features = [
+    "format",
+  ] },
+  "biome",
+]
 auto-format = true
-formatter = { command = "biome", args = [
-  "format",
-  "--stdin-file-path",
-  "file.js",
-] }
-
-[[language]]
-name = "json"
-auto-format = true
-formatter = { command = "biome", args = [
-  "format",
-  "--stdin-file-path",
-  "file.json",
-  "--json-formatter-indent-style",
-  "space",
-] }
 
 [[language]]
 name = "typescript"
+language-servers = [
+  { name = "typescript-language-server", except-features = [
+    "format",
+  ] },
+  "biome",
+]
 auto-format = true
-formatter = { command = "biome", args = [
-  "format",
-  "--stdin-file-path",
-  "file.ts",
-] }
 
 [[language]]
 name = "tsx"
 auto-format = true
-formatter = { command = "biome", args = [
-  "format",
-  "--stdin-file-path",
-  "file.tsx",
-] }
+language-servers = [
+  { name = "typescript-language-server", except-features = [
+    "format",
+  ] },
+  "biome",
+]
 
 [[language]]
 name = "jsx"
 auto-format = true
-formatter = { command = "biome", args = [
-  "format",
-  "--stdin-file-path",
-  "file.jsx",
-] }
+language-servers = [
+  { name = "typescript-language-server", except-features = [
+    "format",
+  ] },
+  "biome",
+]
+
+[[language]]
+name = "json"
+language-servers = [
+  { name = "vscode-json-language-server", except-features = [
+    "format",
+  ] },
+  "biome",
+]

@@ -7,12 +7,13 @@ inherits = "zed_onedark"
 "operator".fg = "purple"
 "punctuation.bracket".fg = "light-gray"
 "punctuation.delimiter".fg = "light-gray"
+"keyword.control.import" = { fg = "purple", modifiers = ["italic"] }
 
 "diff.plus" = "green"
 "diff.delta" = "orange"
 "diff.minus" = "red"
 
-"ui.background".bg = "bg"
+"ui.background".bg = ""
 "ui.virtual.ruler".bg = "faint-gray"
 "ui.virtual.whitespace".fg = "faint-gray"
 "ui.virtual.indent-guide".fg = "faint-gray"
@@ -20,8 +21,8 @@ inherits = "zed_onedark"
 
 "ui.statusline" = { fg = "white", bg = "faint-gray" }
 
-"ui.gutter".bg = "bg"
-"ui.linenr.selected" = { fg = "yellow", modifiers = ["bold"] }
+"ui.gutter".bg = ""
+"ui.linenr.selected" = { fg = "orange", modifiers = ["bold"] }
 
 "ui.selection.primary".bg = "faint-gray"
 
@@ -31,12 +32,12 @@ inherits = "zed_onedark"
 "ui.cursor.insert" = { fg = "white", bg = "gray" }
 
 "ui.bufferline" = { fg = "white", bg = "light-black" }
-"ui.bufferline.active" = { fg = "yellow", bg = "bg", modifiers = ["bold"] }
+"ui.bufferline.active" = { fg = "orange", bg = "bg", modifiers = ["bold"] }
 "ui.bufferline.background".bg = "faint-gray"
 
 
 [palette]
-bg = "#1F2132"
+bg = "#222436"
 
 blue = "#41a7fc"
 cyan = "#34bfd0"

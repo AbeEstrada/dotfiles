@@ -1,14 +1,15 @@
 theme = "abedarker"
 
 [editor]
-true-color = true
-color-modes = true
 auto-format = true
-scrolloff = 20
-rulers = [80, 120]
-popup-border = "all"
 bufferline = "always"
+color-modes = true
+mouse = false
+popup-border = "all"
+rulers = [80, 120]
+scrolloff = 20
 shell = ["zsh", "-cu"]
+true-color = true
 
 [editor.lsp]
 display-inlay-hints = true
