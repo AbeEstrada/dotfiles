@@ -68,6 +68,12 @@ require("nvim-treesitter.configs").setup {
 	}
 }
 
+-- https://github.com/windwp/nvim-ts-autotag
+require("nvim-ts-autotag").setup()
+
+-- https://github.com/nvim-treesitter/nvim-treesitter-context
+require("treesitter-context").setup()
+
 -- https://github.com/nvim-tree/nvim-web-devicons
 require("nvim-web-devicons").setup()
 
@@ -75,7 +81,10 @@ require("nvim-web-devicons").setup()
 require("colorizer").setup()
 
 -- https://github.com/ggandor/leap.nvim
--- require("leap").create_default_mappings()
+require("leap").create_default_mappings()
+
+-- https://github.com/stevearc/dressing.nvim
+require("dressing").setup()
 
 -- https://github.com/lukas-reineke/indent-blankline.nvim
 require("ibl").setup {
@@ -106,17 +115,25 @@ require("lualine").setup {
 	}
 }
 
+-- https://github.com/echasnovski/mini.pairs
+require("mini.pairs").setup()
+
+-- https://github.com/lewis6991/gitsigns.nvim
+require("gitsigns").setup()
+
 -- https://github.com/nvim-tree/nvim-tree.lua
 require("nvim-tree").setup()
 vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true })
 
 -- https://github.com/nvim-telescope/telescope.nvim
 -- https://github.com/nvim-telescope/telescope-file-browser.nvim
+-- https://github.com/nvim-telescope/telescope-ui-select.nvim
 require("telescope").setup()
 require("telescope").load_extension("fzf") -- make
+require("telescope").load_extension("ui-select")
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
 vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
--- vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
--- vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
+vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
+vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 vim.keymap.set("n", "<space>fe", ":Telescope file_browser<CR>")
