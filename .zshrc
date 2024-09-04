@@ -81,6 +81,7 @@ alias la='eza --classify --long --header --git --hyperlink --time-style=long-iso
 alias ll='eza --classify --long --header --git --hyperlink --time-style=long-iso --octal-permissions --icons=always'
 alias lt='eza -F -T --git-ignore --hyperlink'
 alias lg='lazygit'
+# alias multipull='find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \;'
 alias multipull='find . -mindepth 1 -maxdepth 1 -type d | while read -r dir; do echo "Updating : $dir"; git -C "$dir" pull || echo "Failed $dir"; echo; done'
 alias node_modules='find . -name "node_modules" -type d -prune -print | xargs du -chs'
 alias o='open_command $PWD'
