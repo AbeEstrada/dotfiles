@@ -8,7 +8,7 @@ vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 -- Set leader key <Space>
-vim.g.mapleader = ' '
+vim.g.mapleader = " "
 -- Show numbers
 vim.wo.number = true
 -- Enable 24-bit colour
@@ -65,7 +65,6 @@ require("nvim-treesitter.configs").setup {
 		"zig"
 	},
 	auto_install = false,
-	indent = { enable = true },
 	highlight = {
 		enable = true,
 		additional_vim_regex_highlighting = false,
@@ -132,13 +131,16 @@ require("bufferline").setup {
 -- https://github.com/nvim-lualine/lualine.nvim
 require("lualine").setup {
 	options = {
-		section_separators = '',
-		component_separators = ''
+		section_separators = "",
+		component_separators = ""
 	}
 }
 
 -- https://github.com/echasnovski/mini.pairs
 require("mini.pairs").setup()
+
+-- https://github.com/kylechui/nvim-surround
+require("nvim-surround").setup()
 
 -- https://github.com/lewis6991/gitsigns.nvim
 require("gitsigns").setup()
@@ -166,3 +168,28 @@ require("which-key").setup {
 		preset = "helix"
 	}
 }
+
+-- https://github.com/hrsh7th/nvim-cmp
+-- https://github.com/hrsh7th/cmp-nvim-lsp
+require"cmp".setup {
+  sources = {
+    { name = "nvim_lsp" }
+  }
+}
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+-- https://github.com/neovim/nvim-lspconfig
+local lspconfig = require("lspconfig")
+
+-- https://github.com/LuaLS/lua-language-server
+lspconfig.lua_ls.setup{
+	capabilities = capabilities,
+	settings = {
+		Lua = {
+			diagnostics = {
+				globals = { "vim" },
+			},
+		},
+	},
+}
+
