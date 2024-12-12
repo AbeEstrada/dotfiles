@@ -2,6 +2,10 @@
 command = "biome"
 args = ["lsp-proxy"]
 
+[language-server.tailwindcss]
+command = "tailwindcss-language-server"
+args = ["--stdio"]
+
 [language-server.ruff]
 command = "ruff"
 args = ["server"]
@@ -27,20 +31,23 @@ logLevel = "debug"
 # includeInlayPropertyDeclarationTypeHints = true
 # includeInlayVariableTypeHints = true
 
+[language-server.lua-language-server.config.Lua.hint]
+enable = true
+arrayIndex = "Disable"
+setType = true
+paramName = "All"
+paramType = true
+await = true
+
 [language-server.astro-ls]
 command = "astro-ls"
 args = ["--stdio"]
-config = { typescript = { tsdk = "/Users/Abe/.bun/install/global/node_modules/typescript/lib" }, environment = "node" }
-
+config = { contentIntellisense = true, typescript = { tsdk = "/Users/Abe/.bun/install/global/node_modules/typescript/lib" }, environment = "node" }
 
 [[language]]
 name = "astro"
-scope = "source.astro"
-injection-regex = "astro"
-file-types = ["astro"]
-language-servers = ["astro-ls"]
-# roots = ["package.json", "astro.config.mjs"]
 auto-format = true
+language-servers = ["astro-ls"]
 formatter = { command = "prettier", args = [
   "--plugin",
   "prettier-plugin-astro",
@@ -49,24 +56,9 @@ formatter = { command = "prettier", args = [
 ] }
 
 [[language]]
-name = "csv"
-file-types = ["csv"]
-scope = "source.csv"
-
-[[grammar]]
-name = "csv"
-source.git = "https://github.com/weartist/rainbow-csv-tree-sitter"
-source.rev = "d3dbf916446131417e4c2ea9eb8591b23b466d27"
-
-[[language]]
 name = "go"
 auto-format = true
 formatter = { command = "goimports" }
-
-[[language]]
-name = "html"
-auto-format = true
-formatter = { command = "tidy", args = ["-q", "-i", "--"] }
 
 [[language]]
 name = "lua"
@@ -78,6 +70,10 @@ soft-wrap.enable = true
 # soft-wrap.wrap-at-text-width = true
 auto-format = true
 formatter = { command = "dprint", args = ["fmt", "--stdin", "md"] }
+
+[[language]]
+name = "php"
+auto-format = true
 
 [[language]]
 name = "python"
@@ -98,6 +94,15 @@ name = "xml"
 auto-format = true
 formatter = { command = "xmllint", args = ["--format", "-"] }
 
+[[language]]
+name = "html"
+auto-format = true
+# formatter = { command = "tidy", args = ["-q", "-i", "--tidy-mark", "no", "--"] }
+
+[[language]]
+name = "css"
+auto-format = true
+language-servers = ["vscode-css-language-server", "tailwindcss"]
 
 [[language]]
 name = "javascript"
@@ -127,6 +132,7 @@ language-servers = [
     "format",
   ] },
   "biome",
+  "tailwindcss",
 ]
 
 [[language]]
@@ -137,6 +143,7 @@ language-servers = [
     "format",
   ] },
   "biome",
+  "tailwindcss",
 ]
 
 [[language]]
