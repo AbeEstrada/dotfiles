@@ -3,7 +3,7 @@
 browser "open -gj -a Safari '%u' &"
 auto-reload yes
 refresh-on-startup no
-reload-threads 16
+# reload-threads 2
 suppress-first-reload yes
 reload-time 60 # minutes
 download-timeout 90 # seconds
@@ -11,8 +11,10 @@ keep-articles-days 7
 prepopulate-query-feeds yes
 confirm-exit yes
 notify-always yes
-cleanup-on-quit yes
+#cleanup-on-quit yes
 error-log "~/.config/newsboat/error.log"
+
+user-agent "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15"
 
 show-read-feeds no
 show-read-articles no
@@ -46,7 +48,7 @@ define-filter "2 days old" "age >= 2"
 color end-of-text-marker black default
 color listfocus          magenta default
 color listfocus_unread   magenta default bold
-color listnormal         color250   default dim
+color listnormal         color250   default
 color listnormal_unread  white   default bold
 color title              cyan    black bold
 color info               cyan    black
@@ -54,20 +56,23 @@ color hint-key           cyan    black
 
 # highlight feedlist "Unread" green default
 highlight article "^(Feed|Title|Author|Links?|Date|Podcast Download URL):" default default bold
-highlight article "^(Feed):.*$"           cyan     default dim
+highlight article "^(Feed):.*$"           cyan     default
 highlight article "^(Feed):"              default  default bold
-highlight article "^(Title):.*$"          red      default bold dim
+highlight article "^(Title):.*$"          red      default bold
 highlight article "^(Title):"             default  default bold
 highlight article "https?://[^ ]+"        blue     default
 highlight article "\\[image\\ [0-9].+\\]" yellow   default
 
-highlight-article "title =~ \"S3\"             and tags # \"AWS\""    red default bold
-highlight-article "title =~ \"Lambda\"         and tags # \"AWS\""    red default bold
-highlight-article "title =~ \"Amplify\"        and tags # \"AWS\""    red default bold
-highlight-article "title =~ \"DynamoDB\"       and tags # \"AWS\""    red default bold
-highlight-article "title =~ \"AppRunner\"      and tags # \"AWS\""    red default bold
-highlight-article "title =~ \"App Runner\"     and tags # \"AWS\""    red default bold
-highlight-article "title =~ \"Everyday Carry\" and tags # \"Mnmlst\"" red default bold
+highlight-article "title =~ \"S3\"             and tags # \"AWS\""    red default
+highlight-article "title =~ \"Lambda\"         and tags # \"AWS\""    red default
+highlight-article "title =~ \"Amplify\"        and tags # \"AWS\""    red default
+highlight-article "title =~ \"Bedrock\"        and tags # \"AWS\""    red default
+highlight-article "title =~ \"Cognito\"        and tags # \"AWS\""    red default
+highlight-article "title =~ \"DynamoDB\"       and tags # \"AWS\""    red default
+highlight-article "title =~ \"AppRunner\"      and tags # \"AWS\""    red default
+highlight-article "title =~ \"App Runner\"     and tags # \"AWS\""    red default
+highlight-article "title =~ \"Cloudfront\"     and tags # \"AWS\""    red default
+highlight-article "title =~ \"Everyday Carry\" and tags # \"Mnmlst\"" red default
 
 unbind-key  u
 unbind-key  j
@@ -143,14 +148,15 @@ macro y set browser "open -gj -a 'Quicktime Player' -u $(yt-dlp -g -f mp4 '%u') 
 macro p set browser "vlc --quiet '%u' 2> /dev/null &" ; one ; set browser "open -gj -a Safari '%u' &"
 
 # Readability
-macro r set browser "curl -A 'Mozilla Gecko Firefox' -sL '%u' | reader - | less -R" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
-macro e set browser "pane_id=$(wezterm cli spawn) && echo 'go-readability '\''%u'\'' | html2md --in | mdcat --fail -' | wezterm cli send-text --no-paste --pane-id $pane_id" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
-macro t set browser "pane_id=$(wezterm cli spawn) && echo 'browsh '\''%u'\''' | wezterm cli send-text --no-paste --pane-id $pane_id" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
+macro r set browser "curl -A 'Mozilla Gecko Firefox' -sL '%u' | reader - | less -r" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
+macro t set browser "curl -A 'Mozilla Gecko Firefox' -sL '%u' | html2md --in | glow -p" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
+# macro t set browser "pane_id=$(wezterm cli spawn) && echo 'browsh '\''%u'\''' | wezterm cli send-text --no-paste --pane-id $pane_id" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
+# macro e set browser "pane_id=$(wezterm cli spawn) && echo 'go-readability '\''%u'\'' | html2md --in | mdcat --fail -' | wezterm cli send-text --no-paste --pane-id $pane_id" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
 
 # Images
 # https://github.com/wez/wezterm/discussions/2202
+macro j set browser "curl -A 'Mozilla Gecko Firefox' -sL '%u' | kitten icat --align left | less -r" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
 # macro i set browser "pane_id=$(wezterm cli spawn) && echo 'imgcat -u '\''%u'\''' | wezterm cli send-text --no-paste --pane-id $pane_id" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
-macro j set browser "curl -A 'Mozilla Gecko Firefox' -sL '%u' | wezterm imgcat | less -r" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
 
 # Podboat
 player "open -gj -a 'Quicktime Player'"
