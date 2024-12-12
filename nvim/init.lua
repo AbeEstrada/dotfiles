@@ -7,29 +7,28 @@ vim.cmd "colorscheme tokyonight"
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
--- Set leader key <Space>
-vim.g.mapleader = " "
--- Show numbers
-vim.wo.number = true
--- Enable 24-bit colour
-vim.opt.termguicolors = true
--- Highlight current line
-vim.opt.cursorline = true
--- Set tab length
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
--- Show invisible characters
--- vim.opt.list = true
--- Disable netrw
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
--- Set system clibpboard
-vim.opt.clipboard = "unnamedplus"
+vim.wo.number = true -- Show numbers
+vim.g.mapleader = " " -- Set leader key <Space>
+vim.g.loaded_netrw = 1 -- Disable netrw
+vim.g.loaded_netrwPlugin = 1 -- Disable netrw
+vim.opt.termguicolors = true -- Enable 24-bit colors
+vim.opt.cursorline = true -- Highlight current line
+vim.opt.clipboard = "unnamedplus" -- System clipboard
+vim.opt.ignorecase = true -- Search case insensitive
+vim.opt.smartcase = true -- Search matters if capital letter
+vim.opt.inccommand = "split" -- "for incsearch while sub
+vim.opt.splitbelow = true -- Split windows below
+vim.opt.splitright = true -- Split windows right
+
+if vim.fn.getenv("TERM_PROGRAM") == "ghostty" then
+  vim.opt.title = true
+  vim.opt.titlestring = "%{fnamemodify(getcwd(), ':t')}"
+end
 
 -- Plugins:
 
 -- https://github.com/nvim-treesitter/nvim-treesitter
--- require("nvim-treesitter").setup()
+-- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 require("nvim-treesitter.configs").setup {
 	ensure_installed = {
 		"astro",
@@ -72,15 +71,15 @@ require("nvim-treesitter.configs").setup {
 	indent = {
 		enable = true
 	},
-    textobjects = {
-      move = {
-        enable = true,
-        goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
-        goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
-        goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
-        goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
-      },
-    }
+	textobjects = {
+		move = {
+			enable = true,
+			goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
+			goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
+			goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
+			goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
+		},
+	}
 }
 
 -- https://github.com/windwp/nvim-ts-autotag
@@ -171,10 +170,10 @@ require("which-key").setup {
 
 -- https://github.com/hrsh7th/nvim-cmp
 -- https://github.com/hrsh7th/cmp-nvim-lsp
-require"cmp".setup {
-  sources = {
-    { name = "nvim_lsp" }
-  }
+require "cmp".setup {
+	sources = {
+		{ name = "nvim_lsp" }
+	}
 }
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
@@ -182,7 +181,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lspconfig = require("lspconfig")
 
 -- https://github.com/LuaLS/lua-language-server
-lspconfig.lua_ls.setup{
+lspconfig.lua_ls.setup {
 	capabilities = capabilities,
 	settings = {
 		Lua = {
@@ -192,4 +191,3 @@ lspconfig.lua_ls.setup{
 		},
 	},
 }
-
