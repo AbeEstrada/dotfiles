@@ -2,8 +2,10 @@ font-family = Inconsolata
 font-feature = -dlig
 font-size = 15
 
-background-opacity = 0.95
+background-opacity = 0.93
 background-blur-radius = 20
+
+custom-shader = gradient.glsl 
 
 window-width = 180
 window-height = 45
@@ -11,19 +13,20 @@ window-colorspace = display-p3
 window-title-font-family = Helvetica Neue
 
 adjust-cell-height = -1
-copy-on-select = clipboard
+copy-on-select = true
 
 macos-option-as-alt = right
 macos-titlebar-style = tabs
-# mouse-hide-while-typing = true
 
+keybind = cmd+a=ignore
 keybind = cmd+n=new_tab
 keybind = cmd+shift+n=new_window
 keybind = cmd+shift+left=previous_tab
 keybind = cmd+shift+right=next_tab
-keybind = cmd+left=text:\x01
 keybind = cmd+right=text:\x05
-keybind = cmd+a=ignore
+keybind = cmd+left=text:\x01
+keybind = alt+left=esc:b
+keybind = alt+right=esc:f
 
 background = #1B1C2B
 foreground = #eff0eb
@@ -46,5 +49,4 @@ palette = 11=#F7E992
 palette = 12=#4BA4ED
 palette = 13=#B27FFF
 palette = 14=#9AEDFE
-#palette = 15=#EFF0EB
 palette = 15=#FFFFFF
