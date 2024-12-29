@@ -5,48 +5,22 @@ font-size = 15
 background-opacity = 0.93
 background-blur-radius = 20
 
-custom-shader = gradient.glsl 
+theme = abedark
+# custom-shader = gradient.glsl 
 
 window-width = 180
 window-height = 45
 window-colorspace = display-p3
 window-title-font-family = Helvetica Neue
 
-adjust-cell-height = -1
+cursor-style = bar
 copy-on-select = true
 
 macos-option-as-alt = right
 macos-titlebar-style = tabs
 
-keybind = cmd+a=ignore
 keybind = cmd+n=new_tab
 keybind = cmd+shift+n=new_window
 keybind = cmd+shift+left=previous_tab
 keybind = cmd+shift+right=next_tab
-keybind = cmd+right=text:\x05
-keybind = cmd+left=text:\x01
-keybind = alt+left=esc:b
-keybind = alt+right=esc:f
 
-background = #1B1C2B
-foreground = #eff0eb
-cursor-color = #edeeee
-cursor-style = bar
-adjust-cursor-thickness = 1
-
-palette = 0=#343646
-palette = 1=#F07396
-palette = 2=#99EE93
-palette = 3=#F7E992
-palette = 4=#4BA4ED
-palette = 5=#B27FFF
-palette = 6=#9AEDFE
-palette = 7=#F1F1F0
-palette = 8=#686868
-palette = 9=#F07396
-palette = 10=#99EE93
-palette = 11=#F7E992
-palette = 12=#4BA4ED
-palette = 13=#B27FFF
-palette = 14=#9AEDFE
-palette = 15=#FFFFFF
