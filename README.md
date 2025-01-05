@@ -6,6 +6,7 @@ This is mostly for personal use, but feel free to fork.
 - Shell: [ZSH](https://www.zsh.org)
   - [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)
 - Editor: [Helix](https://helix-editor.com)
+- Email: [Aerc](https://aerc-mail.org)
 
 ### Brewfile
 
