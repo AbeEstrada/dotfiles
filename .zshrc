@@ -6,9 +6,7 @@ plugins=(
   aws
   brew
   bun
-  catimg
   common-aliases
-  encode64
   fzf
   gh
   git
@@ -23,8 +21,6 @@ plugins=(
   rust
   starship
   tailscale
-  urltools
-  web-search
   xcode
   zoxide
   zsh-interactive-cd
@@ -44,6 +40,7 @@ stty -ixon
 bindkey -e  # (default) emacs
 bindkey "^[[1;3D" backward-word  # Alt + Left
 bindkey "^[[1;3C" forward-word   # Alt + Right
+bindkey \^U backward-kill-line   # Ctrl + u
 
 COMPLETION_WAITING_DOTS=true
 ENABLE_CORRECTION=true
@@ -52,20 +49,19 @@ SAVEHIST=10000000
 HIST_STAMPS="yyyy/mm/dd"
 HISTORY_IGNORE="(ls|cd|pwd|exit|z)*"
 
-setopt COMBINING_CHARS
-setopt CORRECT
-setopt EXTENDED_HISTORY
-setopt HIST_FIND_NO_DUPS
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE
-setopt HIST_NO_STORE
-setopt HIST_REDUCE_BLANKS
-setopt HIST_SAVE_NO_DUPS
-setopt INC_APPEND_HISTORY_TIME
-
-unsetopt SHARE_HISTORY
-unset zle_bracketed_paste  # Disable paste highlight
+setopt COMBINING_CHARS         # Properly display Unicode combining characters (like accents)
+setopt CORRECT                 # Enable command auto-correction
+setopt EXTENDED_HISTORY        # Save timestamp and duration for each command in history
+setopt HIST_FIND_NO_DUPS       # When searching history, skip duplicates
+setopt HIST_IGNORE_ALL_DUPS    # Delete older duplicate entries from history
+setopt HIST_IGNORE_DUPS        # Don't record a command that was just recorded
+setopt HIST_IGNORE_SPACE       # Don't record commands that start with space
+setopt HIST_NO_STORE           # Don't store history or fc commands in history
+setopt HIST_REDUCE_BLANKS      # Remove unnecessary blanks from commands in history
+setopt HIST_SAVE_NO_DUPS       # Don't write duplicate entries to history file
+setopt INC_APPEND_HISTORY_TIME # Add commands to history file incrementally with timestamp
+unsetopt SHARE_HISTORY         # Don't share history between different shell sessions
+unset zle_bracketed_paste      # Disable paste highlight
 
 alias bunst='bun run start'
 alias emptytrash="osascript -e 'tell application \"Finder\" to empty the trash'"
@@ -74,15 +70,15 @@ alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
 alias ghn='gh api notifications --template "{{range .}}{{tablerow .subject.title .subject.url}}{{end}}"'
 alias hist='history | fzf'
 alias imgcat='kitten icat'
-alias ip='dig +short myip.opendns.com @resolver1.opendns.com 2> /dev/null || echo none'
+alias ip='curl icanhazip.com'
 alias ips='ifconfig | grep broadcast'
-alias l='eza  --classify --long --header --git --hyperlink --time-style=long-iso --no-permissions --no-user --icons=never'
-alias la='eza --classify --long --header --git --hyperlink --time-style=long-iso --no-permissions --no-user --icons=never --all'
-alias ll='eza --classify --long --header --git --hyperlink --time-style=long-iso --octal-permissions --icons=always'
-alias lt='eza -F -T --git-ignore --hyperlink'
+alias l='eza  --classify --long --header --git --time-style=long-iso --no-permissions --no-user --icons=never'
+alias la='eza --classify --long --header --git --time-style=long-iso --no-permissions --no-user --icons=never --all'
 alias lg='lazygit'
-# alias multipull='find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \;'
-alias multipull='find . -mindepth 1 -maxdepth 1 -type d | while read -r dir; do echo "Updating : $dir"; git -C "$dir" pull || echo "Failed $dir"; echo; done'
+alias ll='eza --classify --long --header --git --time-style=long-iso --octal-permissions --bytes --icons=always'
+alias lt='eza -F -T --git-ignore'
+alias ltt='eza -F -T -D --git-ignore'
+alias multipull='find . -mindepth 1 -maxdepth 1 -type d | while read -r dir; do echo "\033[32mUpdating:\033[0m $dir\n$(git -C "$dir" remote get-url origin 2>/dev/null || echo "No remote for $dir")"; git -C "$dir" pull || echo "Failed $dir"; echo; done'
 alias node_modules='find . -name "node_modules" -type d -prune -print | xargs du -chs'
 alias o='open_command $PWD'
 alias pp_xml="python3 -c 'import sys; import xml.dom.minidom; s=sys.stdin.read(); print(xml.dom.minidom.parseString(s).toprettyxml(indent=\"  \"))'"
@@ -92,6 +88,7 @@ alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
 alias todo="grep --color=always --exclude-dir={.git,node_modules,.next,venv} -RIin -E '(//|#)\s?(TODO|FIXM?E?):?' . | sed -e 's/:[ \t]*/:/g'"
 alias tree='eza --tree -D'
 alias ytdl='yt-dlp -f mp4 --id --cookies-from-browser safari'
+
 termsize() {
   local width=$(tput cols)
   local height=$(tput lines)
