@@ -5,7 +5,7 @@ inherits = "zed_onedark"
 "tag".fg = "red"
 "function.method" = { fg = "blue", modifiers = ["bold"] }
 "operator".fg = "purple"
-"punctuation.bracket".fg = "light-gray"
+"punctuation.bracket".fg = "platinum"
 "punctuation.delimiter".fg = "light-gray"
 "keyword.control.import" = { fg = "purple", modifiers = ["italic"] }
 
@@ -15,8 +15,8 @@ inherits = "zed_onedark"
 
 "ui.background".bg = ""
 "ui.virtual.ruler".bg = "faint-gray"
-"ui.virtual.whitespace".fg = "faint-gray"
-"ui.virtual.indent-guide".fg = "faint-gray"
+"ui.virtual.whitespace".fg = "space-gray"
+"ui.virtual.indent-guide".fg = "space-gray"
 "ui.virtual.jump-label" = { bg = "faint-gray", fg = "purple" }
 
 "ui.statusline" = { fg = "white", bg = "faint-gray" }
@@ -42,12 +42,14 @@ bg = "#222436"
 blue = "#41a7fc"
 cyan = "#34bfd0"
 faint-gray = "#373A58"
+space-gray = "#282A40"
 green = "#89ca78"
 light-black = "#2B2E45"
 light-gray = "#5C6370"
 orange = "#dd9046"
 pink = "#F4C7F0"
 purple = "#d55fde"
+platinum = "#CCCDD2"
 red = "#FD6D80"
 white = "#FAFAFA"
 yellow = "#FFD46C"
