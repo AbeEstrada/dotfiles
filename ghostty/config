@@ -2,11 +2,11 @@ font-family = Inconsolata
 font-feature = -dlig
 font-size = 15
 
-background-opacity = 0.93
-background-blur-radius = 20
-
 theme = abedark
-# custom-shader = gradient.glsl 
+
+background-opacity = 0.9
+background-blur-radius = 20
+split-divider-color  = #393847
 
 window-width = 180
 window-height = 45
@@ -14,7 +14,7 @@ window-colorspace = display-p3
 window-title-font-family = Helvetica Neue
 
 cursor-style = bar
-copy-on-select = true
+copy-on-select = clipboard
 
 macos-option-as-alt = right
 macos-titlebar-style = tabs
@@ -23,4 +23,3 @@ keybind = cmd+n=new_tab
 keybind = cmd+shift+n=new_window
 keybind = cmd+shift+left=previous_tab
 keybind = cmd+shift+right=next_tab
-

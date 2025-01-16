@@ -14,7 +14,7 @@ notify-always yes
 #cleanup-on-quit yes
 error-log "~/.config/newsboat/error.log"
 
-user-agent "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15"
+user-agent "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Safari/605.1.15"
 
 show-read-feeds no
 show-read-articles no
@@ -136,6 +136,9 @@ bookmark-autopilot yes
 bookmark-cmd "~/.bin/add_to_reading_list"
 macro b bookmark
 
+# Copy URL
+macro c set browser "echo %u | pbcopy" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
+
 # Browser
 macro . open-in-browser-noninteractively; toggle-article-read "read"
 macro o open-in-browser-noninteractively; toggle-article-read "read"
@@ -164,4 +167,5 @@ delete-played-files yes
 download-path "~/Music/Podcasts"
 
 ignore-mode "display"
+ignore-article "regex:https://github.com/.*"           "(title =~ \"nightly\" or title =~ \"canary\" or title =~ \"-pre\")"
 ignore-article "regex:https://www.youtube.com/.*"      "title =~ \"#Shorts\""

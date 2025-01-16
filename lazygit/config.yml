@@ -1,0 +1,8 @@
+# confirmOnQuit: true
+notARepository: "quit"
+keybinding:
+    universal:
+        quit: <C-c>
+        # return: q # <esc>
+gui:
+    nerdFontsVersion: "3"
