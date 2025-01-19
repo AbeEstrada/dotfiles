@@ -1,0 +1,33 @@
+return {
+  "nvim-treesitter/nvim-treesitter",
+  build = ":TSUpdate",
+  opts = {
+    auto_install = true,
+    indent = { enable = true },
+    highlight = { enable = true },
+    ensure_installed = {
+      "astro",
+      "bash",
+      -- "comment",
+      "css",
+      "csv",
+      "diff",
+      "gitcommit",
+      "gitignore",
+      "go",
+      "gomod",
+      "html",
+      "javascript",
+      "json",
+      "lua",
+      "luadoc",
+      "markdown",
+      "markdown_inline",
+      "pip requirements",
+      "vim",
+      "vimdoc",
+      "xml",
+      "yaml",
+    }
+  },
+}
