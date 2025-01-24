@@ -15,6 +15,7 @@ window-title-font-family = Helvetica Neue
 
 cursor-style = bar
 copy-on-select = clipboard
+mouse-hide-while-typing = true
 
 macos-option-as-alt = right
 macos-titlebar-style = tabs
@@ -23,3 +24,5 @@ keybind = cmd+n=new_tab
 keybind = cmd+shift+n=new_window
 keybind = cmd+shift+left=previous_tab
 keybind = cmd+shift+right=next_tab
+
+background = #1E1D30
