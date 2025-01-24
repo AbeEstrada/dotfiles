@@ -1,4 +1,4 @@
-theme = "abedarker"
+theme = "abenight"
 
 [editor]
 mouse = false
@@ -10,12 +10,14 @@ bufferline = "always"
 shell = ["zsh", "-cu"]
 scrolloff = 20
 rulers = [80, 120]
-default-yank-register = "+"
+# default-yank-register = "+"
 end-of-line-diagnostics = "hint"
 jump-label-alphabet = "asdghklqwertyuiopzxcvbnmfj"
 
 [editor.inline-diagnostics]
 cursor-line = "warning"
+# cursor-line = "hint"
+# other-lines = "error"
 
 [editor.lsp]
 display-inlay-hints = false
@@ -59,6 +61,13 @@ S-A-right = "goto_next_buffer"
 S-A-left = "goto_previous_buffer"
 S-A-up = "page_cursor_half_up"
 S-A-down = "page_cursor_half_down"
+C-l = [
+  ":new",
+  ":insert-output lazygit",
+  ":buffer-close!",
+  ":redraw",
+  ":reload-all",
+]
 C-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
 C-k = [
   "extend_to_line_bounds",
@@ -67,13 +76,13 @@ C-k = [
   "paste_before",
 ]
 "'" = "goto_word"
+X = ["extend_line_up", "extend_to_line_bounds"]
 a = [
   "ensure_selections_forward",
   "collapse_selection",
   "move_char_right",
   "insert_mode",
 ]
-X = ["extend_line_up", "extend_to_line_bounds"]
 # w = ["move_next_word_end", "move_prev_word_start", "move_next_word_end"]
 # W = [ "move_next_long_word_end", "move_prev_long_word_start", "move_next_long_word_end"]
 W = "move_next_sub_word_start"
@@ -84,5 +93,6 @@ E = "move_next_sub_word_end"
 F = "file_picker_in_current_buffer_directory"
 
 [keys.normal.space.t]
-s = ":toggle soft-wrap.enable"
-f = "@\"%p<space>Yd"
+s = ":toggle soft-wrap.enable" # toggle soft-wrap
+f = "@\"%p<space>Yd"           # copy buffer path
+n = "@\"#P"                    # consecutive numbers

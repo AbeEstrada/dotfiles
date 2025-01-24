@@ -14,7 +14,7 @@ inherits = "zed_onedark"
 "diff.minus" = "red"
 
 "ui.background".bg = ""
-"ui.virtual.ruler".bg = "faint-gray"
+"ui.virtual.ruler".bg = "bg"
 "ui.virtual.whitespace".fg = "space-gray"
 "ui.virtual.indent-guide".fg = "space-gray"
 "ui.virtual.jump-label" = { bg = "faint-gray", fg = "purple" }

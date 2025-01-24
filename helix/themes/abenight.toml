@@ -1,0 +1,26 @@
+# https://github.com/helix-editor/helix/blob/master/runtime/themes/tokyonight.toml
+
+inherits = "tokyonight_moon"
+
+"ui.background".bg = ""
+"ui.text".bg = ""
+"ui.linenr.selected".fg = "orange"
+"ui.bufferline" = { fg = "white", bg = "fg-gutter" }
+"ui.bufferline.active" = { fg = "orange", bg = "bg", modifiers = ["bold"] }
+
+"ui.cursor" = { fg = "white", bg = "fg-dark", modifiers = ["reversed"] }
+"ui.cursor.primary" = { fg = "white", modifiers = ["reversed"] }
+"ui.cursor.match" = { fg = "white", modifiers = ["underlined"] }
+"ui.cursor.insert" = { fg = "white", bg = "fg-dark" }
+
+"ui.statusline" = { fg = "white", bg = "fg-gutter" }
+"ui.statusline.inactive" = { fg = "fg-dark", bg = "fg-selected" }
+"ui.virtual.ruler".bg = "fg-gutter"
+"ui.virtual.whitespace".fg = "fg-gutter"
+"ui.virtual.indent-guide".fg = "fg-gutter"
+
+"ui.selection.primary" = { bg = "#2A3556" }
+
+
+[palette]
+white = "#fafafa"
