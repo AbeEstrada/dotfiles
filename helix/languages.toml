@@ -11,6 +11,10 @@ feature_unicode_input = true         # enable "unicode input"
 feature_paths = true                 # enable path completion
 feature_citations = false            # enable citation completion (only on `citation` feature enabled)
 
+[language-server.harper-ls]
+command = "harper-ls"
+args = ["--stdio"]
+
 [language-server.biome]
 command = "biome"
 args = ["lsp-proxy"]
@@ -59,8 +63,10 @@ config = { contentIntellisense = true, typescript = { tsdk = "/Users/Abe/.bun/in
 
 [[language]]
 name = "astro"
-auto-format = true
+scope = "source.astro"
+file-types = ["astro"]
 language-servers = ["astro-ls"]
+auto-format = true
 formatter = { command = "prettier", args = [
   "--plugin",
   "prettier-plugin-astro",
@@ -79,9 +85,9 @@ auto-format = true
 
 [[language]]
 name = "markdown"
-soft-wrap.enable = true
-# soft-wrap.wrap-at-text-width = true
 auto-format = true
+soft-wrap.enable = true
+comment-tokens = ["-", "+", "*", "1.", ">", "- [ ]"]
 formatter = { command = "dprint", args = ["fmt", "--stdin", "md"] }
 
 [[language]]

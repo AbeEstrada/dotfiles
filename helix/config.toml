@@ -10,7 +10,7 @@ bufferline = "always"
 shell = ["zsh", "-cu"]
 scrolloff = 20
 rulers = [80, 120]
-# default-yank-register = "+"
+continue-comments = false
 end-of-line-diagnostics = "hint"
 jump-label-alphabet = "asdghklqwertyuiopzxcvbnmfj"
 
