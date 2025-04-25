@@ -63,8 +63,6 @@ config = { contentIntellisense = true, typescript = { tsdk = "/Users/Abe/.bun/in
 
 [[language]]
 name = "astro"
-scope = "source.astro"
-file-types = ["astro"]
 language-servers = ["astro-ls"]
 auto-format = true
 formatter = { command = "prettier", args = [

@@ -1,7 +1,6 @@
 theme = "abenight"
 
 [editor]
-mouse = false
 true-color = true
 color-modes = true
 auto-format = true
@@ -21,6 +20,7 @@ cursor-line = "warning"
 
 [editor.lsp]
 display-inlay-hints = false
+display-color-swatches = true
 
 [editor.cursor-shape]
 insert = "bar"
@@ -61,12 +61,20 @@ S-A-right = "goto_next_buffer"
 S-A-left = "goto_previous_buffer"
 S-A-up = "page_cursor_half_up"
 S-A-down = "page_cursor_half_down"
+# Lazygit
 C-l = [
   ":new",
   ":insert-output lazygit",
   ":buffer-close!",
   ":redraw",
   ":reload-all",
+]
+# Yazi
+C-y = [
+  ":sh rm -f /tmp/yazi-path",
+  ":insert-output yazi %{buffer_name} --chooser-file=/tmp/yazi-path",
+  ":open %sh{cat /tmp/yazi-path}",
+  ":redraw",
 ]
 C-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
 C-k = [
@@ -83,8 +91,6 @@ a = [
   "move_char_right",
   "insert_mode",
 ]
-# w = ["move_next_word_end", "move_prev_word_start", "move_next_word_end"]
-# W = [ "move_next_long_word_end", "move_prev_long_word_start", "move_next_long_word_end"]
 W = "move_next_sub_word_start"
 B = "move_prev_sub_word_start"
 E = "move_next_sub_word_end"
