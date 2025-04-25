@@ -27,7 +27,7 @@ style = "blue"
 
 [nodejs]
 symbol = " "
-detect_files = ["package.json", ".node-version", "!bunfig.toml", "!bun.lockb"]
+detect_files = ["package.json", "!bunfig.toml", "!bun.lockb", "!bun.lock"]
 
 [python]
 symbol = " "
@@ -64,25 +64,11 @@ ignore_timeout = true
 style = ""
 disabled = true
 
-
 [bun]
-# symbol = "󱜚 "
 symbol = " "
-
-[buf]
-symbol = " "
 
 [c]
 symbol = " "
-
-[conda]
-symbol = " "
-
-[crystal]
-symbol = " "
-
-[dart]
-symbol = " "
 
 [docker_context]
 symbol = " "
@@ -93,9 +79,6 @@ symbol = " "
 [elm]
 symbol = " "
 
-[fennel]
-symbol = " "
-
 [fossil_branch]
 symbol = " "
 
@@ -105,14 +88,8 @@ symbol = " "
 [golang]
 symbol = " "
 
-[guix_shell]
-symbol = " "
-
 [haskell]
 symbol = " "
-
-[haxe]
-symbol = " "
 
 [hg_branch]
 symbol = " "
@@ -123,9 +100,6 @@ ssh_symbol = " "
 [java]
 symbol = " "
 
-[julia]
-symbol = " "
-
 [kotlin]
 symbol = " "
 
@@ -134,15 +108,6 @@ symbol = " "
 
 [memory_usage]
 symbol = "󰍛 "
-
-[meson]
-symbol = "󰔷 "
-
-[nim]
-symbol = "󰆥 "
-
-[nix_shell]
-symbol = " "
 
 [ocaml]
 symbol = " "
@@ -158,9 +123,6 @@ symbol = " "
 
 [php]
 symbol = " "
-
-[pijul_channel]
-symbol = " "
 
 [rlang]
 symbol = "󰟔 "
