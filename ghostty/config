@@ -9,7 +9,7 @@ background-blur-radius = 20
 split-divider-color  = #393847
 
 window-width = 180
-window-height = 45
+window-height = 48
 window-colorspace = display-p3
 window-title-font-family = Helvetica Neue
 
