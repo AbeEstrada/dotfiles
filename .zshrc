@@ -17,8 +17,8 @@ plugins=(
   mise
   npm
   python
-  rsync
   rust
+  rsync
   starship
   tailscale
   xcode
@@ -27,14 +27,18 @@ plugins=(
   # 3rd party
   fzf-tab
   history-substring-search
+  you-should-use
   zsh-autosuggestions
   zsh-better-npm-completion
   zsh-syntax-highlighting
   zsh-shift-select
 )
 
+zstyle ':fzf-tab:*' use-fzf-default-opts yes
+
 source $ZSH/oh-my-zsh.sh
 
+# Disable XON/XOFF flow control to allow Ctrl-S usage
 stty -ixon
 
 bindkey -e  # (default) emacs
@@ -44,11 +48,12 @@ bindkey \^U backward-kill-line   # Ctrl + u
 
 COMPLETION_WAITING_DOTS=true
 ENABLE_CORRECTION=true
-HISTSIZE=10000000
 SAVEHIST=10000000
+HISTSIZE=10000000
 HIST_STAMPS="yyyy/mm/dd"
 HISTORY_IGNORE="(ls|cd|pwd|exit|z)*"
 
+setopt CHASE_LINKS             # Follow symbolic links
 setopt COMBINING_CHARS         # Properly display Unicode combining characters (like accents)
 setopt CORRECT                 # Enable command auto-correction
 setopt EXTENDED_HISTORY        # Save timestamp and duration for each command in history
@@ -63,22 +68,23 @@ setopt INC_APPEND_HISTORY_TIME # Add commands to history file incrementally with
 unsetopt SHARE_HISTORY         # Don't share history between different shell sessions
 unset zle_bracketed_paste      # Disable paste highlight
 
+unalias lsr # https://tangled.sh/@rockorager.dev/lsr
 alias bunst='bun run start'
 alias emptytrash="osascript -e 'tell application \"Finder\" to empty the trash'"
 alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
 alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
 alias ghn='gh api notifications --template "{{range .}}{{tablerow .subject.title .subject.url}}{{end}}"'
+alias gdu='gdu-go'
 alias hist='history | fzf'
 alias imgcat='kitten icat'
 alias ip='curl icanhazip.com'
 alias ips='ifconfig | grep broadcast'
 alias l='eza  --classify --long --header --git --time-style=long-iso --no-permissions --no-user --icons=never'
 alias la='eza --classify --long --header --git --time-style=long-iso --no-permissions --no-user --icons=never --all'
-alias lg='lazygit'
 alias ll='eza --classify --long --header --git --time-style=long-iso --octal-permissions --bytes --icons=always'
-alias lt='eza -F -T --git-ignore'
-alias ltt='eza -F -T -D --git-ignore'
+alias lg='lazygit'
 alias multipull='find . -mindepth 1 -maxdepth 1 -type d | while read -r dir; do echo "\033[32mUpdating:\033[0m $dir\n$(git -C "$dir" remote get-url origin 2>/dev/null || echo "No remote for $dir")"; git -C "$dir" pull || echo "Failed $dir"; echo; done'
+alias nb='newsboat'
 alias node_modules='find . -name "node_modules" -type d -prune -print | xargs du -chs'
 alias o='open_command $PWD'
 alias pp_xml="python3 -c 'import sys; import xml.dom.minidom; s=sys.stdin.read(); print(xml.dom.minidom.parseString(s).toprettyxml(indent=\"  \"))'"
@@ -88,6 +94,8 @@ alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
 alias todo="grep --color=always --exclude-dir={.git,node_modules,.next,venv} -RIin -E '(//|#)\s?(TODO|FIXM?E?):?' . | sed -e 's/:[ \t]*/:/g'"
 alias tree='eza --tree -D'
 alias ytdl='yt-dlp -f mp4 --id --cookies-from-browser safari'
+alias :q="exit"
+alias :wq="exit"
 
 termsize() {
   local width=$(tput cols)
@@ -95,12 +103,12 @@ termsize() {
   echo "$width x $height"
 }
 yy() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		builtin cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  yazi "$@" --cwd-file="$tmp"
+  if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    builtin cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
 }
 gif2mp4() {
   [ $# -lt 1 ] && echo "Usage: gif2mp4 <input.gif> [output.mp4]" && return 1
@@ -125,4 +133,12 @@ extract_audio() {
   [[ ! -f "$1" ]] && echo "Error: '$1' does not exist." && return 1
   output=${2:-"${1%.*}.aac"}
   ffmpeg -i "$1" -vn -acodec copy "$output"
+}
+concat_mp3() {
+  find . -name "*.mp3" | sort | xargs -I{} echo "file '{}'" > files.txt
+  ffmpeg -f concat -safe 0 -i files.txt -c copy output.mp3
+  rm files.txt
+}
+mp3time() {
+  ffmpeg -i "$1" 2>&1 | sed -nE "s/.*Duration: ([^,]*),.*/\1/p"
 }
