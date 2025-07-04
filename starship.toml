@@ -9,9 +9,6 @@ vimcmd_symbol = "[](green)"
 style = "yellow"
 format = "[$duration  ]($style)"
 
-[aws]
-symbol = "  "
-
 [directory]
 style = "cyan"
 read_only = " 󰌾"
@@ -24,20 +21,6 @@ symbol = " "
 [jobs]
 symbol = ""
 style = "blue"
-
-[nodejs]
-symbol = " "
-detect_files = ["package.json", "!bunfig.toml", "!bun.lockb", "!bun.lock"]
-
-[python]
-symbol = " "
-python_binary = [
-  "./venv/bin/python",
-  "./bin/python",
-  "python",
-  "python3",
-  "python2",
-]
 
 [time]
 disabled = false
@@ -64,8 +47,12 @@ ignore_timeout = true
 style = ""
 disabled = true
 
+[aws]
+symbol = "  "
+
 [bun]
 symbol = " "
+format = '[$symbol($version)]($style)'
 
 [c]
 symbol = " "
@@ -88,9 +75,6 @@ symbol = " "
 [golang]
 symbol = " "
 
-[haskell]
-symbol = " "
-
 [hg_branch]
 symbol = " "
 
@@ -100,17 +84,22 @@ ssh_symbol = " "
 [java]
 symbol = " "
 
-[kotlin]
-symbol = " "
-
 [lua]
 symbol = " "
 
 [memory_usage]
 symbol = "󰍛 "
 
-[ocaml]
-symbol = " "
+[nodejs]
+symbol = " "
+detect_files = [
+  "package.json",
+  ".node-version",
+  ".nvmrc",
+  "!bunfig.toml",
+  "!bun.lockb",
+  "!bun.lock",
+]
 
 [os.symbols]
 Macos = " "
@@ -124,17 +113,22 @@ symbol = " "
 [php]
 symbol = " "
 
-[rlang]
-symbol = "󰟔 "
+[python]
+symbol = " "
+format = '[${symbol}${pyenv_prefix}(${version}) (\($virtualenv\))]($style)'
+python_binary = [
+  "./venv/bin/python",
+  "./bin/python",
+  "python",
+  "python3",
+  "python2",
+]
 
 [ruby]
 symbol = " "
 
 [rust]
 symbol = " "
-
-[scala]
-symbol = " "
 
 [swift]
 symbol = " "
