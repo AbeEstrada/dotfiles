@@ -7,7 +7,7 @@ vimcmd_symbol = "[](green)"
 
 [cmd_duration]
 style = "yellow"
-format = "[$duration  ]($style)"
+format = "[$duration ❮ ]($style)"
 
 [directory]
 style = "cyan"
@@ -48,11 +48,11 @@ style = ""
 disabled = true
 
 [aws]
-symbol = "  "
+symbol = "  "
 
 [bun]
-symbol = " "
-format = '[$symbol($version)]($style)'
+symbol = " "
+format = '[$symbol($version)]($style) '
 
 [c]
 symbol = " "
@@ -69,14 +69,17 @@ symbol = " "
 [fossil_branch]
 symbol = " "
 
+[git_commit]
+tag_symbol = "  "
+
 [git_branch]
+symbol = " "
+
+[hg_branch]
 symbol = " "
 
 [golang]
 symbol = " "
-
-[hg_branch]
-symbol = " "
 
 [hostname]
 ssh_symbol = " "
@@ -89,6 +92,9 @@ symbol = " "
 
 [memory_usage]
 symbol = "󰍛 "
+
+[nim]
+symbol = "󰆥 "
 
 [nodejs]
 symbol = " "
