@@ -1,14 +1,13 @@
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["m", "z"]
 run = "linemode size_and_mtime"
 desc = "Set linemode to size and mtime"
 
-[[manager.prepend_keymap]]
-on = "p"
-# on = "<C-p>"
+[[mgr.prepend_keymap]]
+on = "<C-p>"
 run = 'shell -- qlmanage -p "$@"'
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["C"]
 run = "plugin ouch zip"
 desc = "Compress with ouch"
@@ -23,17 +22,17 @@ desc = "Compress with ouch"
 # run = "plugin open-with-cmd"
 # desc = "Open with command"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = "Q"
 run = "quit"
 desc = "Exit the process"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = "q"
 run = "quit --no-cwd-file"
 desc = "Exit the process without writing cwd-file"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["?"]
 run = "help"
 desc = "Open help"

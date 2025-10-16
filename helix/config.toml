@@ -6,17 +6,13 @@ color-modes = true
 auto-format = true
 popup-border = "all"
 bufferline = "always"
-shell = ["zsh", "-cu"]
 scrolloff = 20
+shell = ["zsh", "-c"]
 rulers = [80, 120]
+rainbow-brackets = true
 continue-comments = false
-end-of-line-diagnostics = "hint"
-jump-label-alphabet = "asdghklqwertyuiopzxcvbnmfj"
-
-[editor.inline-diagnostics]
-cursor-line = "warning"
-# cursor-line = "hint"
-# other-lines = "error"
+completion-replace = true
+jump-label-alphabet = "asdfgqwertzxcvb"
 
 [editor.lsp]
 display-inlay-hints = false
@@ -36,17 +32,24 @@ newline = "none"
 [editor.indent-guides]
 render = true
 skip-levels = 1
+character = "┊" # Some characters that work well: "▏", "┆", "┊", "⸽"
+
+[editor.word-completion]
+enable = true
+trigger-length = 3
 
 [editor.statusline]
 center = ["register", "version-control"]
 right = [
   "diagnostics",
+  "workspace-diagnostics",
   "primary-selection-length",
   "selections",
-  "register",
   "position",
+  "total-line-numbers",
   "file-type",
   "file-encoding",
+  "file-indent-style",
   "file-line-ending",
 ]
 
@@ -57,25 +60,16 @@ E = "extend_next_sub_word_end"
 
 [keys.normal]
 esc = ["collapse_selection", "keep_primary_selection"]
+"'" = "goto_word"
 S-A-right = "goto_next_buffer"
 S-A-left = "goto_previous_buffer"
 S-A-up = "page_cursor_half_up"
 S-A-down = "page_cursor_half_down"
-# Lazygit
-C-l = [
-  ":new",
-  ":insert-output lazygit",
-  ":buffer-close!",
-  ":redraw",
-  ":reload-all",
-]
-# Yazi
-C-y = [
-  ":sh rm -f /tmp/yazi-path",
-  ":insert-output yazi %{buffer_name} --chooser-file=/tmp/yazi-path",
-  ":open %sh{cat /tmp/yazi-path}",
-  ":redraw",
-]
+C-A-right = "jump_view_right"
+C-A-left = "jump_view_left"
+C-A-up = "jump_view_up"
+C-A-down = "jump_view_down"
+C-e = ["search_selection", "extend_search_next"]
 C-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
 C-k = [
   "extend_to_line_bounds",
@@ -83,7 +77,6 @@ C-k = [
   "move_line_up",
   "paste_before",
 ]
-"'" = "goto_word"
 X = ["extend_line_up", "extend_to_line_bounds"]
 a = [
   "ensure_selections_forward",

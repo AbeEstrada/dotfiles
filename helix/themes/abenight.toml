@@ -4,9 +4,11 @@ inherits = "tokyonight_moon"
 
 "ui.background".bg = ""
 "ui.text".bg = ""
-"ui.linenr.selected".fg = "orange"
+"ui.window" = "fg-selected"
+"ui.linenr".fg = "black"
+"ui.linenr.selected".fg = "purple"
 "ui.bufferline" = { fg = "white", bg = "fg-gutter" }
-"ui.bufferline.active" = { fg = "orange", bg = "bg", modifiers = ["bold"] }
+"ui.bufferline.active" = { fg = "purple", bg = "bg-menu", modifiers = ["bold"] }
 
 "ui.cursor" = { fg = "fg", bg = "fg-dark", modifiers = ["reversed"] }
 "ui.cursor.primary" = { fg = "white", modifiers = ["reversed"] }
@@ -19,9 +21,10 @@ inherits = "tokyonight_moon"
 "ui.virtual.whitespace".fg = "fg-gutter"
 "ui.virtual.indent-guide".fg = "fg-gutter"
 
-"ui.selection.primary".bg = "#542D96"
-"ui.selection".bg = "#2A164B"
+"ui.selection.primary" = { bg = "#542D96" }
+"ui.selection" = { bg = "#7E51CB" }
 
 
 [palette]
 white = "#fafafa"
+magenta = "#E06798"

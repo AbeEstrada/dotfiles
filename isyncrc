@@ -1,0 +1,52 @@
+CopyArrivalDate yes  # Don't mess up message timestamps when moving them between folders.
+Sync Pull            # Download changes only, don't sync local changes up to the server.
+Create Near          # Automatically create new folders in the local copy.
+Remove Near          # Automatically remove deleted folders from the local copy.
+Expunge Near         # Expunge deleted messages from the local copy.
+
+### Gmail
+
+IMAPAccount gmail
+Host imap.gmail.com
+User abraham@gmail.com
+PassCmd "security find-generic-password -a 'abraham@gmail.com' -s 'isync' -w"
+TLSType IMAPS
+AuthMechs LOGIN
+
+IMAPStore gmail-remote
+Account gmail
+
+MaildirStore gmail-local
+Path ~/Mail/Gmail/
+Inbox ~/Mail/Gmail/Inbox
+SubFolders Verbatim
+
+Channel gmail
+Far :gmail-remote:
+Near :gmail-local:
+Patterns *
+SyncState *
+
+
+### Work
+
+IMAPAccount work
+TLSType IMAPS
+Host imap.work.com
+User abraham@work.com
+PassCmd "security find-generic-password -a 'abraham@work.com' -s 'isync' -w"
+
+IMAPStore work-remote
+Account work
+
+MaildirStore work-local
+Path ~/Mail/Work/
+Inbox ~/Mail/Work/Inbox
+SubFolders Verbatim
+
+Channel work
+Far :work-remote:
+Near :work-local:
+Patterns *
+SyncState *
+

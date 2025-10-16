@@ -1,26 +1,16 @@
-[language-server.scls]
-command = "simple-completion-language-server"
+[language-server.uwu-colors]
+command = "uwu_colors"
 
-[language-server.scls.config]
-max_completion_items = 20            # set max completion results len for each group: words, snippets, unicode-input
-snippets_first = true                # completions will return before snippets by default
-snippets_inline_by_word_tail = false # suggest snippets by WORD tail, for example text `xsq|` become `x^2|` when snippet `sq` has body `^2`
-feature_words = true                 # enable completion by word
-feature_snippets = true              # enable snippets
-feature_unicode_input = true         # enable "unicode input"
-feature_paths = true                 # enable path completion
-feature_citations = false            # enable citation completion (only on `citation` feature enabled)
-
-[language-server.harper-ls]
-command = "harper-ls"
-args = ["--stdio"]
+[language-server.codebook]
+command = "codebook-lsp"
+args = ["serve"]
 
 [language-server.biome]
 command = "biome"
 args = ["lsp-proxy"]
 
-[language-server.tailwindcss]
-command = "tailwindcss-language-server"
+[language-server.emmet-lsp]
+command = "emmet-language-server"
 args = ["--stdio"]
 
 [language-server.ruff]
@@ -31,22 +21,11 @@ environment = { "RUFF_TRACE" = "messages" }
 [language-server.ruff.config.settings]
 logLevel = "debug"
 
-[language-server.gopls.config.hints]
-# assignVariableTypes = true
-# compositeLiteralFields = true
-# constantValues = true
-# functionTypeParameters = true
-# parameterNames = true
-# rangeVariableTypes = true
+[language-server.vscode-css-language-server.config.css]
+customData = ["/Users/Abe/.config/helix/languages/tailwind.json"]
 
-[language-server.typescript-language-server.config.javascript.inlayHints]
-# includeInlayEnumMemberValueHints = true
-# includeInlayFunctionLikeReturnTypeHints = true
-# includeInlayFunctionParameterTypeHints = true
-# includeInlayParameterNameHints = "all"
-# includeInlayParameterNameHintsWhenArgumentMatchesName = true
-# includeInlayPropertyDeclarationTypeHints = true
-# includeInlayVariableTypeHints = true
+# [language-server.vscode-css-language-server.config.css.lint]
+# unknownAtRules = "ignore"
 
 [language-server.lua-language-server.config.Lua.hint]
 enable = true
@@ -56,6 +35,11 @@ paramName = "All"
 paramType = true
 await = true
 
+[[language]]
+name = "lua"
+auto-format = true
+language-servers = ["lua-language-server", "uwu-colors"]
+
 [language-server.astro-ls]
 command = "astro-ls"
 args = ["--stdio"]
@@ -63,8 +47,8 @@ config = { contentIntellisense = true, typescript = { tsdk = "/Users/Abe/.bun/in
 
 [[language]]
 name = "astro"
-language-servers = ["astro-ls"]
 auto-format = true
+language-servers = ["astro-ls", "uwu-colors"]
 formatter = { command = "prettier", args = [
   "--plugin",
   "prettier-plugin-astro",
@@ -78,19 +62,16 @@ auto-format = true
 formatter = { command = "goimports" }
 
 [[language]]
-name = "lua"
-auto-format = true
-
-[[language]]
 name = "markdown"
 auto-format = true
 soft-wrap.enable = true
 comment-tokens = ["-", "+", "*", "1.", ">", "- [ ]"]
 formatter = { command = "dprint", args = ["fmt", "--stdin", "md"] }
+language-servers = ["markdown-oxide", "uwu-colors", "codebook"]
 
 [[language]]
-name = "php"
-auto-format = true
+name = "mail"
+soft-wrap = { enable = true }
 
 [[language]]
 name = "python"
@@ -102,9 +83,14 @@ formatter = { command = "ruff", args = ["format", "-n", "-"] }
 jedi = { environment = "venv/" }
 
 [[language]]
+name = "swift"
+auto-format = true
+
+[[language]]
 name = "toml"
 auto-format = true
 formatter = { command = "taplo", args = ["format", "-"] }
+language-servers = ["taplo", "uwu-colors"]
 
 [[language]]
 name = "xml"
@@ -115,20 +101,21 @@ formatter = { command = "xmllint", args = ["--format", "-"] }
 name = "html"
 auto-format = true
 # formatter = { command = "tidy", args = ["-q", "-i", "--tidy-mark", "no", "--"] }
+language-servers = ["emmet-lsp", "uwu-colors"]
 
 [[language]]
 name = "css"
+language-servers = ["vscode-css-language-server", "tailwindcss-ls"]
 auto-format = true
-language-servers = ["scls", "vscode-css-language-server", "tailwindcss"]
 
 [[language]]
 name = "javascript"
 language-servers = [
-  "scls",
   { name = "typescript-language-server", except-features = [
     "format",
   ] },
   "biome",
+  "uwu-colors",
 ]
 auto-format = true
 
@@ -139,30 +126,33 @@ language-servers = [
     "format",
   ] },
   "biome",
+  "uwu-colors",
 ]
 auto-format = true
 
 [[language]]
 name = "tsx"
-auto-format = true
 language-servers = [
   { name = "typescript-language-server", except-features = [
     "format",
   ] },
   "biome",
-  "tailwindcss",
+  "tailwindcss-ls",
+  "uwu-colors",
 ]
+auto-format = true
 
 [[language]]
 name = "jsx"
-auto-format = true
 language-servers = [
   { name = "typescript-language-server", except-features = [
     "format",
   ] },
   "biome",
-  "tailwindcss",
+  "tailwindcss-ls",
+  "uwu-colors",
 ]
+auto-format = true
 
 [[language]]
 name = "json"
@@ -171,4 +161,5 @@ language-servers = [
     "format",
   ] },
   "biome",
+  "uwu-colors",
 ]

@@ -1,6 +1,6 @@
 # https://newsboat.org/releases/2.32/docs/newsboat.html
 
-browser "open -gj -a Safari '%u' &"
+browser "open -gj -a Safari %u &"
 auto-reload yes
 refresh-on-startup no
 # reload-threads 2
@@ -11,10 +11,10 @@ keep-articles-days 7
 prepopulate-query-feeds yes
 confirm-exit yes
 notify-always yes
-#cleanup-on-quit yes
+cleanup-on-quit yes
 error-log "~/.config/newsboat/error.log"
 
-user-agent "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Safari/605.1.15"
+user-agent "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.6 Safari/605.1.15"
 
 show-read-feeds no
 show-read-articles no
@@ -35,16 +35,6 @@ search-highlight-colors black yellow
 
 define-filter "2 days old" "age >= 2"
 
-# Theme: Abe
-# color end-of-text-marker color235 default
-# color hint-key           color255 color93 bold # purple
-# color info               color255 color93      # purple
-# color listfocus          color5   default      # purple
-# color listfocus_unread   color5   default bold # purple
-# color listnormal         color249 default      # gray
-# color listnormal_unread  color255 default bold # white
-# color title              color255 color93 bold # purple
-
 color end-of-text-marker black default
 color listfocus          magenta default
 color listfocus_unread   magenta default bold
@@ -54,7 +44,6 @@ color title              cyan    black bold
 color info               cyan    black
 color hint-key           cyan    black
 
-# highlight feedlist "Unread" green default
 highlight article "^(Feed|Title|Author|Links?|Date|Podcast Download URL):" default default bold
 highlight article "^(Feed):.*$"           cyan     default
 highlight article "^(Feed):"              default  default bold
@@ -105,6 +94,9 @@ bind-key j next feedlist
 bind-key k prev article
 bind-key j next article
 
+bind-key K up   article
+bind-key J down article
+
 bind-key k prev urlview
 bind-key j next urlview
 
@@ -137,29 +129,24 @@ bookmark-cmd "~/.bin/add_to_reading_list"
 macro b bookmark
 
 # Copy URL
-macro c set browser "echo %u | pbcopy" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
+macro c set browser "echo %u | pbcopy" ; open-in-browser ; set browser "open -gj -a Safari %u &"
 
 # Browser
 macro . open-in-browser-noninteractively; toggle-article-read "read"
 macro o open-in-browser-noninteractively; toggle-article-read "read"
 
 # YouTube
-macro v set browser "yt-dlp -g -f mp4 '%u' | vlc --play-and-exit --no-video-title-show --quiet - 2> /dev/null &" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
-macro y set browser "open -gj -a 'Quicktime Player' -u $(yt-dlp -g -f mp4 '%u') &" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
+macro y set browser "open -gj -a 'Quicktime Player' -u $(yt-dlp -g -f mp4 %u) &" ; open-in-browser ; set browser "open -gj -a Safari %u &"
 
 # Podcast
-macro p set browser "vlc --quiet '%u' 2> /dev/null &" ; one ; set browser "open -gj -a Safari '%u' &"
+macro p set browser "iina %u &" ; open-in-browser ; set browser "open -gj -a Safari %u &"
 
 # Readability
-macro r set browser "curl -A 'Mozilla Gecko Firefox' -sL '%u' | reader - | less -r" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
-macro t set browser "curl -A 'Mozilla Gecko Firefox' -sL '%u' | html2md --in | glow -p" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
-# macro t set browser "pane_id=$(wezterm cli spawn) && echo 'browsh '\''%u'\''' | wezterm cli send-text --no-paste --pane-id $pane_id" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
-# macro e set browser "pane_id=$(wezterm cli spawn) && echo 'go-readability '\''%u'\'' | html2md --in | mdcat --fail -' | wezterm cli send-text --no-paste --pane-id $pane_id" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
+macro r set browser "curl -A 'Mozilla Gecko Firefox' -sL %u | reader - | less -r" ; open-in-browser ; set browser "open -gj -a Safari %u &"
+macro t set browser "cha -M -o 'display.set-title=false' %u" ; open-in-browser ; set browser "open -gj -a Safari %u &"
 
 # Images
-# https://github.com/wez/wezterm/discussions/2202
-macro j set browser "curl -A 'Mozilla Gecko Firefox' -sL '%u' | kitten icat --align left | less -r" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
-# macro i set browser "pane_id=$(wezterm cli spawn) && echo 'imgcat -u '\''%u'\''' | wezterm cli send-text --no-paste --pane-id $pane_id" ; open-in-browser ; set browser "open -gj -a Safari '%u' &"
+macro j set browser "curl -A 'Mozilla Gecko Firefox' -sL %u | kitten icat --align left | less -r" ; open-in-browser ; set browser "open -gj -a Safari %u &"
 
 # Podboat
 player "open -gj -a 'Quicktime Player'"

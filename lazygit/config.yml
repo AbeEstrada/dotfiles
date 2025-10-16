@@ -4,5 +4,11 @@ notARepository: "quit"
     # universal:
         # quit: <C-c>
         # return: q # <esc>
+
+git:
+  overrideGpg: true
+
 gui:
     nerdFontsVersion: "3"
+    tabWidth: 2
+    showRandomTip: false
