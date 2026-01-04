@@ -1,49 +1,90 @@
 vim.g.mapleader       = " "
 vim.g.maplocalleader  = " "
 
-vim.opt.number = true
-vim.opt.signcolumn = "yes"
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.softtabstop = 2
-vim.opt.autoindent = true
-vim.opt.linebreak = true
-vim.opt.expandtab = true
-vim.opt.undofile = true
-vim.opt.ignorecase = true
-vim.opt.hlsearch = true
-vim.opt.showmode = false
-vim.opt.termguicolors = true
-vim.opt.inccommand = "split"
-vim.opt.clipboard = "unnamed" 
-vim.opt.winborder = "rounded"
-vim.opt.colorcolumn = "80,120"
+-- Display
+vim.opt.number = true              -- Show line numbers
+vim.opt.signcolumn = "yes"         -- Always show sign column (for diagnostics, git, etc.)
+vim.opt.colorcolumn = "80,120"     -- Show vertical guidelines at columns 80 and 120
+vim.opt.list = true                -- Show invisible characters
+vim.opt.listchars = "tab:» ,lead:·,trail:·"  -- Define how invisible chars are displayed
+vim.opt.scrolloff = 10             -- Keep 10 lines above/below cursor
+vim.opt.sidescrolloff = 8          -- Keep 8 columns left/right of cursor
 
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldlevel = 99
-vim.opt.foldtext = "&"
+-- Indentation & Tabs
+vim.opt.tabstop = 2                -- Number of spaces a tab counts for
+vim.opt.shiftwidth = 2             -- Number of spaces to use for autoindent
+vim.opt.softtabstop = 2            -- Number of spaces to insert/delete when editing
+vim.opt.expandtab = true           -- Convert tabs to spaces
+vim.opt.autoindent = true          -- Copy indent from current line when starting new line
 
-vim.cmd.filetype("plugin indent on")
+-- Text & Editing
+vim.opt.undofile = true            -- Save undo history to file for persistence
+vim.opt.linebreak = true           -- Wrap lines at 'breakat' characters
+vim.opt.clipboard = "unnamed"      -- Use system clipboard by default
+vim.opt.backspace = "indent,eol,start" -- Better backspace behavior
+
+-- Search
+vim.opt.hlsearch = true            -- Highlight search matches
+vim.opt.ignorecase = true          -- Case-insensitive search
+vim.opt.inccommand = "split"       -- Show substitution preview in split
+
+-- UI & Appearance
+vim.opt.showmode = false           -- Don't show mode indicator (handled by statusline)
+vim.opt.termguicolors = true       -- Enable 24-bit RGB colors
+vim.opt.winborder = "rounded"      -- Use rounded window borders
+
+-- Folding
+vim.opt.foldmethod = "expr"        -- Use expression-based folding
+vim.opt.foldlevel = 99             -- Start with all folds open
+vim.opt.foldtext = "&"             -- Use default fold text
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"  -- Use Treesitter for folding
+
+-- Command-line completion
+vim.opt.wildmenu = true
+vim.opt.wildmode = "longest:full,full"
 
 -- Keys
 
-vim.keymap.set("n", "<Esc>",       "<cmd>nohlsearch<CR>", { desc = "Clear search highlight" })
+vim.keymap.set("n", "<Esc>", function()
+    vim.cmd("nohlsearch")
+    require("multicursor-nvim").clearCursors()
+end, { desc = "Clear search highlight and multicursors" })
+vim.keymap.set("n", "U",           "<C-r>",               { noremap = true, silent = true, desc = "Redo" })
 vim.keymap.set("n", "<A-S-Right>", ":bnext<CR>",          { noremap = true, silent = true, desc = "Next buffer" })
 vim.keymap.set("n", "<A-S-Left>",  ":bprevious<CR>",      { noremap = true, silent = true, desc = "Previous buffer" })
 vim.keymap.set("n", "<C-k>",       ":move -2<CR>",        { noremap = true, silent = true, desc = "Move line up" })
-vim.keymap.set("n", "<C-j>",       ":move +2<CR>",        { noremap = true, silent = true, desc = "Move line down" })
+vim.keymap.set("n", "<C-j>",       ":move +1<CR>",        { noremap = true, silent = true, desc = "Move line down" })
 vim.keymap.set("x", "<C-k>",       ":move '<-2<CR>gv=gv", { noremap = true, silent = true, desc = "Move lines up" })
 vim.keymap.set("x", "<C-j>",       ":move '>+1<CR>gv=gv", { noremap = true, silent = true, desc = "Move lines down" })
 
-local flash_opts = { prompt = { enabled = false } }
+local flash_opts = {
+  prompt = { enabled = false },
+  modes  = { char = { jump_labels = true } }
+}
 vim.keymap.set("n", "s", function() require("flash").jump(flash_opts) end,        { noremap = true, silent = true, desc = "Flash" })
 vim.keymap.set("n", "S", function() require("flash").treesitter(flash_opts) end,  { noremap = true, silent = true, desc = "Flash Treesitter" })
 
-vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>", { noremap = true, silent = true, desc = "Telescope: Find Files" })
-vim.keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>",  { noremap = true, silent = true, desc = "Telescope: Search Text" })
-vim.keymap.set("n", "<leader>fb", ":Telescope buffers<CR>",    { noremap = true, silent = true, desc = "Telescope: buffers" })
-vim.keymap.set("n", "<leader>fh", ":Telescope help_tags<CR>",  { noremap = true, silent = true, desc = "Telescope: help tags" })
+vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>",    { noremap = true, silent = true, desc = "Telescope: Find Files" })
+vim.keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>",     { noremap = true, silent = true, desc = "Telescope: Search Text" })
+vim.keymap.set("n", "<leader>fb", ":Telescope buffers<CR>",       { noremap = true, silent = true, desc = "Telescope: Buffers" })
+vim.keymap.set("n", "<leader>fd", ":Telescope diagnostics<CR>",   { noremap = true, silent = true, desc = "Telescope: Diagnostics" })
+vim.keymap.set("n", "<leader>fh", ":Telescope help_tags<CR>",     { noremap = true, silent = true, desc = "Telescope: Help tags" })
+vim.keymap.set("n", "<leader>fe", ":Telescope file_browser<CR>",  { noremap = true, silent = true, desc = "Telescope: File Browser" })
+vim.keymap.set("n", "<leader>Fe", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", { noremap = true, silent = true, desc = "Telescope: File Browser Current" })
+
+vim.keymap.set({"n", "x", "o"}, "<A-o>", function()
+  require("flash").treesitter({
+    actions = {
+      ["<A-o>"] = "next",
+      ["<A-i>"] = "prev"
+    }
+  })
+end, { desc = "Treesitter incremental selection" })
+
+vim.keymap.set({"n", "x"}, "<leader>n", function() require("multicursor-nvim").matchAddCursor(1) end)
+vim.keymap.set({"n", "x"}, "<leader>s", function() require("multicursor-nvim").matchSkipCursor(1) end)
+vim.keymap.set({"n", "x"}, "<leader>N", function() require("multicursor-nvim").matchAddCursor(-1) end)
+vim.keymap.set({"n", "x"}, "<leader>S", function() require("multicursor-nvim").matchSkipCursor(-1) end)
 
 -- Plugins
 
@@ -51,49 +92,62 @@ vim.pack.add({
   { src = "https://github.com/folke/tokyonight.nvim" },
   { src = "https://github.com/akinsho/bufferline.nvim" },
   { src = "https://github.com/nvim-lualine/lualine.nvim" },
-  { src = "https://github.com/norcalli/nvim-colorizer.lua" },
-  { src = "https://github.com/nvim-mini/mini.indentscope" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
   { src = "https://github.com/nvim-lua/plenary.nvim" },
-  { src = "https://github.com/nvim-telescope/telescope.nvim", tag = "0.1.9", dependencies = { "nvim-lua/plenary.nvim" }},
+  { src = "https://github.com/nvim-telescope/telescope.nvim",              dependencies = { "nvim-lua/plenary.nvim" }},
+  { src = "https://github.com/nvim-telescope/telescope-file-browser.nvim", dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" }},
   { src = "https://github.com/folke/flash.nvim" },
-  { src = "https://github.com/kylechui/nvim-surround" },
+  { src = "https://github.com/neovim/nvim-lspconfig" },
+  { src = "https://github.com/stevearc/conform.nvim" },
+  { src = "https://github.com/nvim-mini/mini.indentscope" },
+  { src = "https://github.com/norcalli/nvim-colorizer.lua" },
+  { src = "https://github.com/jake-stewart/multicursor.nvim" },
 })
 
-require("tokyonight").setup {
+local colors = require("tokyonight.colors").setup {
   style = "moon",
-  transparent = true,
+  transparent     = true,
+  lualine_bold    = true,
   terminal_colors = true,
 }
-vim.cmd[[colorscheme tokyonight]]
+vim.cmd.colorscheme "tokyonight"
 
-require("nvim-treesitter").setup {
+require("nvim-treesitter.configs").setup {
+  auto_install     = true,
   ensure_installed = {
     "astro",
     "css",
-    "csv",
+    -- "csv",
     "git_config", "gitcommit", "git_rebase", "gitignore", "gitattributes",
     "go", "gomod", "gowork", "gosum",
     "html",
     "javascript",
     "json5",
     "lua",
-    "markdownlint-cli2", "markdown-toc",
-    "ninja", "rst",
-    "python", "pip_requirements",
+    "markdown", "markdown_inline",
+    "python", "requirements",
+    "query",
+    "regex",
     "toml",
     "typst",
     "typescript", "tsx",
     "xml",
     "yaml",
   },
-  highlight = { enable = true },
-  indent = { enable = true },
+  highlight = { enable = true, },
+  indent    = { enable = true, },
+  match     = { enable = true, },
+  folds     = { enable = true },
+}
+
+require("treesitter-context").setup {
+  enable = true,
 }
 
 require("mini.indentscope").setup {
-    symbol = "│",
+    symbol  = "│",
+    draw    = { delay = 0 },
     options = { try_as_border = true },
 }
 
@@ -108,25 +162,60 @@ bufferline.setup {
     indicator = {
       style = "none",
     },
-  }
+  },
+  highlights = {
+    buffer_selected = {
+      fg = colors.purple,
+    },
+  },
 }
 
 require("lualine").setup {
-  options = { section_separators = "", component_separators = "", theme = "auto", }
+  options = {
+    theme = "auto",
+    section_separators   = "",
+    component_separators = "",
+  }
 }
 
 require("colorizer").setup()
 
-require("nvim-surround").setup()
+require("multicursor-nvim").setup()
 
---    Old text                    Command         New text
------------------------------------------------------------------------
---    surr*ound_words             ysiw)           (surround_words)
---    surr*ound_words             ysiw(           ( surround_words )
---    *make strings               ys$"            "make strings"
---    [delete ar*ound me!]        ds]             delete around me!
---    remove <b>HTML t*ags</b>    dst             remove HTML tags
---    'change quot*es'            cs'"            "change quotes"
---    <b>or tag* types</b>        csth1<CR>       <h1>or tag types</h1>
---    delete(functi*on calls)     dsf             function calls
+require("telescope").setup {
+  defaults = {
+    prompt_prefix = "   ",
+    selection_caret = " ",
+    entry_prefix = " ",
+    sorting_strategy = "ascending",
+    layout_config = {
+      prompt_position = "top",
+    },
+  },
+}
 
+vim.lsp.enable({
+  "astro",
+  "gopls",
+  "lua_ls",
+  "ts_ls",
+})
+
+require("conform").setup({
+  formatters_by_ft = {
+    go         = { "goimports", "gofmt" },
+    typescript = { "prettier" },
+  },
+})
+
+vim.api.nvim_create_user_command("Format", function(args)
+  local range = nil
+  if args.count ~= -1 then
+    local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
+    range = {
+      start = { args.line1, 0 },
+      ["end"] = { args.line2, end_line:len() },
+    }
+  end
+  require("conform").format({ async = true, lsp_format = "fallback", range = range })
+end, { range = true })
