@@ -2,77 +2,86 @@ vim.g.mapleader       = " "
 vim.g.maplocalleader  = " "
 
 -- Display
-vim.opt.number = true              -- Show line numbers
-vim.opt.signcolumn = "yes"         -- Always show sign column (for diagnostics, git, etc.)
-vim.opt.colorcolumn = "80,120"     -- Show vertical guidelines at columns 80 and 120
-vim.opt.list = true                -- Show invisible characters
-vim.opt.listchars = "tab:» ,lead:·,trail:·"  -- Define how invisible chars are displayed
-vim.opt.scrolloff = 10             -- Keep 10 lines above/below cursor
-vim.opt.sidescrolloff = 8          -- Keep 8 columns left/right of cursor
+vim.opt.number        = true                    -- Show line numbers
+vim.opt.signcolumn    = "yes"                   -- Always show sign column (for diagnostics, git, etc.)
+vim.opt.colorcolumn   = "80,120"                -- Show vertical guidelines at columns 80 and 120
+vim.opt.list          = true                    -- Show invisible characters
+vim.opt.listchars     = "tab:» ,lead:·,trail:·" -- Define how invisible chars are displayed
+vim.opt.scrolloff     = 10                      -- Keep 10 lines above/below cursor
+vim.opt.sidescrolloff = 8                       -- Keep 8 columns left/right of cursor
 
 -- Indentation & Tabs
-vim.opt.tabstop = 2                -- Number of spaces a tab counts for
-vim.opt.shiftwidth = 2             -- Number of spaces to use for autoindent
-vim.opt.softtabstop = 2            -- Number of spaces to insert/delete when editing
-vim.opt.expandtab = true           -- Convert tabs to spaces
-vim.opt.autoindent = true          -- Copy indent from current line when starting new line
+vim.opt.tabstop       = 2    -- Number of spaces a tab counts for
+vim.opt.shiftwidth    = 2    -- Number of spaces to use for autoindent
+vim.opt.softtabstop   = 2    -- Number of spaces to insert/delete when editing
+vim.opt.expandtab     = true -- Convert tabs to spaces
+vim.opt.autoindent    = true -- Copy indent from current line when starting new line
 
 -- Text & Editing
-vim.opt.undofile = true            -- Save undo history to file for persistence
-vim.opt.linebreak = true           -- Wrap lines at 'breakat' characters
-vim.opt.clipboard = "unnamed"      -- Use system clipboard by default
-vim.opt.backspace = "indent,eol,start" -- Better backspace behavior
+vim.opt.undofile      = true               -- Save undo history to file for persistence
+vim.opt.linebreak     = true               -- Wrap lines at 'breakat' characters
+vim.opt.clipboard     = "unnamed"          -- Use system clipboard by default
+vim.opt.backspace     = "indent,eol,start" -- Better backspace behavior
 
 -- Search
-vim.opt.hlsearch = true            -- Highlight search matches
-vim.opt.ignorecase = true          -- Case-insensitive search
-vim.opt.inccommand = "split"       -- Show substitution preview in split
+vim.opt.hlsearch      = true    -- Highlight search matches
+vim.opt.ignorecase    = true    -- Case-insensitive search
+vim.opt.inccommand    = "split" -- Show substitution preview in split
 
 -- UI & Appearance
-vim.opt.showmode = false           -- Don't show mode indicator (handled by statusline)
-vim.opt.termguicolors = true       -- Enable 24-bit RGB colors
-vim.opt.winborder = "rounded"      -- Use rounded window borders
+vim.opt.showmode      = false     -- Don't show mode indicator (handled by statusline)
+vim.opt.termguicolors = true      -- Enable 24-bit RGB colors
+vim.opt.winborder     = "rounded" -- Use rounded window borders
 
 -- Folding
-vim.opt.foldmethod = "expr"        -- Use expression-based folding
-vim.opt.foldlevel = 99             -- Start with all folds open
-vim.opt.foldtext = "&"             -- Use default fold text
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"  -- Use Treesitter for folding
+vim.opt.foldmethod    = "expr"                       -- Use expression-based folding
+vim.opt.foldlevel     = 99                           -- Start with all folds open
+vim.opt.foldtext      = "&"                          -- Use default fold text
+vim.opt.foldexpr      = "nvim_treesitter#foldexpr()" -- Use Treesitter for folding
 
 -- Command-line completion
-vim.opt.wildmenu = true
-vim.opt.wildmode = "longest:full,full"
+vim.opt.wildmenu      = true
+vim.opt.wildmode      = "longest:full,full"
 
 -- Keys
 
 vim.keymap.set("n", "<Esc>", function()
-    vim.cmd("nohlsearch")
-    require("multicursor-nvim").clearCursors()
+  vim.cmd("nohlsearch")
+  require("multicursor-nvim").clearCursors()
 end, { desc = "Clear search highlight and multicursors" })
-vim.keymap.set("n", "U",           "<C-r>",               { noremap = true, silent = true, desc = "Redo" })
-vim.keymap.set("n", "<A-S-Right>", ":bnext<CR>",          { noremap = true, silent = true, desc = "Next buffer" })
-vim.keymap.set("n", "<A-S-Left>",  ":bprevious<CR>",      { noremap = true, silent = true, desc = "Previous buffer" })
-vim.keymap.set("n", "<C-k>",       ":move -2<CR>",        { noremap = true, silent = true, desc = "Move line up" })
-vim.keymap.set("n", "<C-j>",       ":move +1<CR>",        { noremap = true, silent = true, desc = "Move line down" })
-vim.keymap.set("x", "<C-k>",       ":move '<-2<CR>gv=gv", { noremap = true, silent = true, desc = "Move lines up" })
-vim.keymap.set("x", "<C-j>",       ":move '>+1<CR>gv=gv", { noremap = true, silent = true, desc = "Move lines down" })
+vim.keymap.set("n", "U", "<C-r>", { noremap = true, silent = true, desc = "Redo" })
+vim.keymap.set("n", "<A-S-Right>", ":bnext<CR>", { noremap = true, silent = true, desc = "Next buffer" })
+vim.keymap.set("n", "<A-S-Left>", ":bprevious<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
+vim.keymap.set("n", "<C-k>", ":move -2<CR>", { noremap = true, silent = true, desc = "Move line up" })
+vim.keymap.set("n", "<C-j>", ":move +1<CR>", { noremap = true, silent = true, desc = "Move line down" })
+vim.keymap.set("x", "<C-k>", ":move '<-2<CR>gv=gv", { noremap = true, silent = true, desc = "Move lines up" })
+vim.keymap.set("x", "<C-j>", ":move '>+1<CR>gv=gv", { noremap = true, silent = true, desc = "Move lines down" })
 
 local flash_opts = {
   prompt = { enabled = false },
   modes  = { char = { jump_labels = true } }
 }
-vim.keymap.set("n", "s", function() require("flash").jump(flash_opts) end,        { noremap = true, silent = true, desc = "Flash" })
-vim.keymap.set("n", "S", function() require("flash").treesitter(flash_opts) end,  { noremap = true, silent = true, desc = "Flash Treesitter" })
+vim.keymap.set("n", "s", function() require("flash").jump(flash_opts) end,
+  { noremap = true, silent = true, desc = "Flash" })
+vim.keymap.set("n", "S", function() require("flash").treesitter(flash_opts) end,
+  { noremap = true, silent = true, desc = "Flash Treesitter" })
 
-vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>",    { noremap = true, silent = true, desc = "Telescope: Find Files" })
-vim.keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>",     { noremap = true, silent = true, desc = "Telescope: Search Text" })
-vim.keymap.set("n", "<leader>fb", ":Telescope buffers<CR>",       { noremap = true, silent = true, desc = "Telescope: Buffers" })
-vim.keymap.set("n", "<leader>fd", ":Telescope diagnostics<CR>",   { noremap = true, silent = true, desc = "Telescope: Diagnostics" })
-vim.keymap.set("n", "<leader>fh", ":Telescope help_tags<CR>",     { noremap = true, silent = true, desc = "Telescope: Help tags" })
-vim.keymap.set("n", "<leader>fe", ":Telescope file_browser<CR>",  { noremap = true, silent = true, desc = "Telescope: File Browser" })
-vim.keymap.set("n", "<leader>Fe", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", { noremap = true, silent = true, desc = "Telescope: File Browser Current" })
+vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>",
+  { noremap = true, silent = true, desc = "Telescope: Find Files" })
+vim.keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>",
+  { noremap = true, silent = true, desc = "Telescope: Search Text" })
+vim.keymap.set("n", "<leader>fb", ":Telescope buffers<CR>",
+  { noremap = true, silent = true, desc = "Telescope: Buffers" })
+vim.keymap.set("n", "<leader>fd", ":Telescope diagnostics<CR>",
+  { noremap = true, silent = true, desc = "Telescope: Diagnostics" })
+vim.keymap.set("n", "<leader>fh", ":Telescope help_tags<CR>",
+  { noremap = true, silent = true, desc = "Telescope: Help tags" })
+vim.keymap.set("n", "<leader>fe", ":Telescope file_browser<CR>",
+  { noremap = true, silent = true, desc = "Telescope: File Browser" })
+vim.keymap.set("n", "<leader>Fe", ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
+  { noremap = true, silent = true, desc = "Telescope: File Browser Current" })
 
-vim.keymap.set({"n", "x", "o"}, "<A-o>", function()
+vim.keymap.set({ "n", "x", "o" }, "<A-o>", function()
   require("flash").treesitter({
     actions = {
       ["<A-o>"] = "next",
@@ -81,10 +90,10 @@ vim.keymap.set({"n", "x", "o"}, "<A-o>", function()
   })
 end, { desc = "Treesitter incremental selection" })
 
-vim.keymap.set({"n", "x"}, "<leader>n", function() require("multicursor-nvim").matchAddCursor(1) end)
-vim.keymap.set({"n", "x"}, "<leader>s", function() require("multicursor-nvim").matchSkipCursor(1) end)
-vim.keymap.set({"n", "x"}, "<leader>N", function() require("multicursor-nvim").matchAddCursor(-1) end)
-vim.keymap.set({"n", "x"}, "<leader>S", function() require("multicursor-nvim").matchSkipCursor(-1) end)
+vim.keymap.set({ "n", "x" }, "<leader>n", function() require("multicursor-nvim").matchAddCursor(1) end)
+vim.keymap.set({ "n", "x" }, "<leader>s", function() require("multicursor-nvim").matchSkipCursor(1) end)
+vim.keymap.set({ "n", "x" }, "<leader>N", function() require("multicursor-nvim").matchAddCursor(-1) end)
+vim.keymap.set({ "n", "x" }, "<leader>S", function() require("multicursor-nvim").matchSkipCursor(-1) end)
 
 -- Plugins
 
@@ -95,18 +104,20 @@ vim.pack.add({
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
   { src = "https://github.com/nvim-lua/plenary.nvim" },
-  { src = "https://github.com/nvim-telescope/telescope.nvim",              dependencies = { "nvim-lua/plenary.nvim" }},
-  { src = "https://github.com/nvim-telescope/telescope-file-browser.nvim", dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" }},
+  { src = "https://github.com/nvim-telescope/telescope.nvim",              dependencies = { "nvim-lua/plenary.nvim" } },
+  { src = "https://github.com/nvim-telescope/telescope-file-browser.nvim", dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" } },
   { src = "https://github.com/folke/flash.nvim" },
   { src = "https://github.com/neovim/nvim-lspconfig" },
   { src = "https://github.com/stevearc/conform.nvim" },
   { src = "https://github.com/nvim-mini/mini.indentscope" },
   { src = "https://github.com/norcalli/nvim-colorizer.lua" },
+  { src = "https://github.com/kylechui/nvim-surround" },
   { src = "https://github.com/jake-stewart/multicursor.nvim" },
+  { src = "https://github.com/lewis6991/gitsigns.nvim" },
 })
 
 local colors = require("tokyonight.colors").setup {
-  style = "moon",
+  style           = "moon",
   transparent     = true,
   lualine_bold    = true,
   terminal_colors = true,
@@ -135,10 +146,10 @@ require("nvim-treesitter.configs").setup {
     "xml",
     "yaml",
   },
-  highlight = { enable = true, },
-  indent    = { enable = true, },
-  match     = { enable = true, },
-  folds     = { enable = true },
+  highlight        = { enable = true, },
+  indent           = { enable = true, },
+  match            = { enable = true, },
+  folds            = { enable = true },
 }
 
 require("treesitter-context").setup {
@@ -146,9 +157,9 @@ require("treesitter-context").setup {
 }
 
 require("mini.indentscope").setup {
-    symbol  = "│",
-    draw    = { delay = 0 },
-    options = { try_as_border = true },
+  symbol  = "│",
+  draw    = { delay = 0 },
+  options = { try_as_border = true },
 }
 
 local bufferline = require("bufferline")
@@ -172,7 +183,7 @@ bufferline.setup {
 
 require("lualine").setup {
   options = {
-    theme = "auto",
+    theme                = "auto",
     section_separators   = "",
     component_separators = "",
   }
@@ -180,7 +191,30 @@ require("lualine").setup {
 
 require("colorizer").setup()
 
+require("nvim-surround").setup()
+
 require("multicursor-nvim").setup()
+
+require("gitsigns").setup {
+  on_attach = function(buffer)
+    local gitsigns = require("gitsigns")
+
+    vim.keymap.set("n", "]g", function()
+      if vim.wo.diff then
+        vim.cmd.normal({"]g", bang = true})
+      else
+        gitsigns.nav_hunk("next")
+      end
+    end, { buffer = buffer, desc = "Next hunk" })
+    vim.keymap.set("n", "[g", function()
+      if vim.wo.diff then
+        vim.cmd.normal({"[g", bang = true})
+      else
+        gitsigns.nav_hunk("previous")
+      end
+    end, { buffer = buffer, desc = "Previous hunk" })
+  end
+}
 
 require("telescope").setup {
   defaults = {
@@ -203,9 +237,34 @@ vim.lsp.enable({
 
 require("conform").setup({
   formatters_by_ft = {
-    go         = { "goimports", "gofmt" },
-    typescript = { "prettier" },
+    go              = { "goimports", "gofmt" },
+    markdown        = { "prettier" },
+    json            = { "biome", "prettier", stop_after_first = true },
+    javascript      = { "biome", "prettier", stop_after_first = true },
+    typescript      = { "biome", "prettier", stop_after_first = true },
+    javascriptreact = { "biome", "prettier", stop_after_first = true },
+    typescriptreact = { "biome", "prettier", stop_after_first = true },
   },
+  formatters = {
+    biome = { require_cwd = true },
+  },
+  default_format_opts = {
+    lsp_format = "fallback",
+  },
+  _format_on_save = function(bufnr)
+    local ignore_filetypes = { "sql", "yaml", "yml" }
+    if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
+      return
+    end
+    if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+      return
+    end
+    local bufname = vim.api.nvim_buf_get_name(bufnr)
+    if bufname:match("/node_modules/") then
+      return
+    end
+    return { timeout_ms = 500, lsp_format = "fallback" }
+  end,
 })
 
 vim.api.nvim_create_user_command("Format", function(args)
