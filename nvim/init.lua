@@ -45,10 +45,16 @@ vim.opt.wildmode      = "longest:full,full"
 
 -- Keys
 
+vim.keymap.set("n", "<left>", '<cmd>echo "Use h to move!"<CR>')
+vim.keymap.set("n", "<right>", '<cmd>echo "Use l to move!"<CR>')
+vim.keymap.set("n", "<up>", '<cmd>echo "Use k to move!"<CR>')
+vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!"<CR>')
+
 vim.keymap.set("n", "<Esc>", function()
   vim.cmd("nohlsearch")
   require("multicursor-nvim").clearCursors()
 end, { desc = "Clear search highlight and multicursors" })
+
 vim.keymap.set("n", "U", "<C-r>", { noremap = true, silent = true, desc = "Redo" })
 vim.keymap.set("n", "<A-S-Right>", ":bnext<CR>", { noremap = true, silent = true, desc = "Next buffer" })
 vim.keymap.set("n", "<A-S-Left>", ":bprevious<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
@@ -57,14 +63,8 @@ vim.keymap.set("n", "<C-j>", ":move +1<CR>", { noremap = true, silent = true, de
 vim.keymap.set("x", "<C-k>", ":move '<-2<CR>gv=gv", { noremap = true, silent = true, desc = "Move lines up" })
 vim.keymap.set("x", "<C-j>", ":move '>+1<CR>gv=gv", { noremap = true, silent = true, desc = "Move lines down" })
 
-local flash_opts = {
-  prompt = { enabled = false },
-  modes  = { char = { jump_labels = true } }
-}
-vim.keymap.set("n", "s", function() require("flash").jump(flash_opts) end,
-  { noremap = true, silent = true, desc = "Flash" })
-vim.keymap.set("n", "S", function() require("flash").treesitter(flash_opts) end,
-  { noremap = true, silent = true, desc = "Flash Treesitter" })
+vim.keymap.set("x", "an", function() vim.lsp.buf.selection_range("outer") end, { desc = "Incremental Selection (outer)" })
+vim.keymap.set("x", "in", function() vim.lsp.buf.selection_range("inner") end, { desc = "Incremental Selection (inner)" })
 
 vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>",
   { noremap = true, silent = true, desc = "Telescope: Find Files" })
@@ -80,15 +80,6 @@ vim.keymap.set("n", "<leader>fe", ":Telescope file_browser<CR>",
   { noremap = true, silent = true, desc = "Telescope: File Browser" })
 vim.keymap.set("n", "<leader>Fe", ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
   { noremap = true, silent = true, desc = "Telescope: File Browser Current" })
-
-vim.keymap.set({ "n", "x", "o" }, "<A-o>", function()
-  require("flash").treesitter({
-    actions = {
-      ["<A-o>"] = "next",
-      ["<A-i>"] = "prev"
-    }
-  })
-end, { desc = "Treesitter incremental selection" })
 
 vim.keymap.set({ "n", "x" }, "<leader>n", function() require("multicursor-nvim").matchAddCursor(1) end)
 vim.keymap.set({ "n", "x" }, "<leader>s", function() require("multicursor-nvim").matchSkipCursor(1) end)
@@ -106,12 +97,13 @@ vim.pack.add({
   { src = "https://github.com/nvim-lua/plenary.nvim" },
   { src = "https://github.com/nvim-telescope/telescope.nvim",              dependencies = { "nvim-lua/plenary.nvim" } },
   { src = "https://github.com/nvim-telescope/telescope-file-browser.nvim", dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" } },
-  { src = "https://github.com/folke/flash.nvim" },
   { src = "https://github.com/neovim/nvim-lspconfig" },
   { src = "https://github.com/stevearc/conform.nvim" },
+  { src = "https://github.com/nvim-mini/mini.pairs" },
+  { src = "https://github.com/nvim-mini/mini.jump2d" },
+  { src = "https://github.com/nvim-mini/mini.surround" },
   { src = "https://github.com/nvim-mini/mini.indentscope" },
   { src = "https://github.com/norcalli/nvim-colorizer.lua" },
-  { src = "https://github.com/kylechui/nvim-surround" },
   { src = "https://github.com/jake-stewart/multicursor.nvim" },
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
 })
@@ -156,12 +148,6 @@ require("treesitter-context").setup {
   enable = true,
 }
 
-require("mini.indentscope").setup {
-  symbol  = "│",
-  draw    = { delay = 0 },
-  options = { try_as_border = true },
-}
-
 local bufferline = require("bufferline")
 bufferline.setup {
   options = {
@@ -191,9 +177,17 @@ require("lualine").setup {
 
 require("colorizer").setup()
 
-require("nvim-surround").setup()
-
 require("multicursor-nvim").setup()
+
+require("mini.surround").setup()
+
+require("mini.jump2d").setup()
+
+require("mini.pairs").setup()
+
+require("mini.indentscope").setup {
+  symbol = "│",
+}
 
 require("gitsigns").setup {
   on_attach = function(buffer)
@@ -201,14 +195,14 @@ require("gitsigns").setup {
 
     vim.keymap.set("n", "]g", function()
       if vim.wo.diff then
-        vim.cmd.normal({"]g", bang = true})
+        vim.cmd.normal({ "]g", bang = true })
       else
         gitsigns.nav_hunk("next")
       end
     end, { buffer = buffer, desc = "Next hunk" })
     vim.keymap.set("n", "[g", function()
       if vim.wo.diff then
-        vim.cmd.normal({"[g", bang = true})
+        vim.cmd.normal({ "[g", bang = true })
       else
         gitsigns.nav_hunk("previous")
       end
@@ -232,6 +226,7 @@ vim.lsp.enable({
   "astro",
   "gopls",
   "lua_ls",
+  "tailwindcss",
   "ts_ls",
 })
 
@@ -251,15 +246,15 @@ require("conform").setup({
   default_format_opts = {
     lsp_format = "fallback",
   },
-  _format_on_save = function(bufnr)
+  _format_on_save = function(buffer)
     local ignore_filetypes = { "sql", "yaml", "yml" }
-    if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
+    if vim.tbl_contains(ignore_filetypes, vim.bo[buffer].filetype) then
       return
     end
-    if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+    if vim.g.disable_autoformat or vim.b[buffer].disable_autoformat then
       return
     end
-    local bufname = vim.api.nvim_buf_get_name(bufnr)
+    local bufname = vim.api.nvim_buf_get_name(buffer)
     if bufname:match("/node_modules/") then
       return
     end
