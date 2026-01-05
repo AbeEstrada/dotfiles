@@ -1,54 +1,56 @@
-vim.g.mapleader       = " "
-vim.g.maplocalleader  = " "
+vim.g.mapleader        = " "
+vim.g.maplocalleader   = " "
 
 -- Display
-vim.opt.number        = true                    -- Show line numbers
-vim.opt.signcolumn    = "yes"                   -- Always show sign column (for diagnostics, git, etc.)
-vim.opt.colorcolumn   = "80,120"                -- Show vertical guidelines at columns 80 and 120
-vim.opt.list          = true                    -- Show invisible characters
-vim.opt.listchars     = "tab:» ,lead:·,trail:·" -- Define how invisible chars are displayed
-vim.opt.scrolloff     = 10                      -- Keep 10 lines above/below cursor
-vim.opt.sidescrolloff = 8                       -- Keep 8 columns left/right of cursor
+vim.opt.number         = true                    -- Show line numbers
+vim.opt.relativenumber = true
+vim.opt.cursorline     = true                    -- Enable cursor line highlighting
+vim.opt.signcolumn     = "yes"                   -- Always show sign column (for diagnostics, git, etc.)
+vim.opt.colorcolumn    = "80,120"                -- Show vertical guidelines at columns 80 and 120
+vim.opt.list           = true                    -- Show invisible characters
+vim.opt.listchars      = "tab:» ,lead:·,trail:·" -- Define how invisible chars are displayed
+vim.opt.scrolloff      = 10                      -- Keep 10 lines above/below cursor
+vim.opt.sidescrolloff  = 8                       -- Keep 8 columns left/right of cursor
 
 -- Indentation & Tabs
-vim.opt.tabstop       = 2    -- Number of spaces a tab counts for
-vim.opt.shiftwidth    = 2    -- Number of spaces to use for autoindent
-vim.opt.softtabstop   = 2    -- Number of spaces to insert/delete when editing
-vim.opt.expandtab     = true -- Convert tabs to spaces
-vim.opt.autoindent    = true -- Copy indent from current line when starting new line
+vim.opt.tabstop        = 2    -- Number of spaces a tab counts for
+vim.opt.shiftwidth     = 2    -- Number of spaces to use for autoindent
+vim.opt.softtabstop    = 2    -- Number of spaces to insert/delete when editing
+vim.opt.expandtab      = true -- Convert tabs to spaces
+vim.opt.autoindent     = true -- Copy indent from current line when starting new line
 
 -- Text & Editing
-vim.opt.undofile      = true               -- Save undo history to file for persistence
-vim.opt.linebreak     = true               -- Wrap lines at 'breakat' characters
-vim.opt.clipboard     = "unnamed"          -- Use system clipboard by default
-vim.opt.backspace     = "indent,eol,start" -- Better backspace behavior
+vim.opt.undofile       = true               -- Save undo history to file for persistence
+vim.opt.linebreak      = true               -- Wrap lines at 'breakat' characters
+vim.opt.clipboard      = "unnamedplus"      -- Use system clipboard by default
+vim.opt.backspace      = "indent,eol,start" -- Better backspace behavior
 
 -- Search
-vim.opt.hlsearch      = true    -- Highlight search matches
-vim.opt.ignorecase    = true    -- Case-insensitive search
-vim.opt.inccommand    = "split" -- Show substitution preview in split
+vim.opt.hlsearch       = true    -- Highlight search matches
+vim.opt.ignorecase     = true    -- Case-insensitive search
+vim.opt.inccommand     = "split" -- Show substitution preview in split
 
 -- UI & Appearance
-vim.opt.showmode      = false     -- Don't show mode indicator (handled by statusline)
-vim.opt.termguicolors = true      -- Enable 24-bit RGB colors
-vim.opt.winborder     = "rounded" -- Use rounded window borders
+vim.opt.showmode       = false     -- Don't show mode indicator (handled by statusline)
+vim.opt.termguicolors  = true      -- Enable 24-bit RGB colors
+vim.opt.winborder      = "rounded" -- Use rounded window borders
 
 -- Folding
-vim.opt.foldmethod    = "expr"                       -- Use expression-based folding
-vim.opt.foldlevel     = 99                           -- Start with all folds open
-vim.opt.foldtext      = "&"                          -- Use default fold text
-vim.opt.foldexpr      = "nvim_treesitter#foldexpr()" -- Use Treesitter for folding
+vim.opt.foldmethod     = "expr"                       -- Use expression-based folding
+vim.opt.foldlevel      = 99                           -- Start with all folds open
+vim.opt.foldtext       = "&"                          -- Use default fold text
+vim.opt.foldexpr       = "nvim_treesitter#foldexpr()" -- Use Treesitter for folding
 
 -- Command-line completion
-vim.opt.wildmenu      = true
-vim.opt.wildmode      = "longest:full,full"
+vim.opt.wildmenu       = true
+vim.opt.wildmode       = "longest:full,full"
 
 -- Keys
 
-vim.keymap.set("n", "<left>", '<cmd>echo "Use h to move!"<CR>')
-vim.keymap.set("n", "<right>", '<cmd>echo "Use l to move!"<CR>')
-vim.keymap.set("n", "<up>", '<cmd>echo "Use k to move!"<CR>')
-vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!"<CR>')
+vim.keymap.set("n", "<up>", "<Nop>", { noremap = true, silent = true })
+vim.keymap.set("n", "<down>", "<Nop>", { noremap = true, silent = true })
+vim.keymap.set("n", "<left>", "<Nop>", { noremap = true, silent = true })
+vim.keymap.set("n", "<right>", "<Nop>", { noremap = true, silent = true })
 
 vim.keymap.set("n", "<Esc>", function()
   vim.cmd("nohlsearch")
@@ -106,6 +108,7 @@ vim.pack.add({
   { src = "https://github.com/norcalli/nvim-colorizer.lua" },
   { src = "https://github.com/jake-stewart/multicursor.nvim" },
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
+  { src = "https://github.com/sQVe/sort.nvim" },
 })
 
 local colors = require("tokyonight.colors").setup {
@@ -156,9 +159,8 @@ bufferline.setup {
     show_buffer_icons = false,
     show_buffer_close_icons = false,
     separator_style = { "", "" },
-    indicator = {
-      style = "none",
-    },
+    indicator = { style = "none" },
+    -- diagnostics = "nvim_lsp",
   },
   highlights = {
     buffer_selected = {
@@ -175,6 +177,19 @@ require("lualine").setup {
   }
 }
 
+require("telescope").setup {
+  defaults = {
+    prompt_prefix = "   ",
+    selection_caret = " ",
+    entry_prefix = " ",
+    sorting_strategy = "ascending",
+    layout_config = { prompt_position = "top" },
+    file_ignore_patterns = { "^node_modules/", }
+  },
+}
+
+require("sort").setup()
+
 require("colorizer").setup()
 
 require("multicursor-nvim").setup()
@@ -185,12 +200,10 @@ require("mini.jump2d").setup()
 
 require("mini.pairs").setup()
 
-require("mini.indentscope").setup {
-  symbol = "│",
-}
+require("mini.indentscope").setup { symbol = "│" }
 
 require("gitsigns").setup {
-  on_attach = function(buffer)
+  on_attach = function(bufnr)
     local gitsigns = require("gitsigns")
 
     vim.keymap.set("n", "]g", function()
@@ -199,27 +212,15 @@ require("gitsigns").setup {
       else
         gitsigns.nav_hunk("next")
       end
-    end, { buffer = buffer, desc = "Next hunk" })
+    end, { buffer = bufnr, desc = "Next hunk" })
     vim.keymap.set("n", "[g", function()
       if vim.wo.diff then
         vim.cmd.normal({ "[g", bang = true })
       else
         gitsigns.nav_hunk("previous")
       end
-    end, { buffer = buffer, desc = "Previous hunk" })
+    end, { buffer = bufnr, desc = "Previous hunk" })
   end
-}
-
-require("telescope").setup {
-  defaults = {
-    prompt_prefix = "   ",
-    selection_caret = " ",
-    entry_prefix = " ",
-    sorting_strategy = "ascending",
-    layout_config = {
-      prompt_position = "top",
-    },
-  },
 }
 
 vim.lsp.enable({
@@ -241,20 +242,20 @@ require("conform").setup({
     typescriptreact = { "biome", "prettier", stop_after_first = true },
   },
   formatters = {
-    biome = { require_cwd = true },
+    -- biome = { require_cwd = true },
   },
   default_format_opts = {
     lsp_format = "fallback",
   },
-  _format_on_save = function(buffer)
+  format_on_save = function(bufnr)
     local ignore_filetypes = { "sql", "yaml", "yml" }
-    if vim.tbl_contains(ignore_filetypes, vim.bo[buffer].filetype) then
+    if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
       return
     end
-    if vim.g.disable_autoformat or vim.b[buffer].disable_autoformat then
+    if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
       return
     end
-    local bufname = vim.api.nvim_buf_get_name(buffer)
+    local bufname = vim.api.nvim_buf_get_name(bufnr)
     if bufname:match("/node_modules/") then
       return
     end
