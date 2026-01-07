@@ -1,47 +1,40 @@
 vim.g.mapleader        = " "
 vim.g.maplocalleader   = " "
 
--- Display
-vim.opt.number         = true                    -- Show line numbers
+vim.opt.number         = true                         -- Show line numbers
 vim.opt.relativenumber = true
-vim.opt.cursorline     = true                    -- Enable cursor line highlighting
-vim.opt.signcolumn     = "yes"                   -- Always show sign column (for diagnostics, git, etc.)
-vim.opt.colorcolumn    = "80,120"                -- Show vertical guidelines at columns 80 and 120
-vim.opt.list           = true                    -- Show invisible characters
-vim.opt.listchars      = "tab:» ,lead:·,trail:·" -- Define how invisible chars are displayed
-vim.opt.scrolloff      = 10                      -- Keep 10 lines above/below cursor
-vim.opt.sidescrolloff  = 8                       -- Keep 8 columns left/right of cursor
+vim.opt.cursorline     = true                         -- Enable cursor line highlighting
+vim.opt.signcolumn     = "yes"                        -- Always show sign column (for diagnostics, git, etc.)
+vim.opt.colorcolumn    = "80,120"                     -- Show vertical guidelines
+vim.opt.list           = true                         -- Show invisible characters
+vim.opt.listchars      = "tab:» ,lead:·,trail:·"      -- Define how invisible chars are displayed
+vim.opt.scrolloff      = 10                           -- Lines above/below cursor
+vim.opt.sidescrolloff  = 10                           -- Columns left/right of cursor
 
--- Indentation & Tabs
-vim.opt.tabstop        = 2    -- Number of spaces a tab counts for
-vim.opt.shiftwidth     = 2    -- Number of spaces to use for autoindent
-vim.opt.softtabstop    = 2    -- Number of spaces to insert/delete when editing
-vim.opt.expandtab      = true -- Convert tabs to spaces
-vim.opt.autoindent     = true -- Copy indent from current line when starting new line
+vim.opt.tabstop        = 2                            -- Number of spaces a tab counts for
+vim.opt.shiftwidth     = 2                            -- Number of spaces to use for autoindent
+vim.opt.softtabstop    = 2                            -- Number of spaces to insert/delete when editing
+vim.opt.expandtab      = true                         -- Convert tabs to spaces
+vim.opt.autoindent     = true                         -- Copy indent from current line when starting new line
 
--- Text & Editing
-vim.opt.undofile       = true               -- Save undo history to file for persistence
-vim.opt.linebreak      = true               -- Wrap lines at 'breakat' characters
-vim.opt.clipboard      = "unnamedplus"      -- Use system clipboard by default
-vim.opt.backspace      = "indent,eol,start" -- Better backspace behavior
+vim.opt.undofile       = true                         -- Save undo history to file for persistence
+vim.opt.linebreak      = true                         -- Wrap lines at 'breakat' characters
+vim.opt.clipboard      = "unnamed"                    -- Use system clipboard by default
+vim.opt.backspace      = "indent,eol,start"           -- Better backspace behavior
 
--- Search
-vim.opt.hlsearch       = true    -- Highlight search matches
-vim.opt.ignorecase     = true    -- Case-insensitive search
-vim.opt.inccommand     = "split" -- Show substitution preview in split
+vim.opt.hlsearch       = true                         -- Highlight search matches
+vim.opt.ignorecase     = true                         -- Case-insensitive search
+vim.opt.inccommand     = "split"                      -- Show substitution preview in split
 
--- UI & Appearance
-vim.opt.showmode       = false     -- Don't show mode indicator (handled by statusline)
-vim.opt.termguicolors  = true      -- Enable 24-bit RGB colors
-vim.opt.winborder      = "rounded" -- Use rounded window borders
+vim.opt.termguicolors  = true                         -- Enable 24-bit RGB colors
+vim.opt.showmode       = false                        -- Don't show mode indicator (handled by statusline)
+vim.opt.winborder      = "rounded"                    -- Use rounded window borders
 
--- Folding
 vim.opt.foldmethod     = "expr"                       -- Use expression-based folding
-vim.opt.foldlevel      = 99                           -- Start with all folds open
 vim.opt.foldtext       = "&"                          -- Use default fold text
+vim.opt.foldlevel      = 99                           -- Start with all folds open
 vim.opt.foldexpr       = "nvim_treesitter#foldexpr()" -- Use Treesitter for folding
 
--- Command-line completion
 vim.opt.wildmenu       = true
 vim.opt.wildmode       = "longest:full,full"
 
@@ -54,8 +47,7 @@ vim.keymap.set("n", "<right>", "<Nop>", { noremap = true, silent = true })
 
 vim.keymap.set("n", "<Esc>", function()
   vim.cmd("nohlsearch")
-  require("multicursor-nvim").clearCursors()
-end, { desc = "Clear search highlight and multicursors" })
+end)
 
 vim.keymap.set("n", "U", "<C-r>", { noremap = true, silent = true, desc = "Redo" })
 vim.keymap.set("n", "<A-S-Right>", ":bnext<CR>", { noremap = true, silent = true, desc = "Next buffer" })
@@ -69,24 +61,17 @@ vim.keymap.set("x", "an", function() vim.lsp.buf.selection_range("outer") end, {
 vim.keymap.set("x", "in", function() vim.lsp.buf.selection_range("inner") end, { desc = "Incremental Selection (inner)" })
 
 vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>",
-  { noremap = true, silent = true, desc = "Telescope: Find Files" })
+  { noremap = true, silent = true, desc = "Find Files" })
 vim.keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>",
-  { noremap = true, silent = true, desc = "Telescope: Search Text" })
+  { noremap = true, silent = true, desc = "Search Text" })
 vim.keymap.set("n", "<leader>fb", ":Telescope buffers<CR>",
-  { noremap = true, silent = true, desc = "Telescope: Buffers" })
+  { noremap = true, silent = true, desc = "Buffers" })
 vim.keymap.set("n", "<leader>fd", ":Telescope diagnostics<CR>",
-  { noremap = true, silent = true, desc = "Telescope: Diagnostics" })
-vim.keymap.set("n", "<leader>fh", ":Telescope help_tags<CR>",
-  { noremap = true, silent = true, desc = "Telescope: Help tags" })
+  { noremap = true, silent = true, desc = "Diagnostics" })
 vim.keymap.set("n", "<leader>fe", ":Telescope file_browser<CR>",
-  { noremap = true, silent = true, desc = "Telescope: File Browser" })
+  { noremap = true, silent = true, desc = "File Browser" })
 vim.keymap.set("n", "<leader>Fe", ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
-  { noremap = true, silent = true, desc = "Telescope: File Browser Current" })
-
-vim.keymap.set({ "n", "x" }, "<leader>n", function() require("multicursor-nvim").matchAddCursor(1) end)
-vim.keymap.set({ "n", "x" }, "<leader>s", function() require("multicursor-nvim").matchSkipCursor(1) end)
-vim.keymap.set({ "n", "x" }, "<leader>N", function() require("multicursor-nvim").matchAddCursor(-1) end)
-vim.keymap.set({ "n", "x" }, "<leader>S", function() require("multicursor-nvim").matchSkipCursor(-1) end)
+  { noremap = true, silent = true, desc = "File Browser Current" })
 
 -- Plugins
 
@@ -101,30 +86,38 @@ vim.pack.add({
   { src = "https://github.com/nvim-telescope/telescope-file-browser.nvim", dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" } },
   { src = "https://github.com/neovim/nvim-lspconfig" },
   { src = "https://github.com/stevearc/conform.nvim" },
-  { src = "https://github.com/nvim-mini/mini.pairs" },
-  { src = "https://github.com/nvim-mini/mini.jump2d" },
-  { src = "https://github.com/nvim-mini/mini.surround" },
-  { src = "https://github.com/nvim-mini/mini.indentscope" },
+  { src = "https://github.com/nvim-mini/mini.nvim" },
   { src = "https://github.com/norcalli/nvim-colorizer.lua" },
-  { src = "https://github.com/jake-stewart/multicursor.nvim" },
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
+  { src = "https://github.com/windwp/nvim-ts-autotag" },
+  { src = "https://github.com/LunarVim/bigfile.nvim" },
   { src = "https://github.com/sQVe/sort.nvim" },
+  -- { src = "https://github.com/hrsh7th/nvim-cmp" },
+  -- { src = "https://github.com/hrsh7th/cmp-path",                           dependencies = "hrsh7th/nvim-cmp" },
+  -- { src = "https://github.com/hrsh7th/cmp-buffer",                         dependencies = "hrsh7th/nvim-cmp" },
+  -- { src = "https://github.com/hrsh7th/cmp-cmdline",                        dependencies = "hrsh7th/nvim-cmp" },
+  -- { src = "https://github.com/hrsh7th/cmp-nvim-lsp",                       dependencies = "hrsh7th/nvim-cmp" },
 })
 
-local colors = require("tokyonight.colors").setup {
-  style           = "moon",
-  transparent     = true,
-  lualine_bold    = true,
-  terminal_colors = true,
+require("tokyonight").setup {
+  transparent  = true,
+  lualine_bold = true,
+  styles       = {
+    sidebars = "transparent",
+    floats   = "transparent",
+  },
 }
 vim.cmd.colorscheme "tokyonight"
+
+local colors = require("tokyonight.colors").setup()
 
 require("nvim-treesitter.configs").setup {
   auto_install     = true,
   ensure_installed = {
     "astro",
     "css",
-    -- "csv",
+    "csv",
+    "diff",
     "git_config", "gitcommit", "git_rebase", "gitignore", "gitattributes",
     "go", "gomod", "gowork", "gosum",
     "html",
@@ -147,9 +140,9 @@ require("nvim-treesitter.configs").setup {
   folds            = { enable = true },
 }
 
-require("treesitter-context").setup {
-  enable = true,
-}
+require("treesitter-context").setup { enable = true }
+
+require("nvim-ts-autotag").setup()
 
 local bufferline = require("bufferline")
 bufferline.setup {
@@ -164,6 +157,7 @@ bufferline.setup {
   },
   highlights = {
     buffer_selected = {
+      bg = colors.bg_highlight,
       fg = colors.purple,
     },
   },
@@ -189,17 +183,14 @@ require("telescope").setup {
 }
 
 require("sort").setup()
-
+require("bigfile").setup()
 require("colorizer").setup()
-
-require("multicursor-nvim").setup()
-
-require("mini.surround").setup()
-
-require("mini.jump2d").setup()
-
 require("mini.pairs").setup()
-
+require("mini.comment").setup()
+require("mini.surround").setup()
+require("mini.completion").setup()
+require("mini.jump").setup { delay = { idle_stop = 3000 } }
+require("mini.jump2d").setup { mappings = { start_jumping = "'" } }
 require("mini.indentscope").setup { symbol = "│" }
 
 require("gitsigns").setup {
@@ -274,3 +265,41 @@ vim.api.nvim_create_user_command("Format", function(args)
   end
   require("conform").format({ async = true, lsp_format = "fallback", range = range })
 end, { range = true })
+
+-- local cmp = require("cmp")
+-- cmp.setup({
+--   sources = {
+--     { name = "nvim_lsp" },
+--     { name = "buffer" },
+--     { name = "path" },
+--   },
+--   window = {
+--     completion = cmp.config.window.bordered(),
+--     documentation = cmp.config.window.bordered(),
+--   },
+--   mapping = {
+--     ["<C-f>"]     = cmp.mapping.scroll_docs(4),
+--     ["<C-b>"]     = cmp.mapping.scroll_docs(-4),
+--     ["<C-n>"]     = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
+--     ["<C-p>"]     = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+--     ["<C-e>"]     = cmp.mapping.abort(),
+--     ["<C-Space>"] = cmp.mapping.complete(),
+--     ["<CR>"]      = cmp.mapping.confirm({ select = false }),
+--   },
+-- })
+-- vim.lsp.config("*", { capabilities = require("cmp_nvim_lsp").default_capabilities() })
+-- cmp.setup.cmdline({ "/", "?" }, {
+--   mapping = cmp.mapping.preset.cmdline(),
+--   sources = {
+--     { name = "buffer" }
+--   }
+-- })
+-- cmp.setup.cmdline(":", {
+--   mapping = cmp.mapping.preset.cmdline(),
+--   sources = cmp.config.sources({
+--     { name = "path" }
+--   }, {
+--     { name = "cmdline" }
+--   }),
+--   matching = { disallow_symbol_nonprefix_matching = false }
+-- })
