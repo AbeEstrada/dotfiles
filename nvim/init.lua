@@ -19,7 +19,7 @@ vim.opt.autoindent     = true                         -- Copy indent from curren
 
 vim.opt.undofile       = true                         -- Save undo history to file for persistence
 vim.opt.linebreak      = true                         -- Wrap lines at 'breakat' characters
-vim.opt.clipboard      = "unnamed"                    -- Use system clipboard by default
+vim.opt.clipboard      = "unnamedplus"                -- Use system clipboard by default
 vim.opt.backspace      = "indent,eol,start"           -- Better backspace behavior
 
 vim.opt.hlsearch       = true                         -- Highlight search matches
@@ -57,46 +57,36 @@ vim.keymap.set("n", "<C-j>", ":move +1<CR>", { noremap = true, silent = true, de
 vim.keymap.set("x", "<C-k>", ":move '<-2<CR>gv=gv", { noremap = true, silent = true, desc = "Move lines up" })
 vim.keymap.set("x", "<C-j>", ":move '>+1<CR>gv=gv", { noremap = true, silent = true, desc = "Move lines down" })
 
-vim.keymap.set("x", "an", function() vim.lsp.buf.selection_range("outer") end, { desc = "Incremental Selection (outer)" })
-vim.keymap.set("x", "in", function() vim.lsp.buf.selection_range("inner") end, { desc = "Incremental Selection (inner)" })
-
-vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>",
-  { noremap = true, silent = true, desc = "Find Files" })
-vim.keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>",
-  { noremap = true, silent = true, desc = "Search Text" })
-vim.keymap.set("n", "<leader>fb", ":Telescope buffers<CR>",
-  { noremap = true, silent = true, desc = "Buffers" })
-vim.keymap.set("n", "<leader>fd", ":Telescope diagnostics<CR>",
-  { noremap = true, silent = true, desc = "Diagnostics" })
-vim.keymap.set("n", "<leader>fe", ":Telescope file_browser<CR>",
-  { noremap = true, silent = true, desc = "File Browser" })
-vim.keymap.set("n", "<leader>Fe", ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
-  { noremap = true, silent = true, desc = "File Browser Current" })
+vim.keymap.set("n", "<leader>/", function() Snacks.picker.grep() end, { desc = "Grep" })
+vim.keymap.set("n", "<leader>fb", function() Snacks.picker.buffers() end, { desc = "Buffers" })
+vim.keymap.set("n", "<leader>fe", function() Snacks.explorer() end, { desc = "File Explorer" })
+vim.keymap.set("n", "<leader>fg", function() Snacks.picker.git_files() end, { desc = "Find Git Files" })
+vim.keymap.set("n", "<leader>ff", function() Snacks.picker.files() end, { desc = "Find Files" })
+vim.keymap.set("n", "<leader>fd", function() Snacks.picker.diagnostics_buffer() end, { desc = "Diagnostics" })
+vim.keymap.set("n", "<leader>ss", function() Snacks.picker.lsp_symbols() end, { desc = "LSP Symbols" })
+vim.keymap.set("n", "<leader>z", function() Snacks.zen() end, { desc = "Toggle Zen Mode" })
 
 -- Plugins
 
 vim.pack.add({
+  { src = "https://github.com/folke/snacks.nvim" },
   { src = "https://github.com/folke/tokyonight.nvim" },
   { src = "https://github.com/akinsho/bufferline.nvim" },
   { src = "https://github.com/nvim-lualine/lualine.nvim" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
-  { src = "https://github.com/nvim-lua/plenary.nvim" },
-  { src = "https://github.com/nvim-telescope/telescope.nvim",              dependencies = { "nvim-lua/plenary.nvim" } },
-  { src = "https://github.com/nvim-telescope/telescope-file-browser.nvim", dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" } },
   { src = "https://github.com/neovim/nvim-lspconfig" },
   { src = "https://github.com/stevearc/conform.nvim" },
   { src = "https://github.com/nvim-mini/mini.nvim" },
   { src = "https://github.com/norcalli/nvim-colorizer.lua" },
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/windwp/nvim-ts-autotag" },
-  { src = "https://github.com/LunarVim/bigfile.nvim" },
   { src = "https://github.com/sQVe/sort.nvim" },
   -- { src = "https://github.com/hrsh7th/nvim-cmp" },
-  -- { src = "https://github.com/hrsh7th/cmp-path",                           dependencies = "hrsh7th/nvim-cmp" },
-  -- { src = "https://github.com/hrsh7th/cmp-buffer",                         dependencies = "hrsh7th/nvim-cmp" },
-  -- { src = "https://github.com/hrsh7th/cmp-cmdline",                        dependencies = "hrsh7th/nvim-cmp" },
-  -- { src = "https://github.com/hrsh7th/cmp-nvim-lsp",                       dependencies = "hrsh7th/nvim-cmp" },
+  -- { src = "https://github.com/hrsh7th/cmp-path", },
+  -- { src = "https://github.com/hrsh7th/cmp-buffer", },
+  -- { src = "https://github.com/hrsh7th/cmp-cmdline", },
+  -- { src = "https://github.com/hrsh7th/cmp-nvim-lsp", },
 })
 
 require("tokyonight").setup {
@@ -110,6 +100,17 @@ require("tokyonight").setup {
 vim.cmd.colorscheme "tokyonight"
 
 local colors = require("tokyonight.colors").setup()
+
+require("snacks").setup {
+  bigfile   = { enable = true },
+  quickfile = { enabled = true },
+  picker    = { enabled = true },
+  scope     = { enabled = true },
+  indent    = {
+    enabled = true,
+    animate = { enabled = false },
+  },
+}
 
 require("nvim-treesitter.configs").setup {
   auto_install     = true,
@@ -137,7 +138,7 @@ require("nvim-treesitter.configs").setup {
   highlight        = { enable = true, },
   indent           = { enable = true, },
   match            = { enable = true, },
-  folds            = { enable = true },
+  folds            = { enable = true, },
 }
 
 require("treesitter-context").setup { enable = true }
@@ -153,7 +154,6 @@ bufferline.setup {
     show_buffer_close_icons = false,
     separator_style = { "", "" },
     indicator = { style = "none" },
-    -- diagnostics = "nvim_lsp",
   },
   highlights = {
     buffer_selected = {
@@ -165,53 +165,23 @@ bufferline.setup {
 
 require("lualine").setup {
   options = {
-    theme                = "auto",
     section_separators   = "",
     component_separators = "",
   }
 }
 
-require("telescope").setup {
-  defaults = {
-    prompt_prefix = "   ",
-    selection_caret = " ",
-    entry_prefix = " ",
-    sorting_strategy = "ascending",
-    layout_config = { prompt_position = "top" },
-    file_ignore_patterns = { "^node_modules/", }
-  },
-}
-
 require("sort").setup()
-require("bigfile").setup()
+require("gitsigns").setup()
 require("colorizer").setup()
 require("mini.pairs").setup()
 require("mini.comment").setup()
 require("mini.surround").setup()
 require("mini.completion").setup()
-require("mini.jump").setup { delay = { idle_stop = 3000 } }
+require("mini.jump").setup { delay = { idle_stop = 2500 } }
 require("mini.jump2d").setup { mappings = { start_jumping = "'" } }
-require("mini.indentscope").setup { symbol = "│" }
-
-require("gitsigns").setup {
-  on_attach = function(bufnr)
-    local gitsigns = require("gitsigns")
-
-    vim.keymap.set("n", "]g", function()
-      if vim.wo.diff then
-        vim.cmd.normal({ "]g", bang = true })
-      else
-        gitsigns.nav_hunk("next")
-      end
-    end, { buffer = bufnr, desc = "Next hunk" })
-    vim.keymap.set("n", "[g", function()
-      if vim.wo.diff then
-        vim.cmd.normal({ "[g", bang = true })
-      else
-        gitsigns.nav_hunk("previous")
-      end
-    end, { buffer = bufnr, desc = "Previous hunk" })
-  end
+require("mini.basics").setup {
+  options = { basic = false },
+  autocommands = { basic = false },
 }
 
 vim.lsp.enable({
