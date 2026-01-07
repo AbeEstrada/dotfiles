@@ -1,3 +1,5 @@
+local vim              = vim -- suppress lsp warnings
+
 vim.g.mapleader        = " "
 vim.g.maplocalleader   = " "
 
@@ -82,11 +84,6 @@ vim.pack.add({
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/windwp/nvim-ts-autotag" },
   { src = "https://github.com/sQVe/sort.nvim" },
-  -- { src = "https://github.com/hrsh7th/nvim-cmp" },
-  -- { src = "https://github.com/hrsh7th/cmp-path", },
-  -- { src = "https://github.com/hrsh7th/cmp-buffer", },
-  -- { src = "https://github.com/hrsh7th/cmp-cmdline", },
-  -- { src = "https://github.com/hrsh7th/cmp-nvim-lsp", },
 })
 
 require("tokyonight").setup {
@@ -174,6 +171,7 @@ require("sort").setup()
 require("gitsigns").setup()
 require("colorizer").setup()
 require("mini.pairs").setup()
+require("mini.cmdline").setup()
 require("mini.comment").setup()
 require("mini.surround").setup()
 require("mini.completion").setup()
@@ -235,41 +233,3 @@ vim.api.nvim_create_user_command("Format", function(args)
   end
   require("conform").format({ async = true, lsp_format = "fallback", range = range })
 end, { range = true })
-
--- local cmp = require("cmp")
--- cmp.setup({
---   sources = {
---     { name = "nvim_lsp" },
---     { name = "buffer" },
---     { name = "path" },
---   },
---   window = {
---     completion = cmp.config.window.bordered(),
---     documentation = cmp.config.window.bordered(),
---   },
---   mapping = {
---     ["<C-f>"]     = cmp.mapping.scroll_docs(4),
---     ["<C-b>"]     = cmp.mapping.scroll_docs(-4),
---     ["<C-n>"]     = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
---     ["<C-p>"]     = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
---     ["<C-e>"]     = cmp.mapping.abort(),
---     ["<C-Space>"] = cmp.mapping.complete(),
---     ["<CR>"]      = cmp.mapping.confirm({ select = false }),
---   },
--- })
--- vim.lsp.config("*", { capabilities = require("cmp_nvim_lsp").default_capabilities() })
--- cmp.setup.cmdline({ "/", "?" }, {
---   mapping = cmp.mapping.preset.cmdline(),
---   sources = {
---     { name = "buffer" }
---   }
--- })
--- cmp.setup.cmdline(":", {
---   mapping = cmp.mapping.preset.cmdline(),
---   sources = cmp.config.sources({
---     { name = "path" }
---   }, {
---     { name = "cmdline" }
---   }),
---   matching = { disallow_symbol_nonprefix_matching = false }
--- })
