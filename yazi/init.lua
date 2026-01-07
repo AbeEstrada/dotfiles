@@ -1,16 +1,21 @@
 -- https://yazi-rs.github.io/docs/configuration/yazi#manager.linemode
 function Linemode:size_and_mtime()
-  local time = math.floor(self._file.cha.mtime or 0)
-  if time == 0 then
+  local mtime = math.floor(self._file.cha.mtime or 0)
+  local time
+  if mtime == 0 then
     time = ""
-  elseif os.date("%Y", time) == os.date("%Y") then
-    time = os.date("%b %d %H:%M", time)
+  elseif os.date("%Y", mtime) == os.date("%Y") then
+    time = os.date("%b %d %H:%M", mtime)
   else
-    time = os.date("%b %d  %Y", time)
+    time = os.date("%b %d  %Y", mtime)
+  end
+  local file_size = self._file:size()
+  local size = "-"
+  if file_size then
+    size = ya.readable_size and ya.readable_size(file_size) or tostring(file_size)
   end
 
-  local size = self._file:size()
-  return string.format("%s %s", size and ya.readable_size(size) or "-", time)
+  return string.format("%s %s", size, time)
 end
 
 -- https://yazi-rs.github.io/docs/tips#symlink-in-status
