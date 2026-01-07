@@ -8,11 +8,14 @@ popup-border = "all"
 bufferline = "always"
 scrolloff = 20
 shell = ["zsh", "-c"]
-rulers = [80, 120]
+rulers = [80]
 rainbow-brackets = true
 continue-comments = false
 completion-replace = true
 jump-label-alphabet = "asdfgqwertzxcvb"
+
+# end-of-line-diagnostics = "disable"
+inline-diagnostics.cursor-line = "disable"
 
 [editor.lsp]
 display-inlay-hints = false
@@ -90,8 +93,11 @@ E = "move_next_sub_word_end"
 
 [keys.normal.space]
 F = "file_picker_in_current_buffer_directory"
+x = "@<C-s>maf<A-;>t(be"                      # Go to function name. Save selection to jumplist first.
+X = "@<C-s>maf<A-;>t(begr"                    # Go to current function references. Save selection to jumplist first.
 
 [keys.normal.space.t]
 s = ":toggle soft-wrap.enable" # toggle soft-wrap
 f = "@\"%p<space>Yd"           # copy buffer path
 n = "@\"#P"                    # consecutive numbers
+t = ":pipe tog"                # https://gist.github.com/AbeEstrada/1d6b859bcbdc81f8f94ff44258a0cdae

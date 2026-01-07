@@ -23,9 +23,7 @@ logLevel = "debug"
 
 [language-server.vscode-css-language-server.config.css]
 customData = ["/Users/Abe/.config/helix/languages/tailwind.json"]
-
-# [language-server.vscode-css-language-server.config.css.lint]
-# unknownAtRules = "ignore"
+# lint = { unknownAtRules = "ignore" }
 
 [language-server.lua-language-server.config.Lua.hint]
 enable = true
@@ -47,8 +45,12 @@ config = { contentIntellisense = true, typescript = { tsdk = "/Users/Abe/.bun/in
 
 [[language]]
 name = "astro"
-auto-format = true
+scope = "source.astro"
+injection-regex = "astro"
+file-types = ["astro"]
 language-servers = ["astro-ls", "uwu-colors"]
+auto-format = true
+# formatter = { command = "dprint", args = ["fmt", "--stdin", "astro"] }
 formatter = { command = "prettier", args = [
   "--plugin",
   "prettier-plugin-astro",
@@ -101,12 +103,19 @@ formatter = { command = "xmllint", args = ["--format", "-"] }
 name = "html"
 auto-format = true
 # formatter = { command = "tidy", args = ["-q", "-i", "--tidy-mark", "no", "--"] }
-language-servers = ["emmet-lsp", "uwu-colors"]
+# formatter = { command = "prettier", args = ["--parser", "html"] }
+formatter = { command = "superhtml", args = ["fmt", "-"] }
+language-servers = [
+  "vscode-html-language-server",
+  "superhtml",
+  "emmet-lsp",
+  "uwu-colors",
+]
 
 [[language]]
 name = "css"
-language-servers = ["vscode-css-language-server", "tailwindcss-ls"]
 auto-format = true
+language-servers = ["vscode-css-language-server", "tailwindcss-ls"]
 
 [[language]]
 name = "javascript"

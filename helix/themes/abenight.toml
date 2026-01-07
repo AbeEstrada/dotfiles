@@ -17,12 +17,14 @@ inherits = "tokyonight_moon"
 
 "ui.statusline" = { fg = "white", bg = "fg-gutter" }
 "ui.statusline.inactive" = { fg = "fg-dark", bg = "fg-selected" }
-"ui.virtual.ruler".bg = "fg-gutter"
+"ui.virtual.ruler".bg = "bg"
 "ui.virtual.whitespace".fg = "fg-gutter"
 "ui.virtual.indent-guide".fg = "fg-gutter"
 
 "ui.selection.primary" = { bg = "#542D96" }
 "ui.selection" = { bg = "#7E51CB" }
+
+"constant.builtin.boolean" = { fg = "orange" }
 
 
 [palette]
