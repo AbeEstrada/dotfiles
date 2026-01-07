@@ -1,5 +1,0 @@
-# https://github.com/altsem/gitu/blob/master/src/default_config.toml
-
-[general]
-# always_show_help.enabled = true
-confirm_quit.enabled = true
