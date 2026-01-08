@@ -91,7 +91,6 @@ vim.keymap.set("i", "<CR>", "v:lua.cr_action()", { expr = true })
 vim.pack.add({
   { src = "https://github.com/folke/snacks.nvim" },
   { src = "https://github.com/folke/tokyonight.nvim" },
-  { src = "https://github.com/akinsho/bufferline.nvim" },
   { src = "https://github.com/nvim-lualine/lualine.nvim" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
@@ -169,35 +168,22 @@ require("treesitter-context").setup { enable = true }
 
 require("nvim-ts-autotag").setup()
 
-local bufferline = require("bufferline")
-bufferline.setup {
-  options = {
-    style_preset = bufferline.style_preset.no_italic,
-    show_close_icon = false,
-    show_buffer_icons = false,
-    show_buffer_close_icons = false,
-    separator_style = { "", "" },
-    indicator = { style = "none" },
-  },
-  highlights = {
-    fill = {
-      bg = colors.bg,
-    },
-    buffer_selected = {
-      bg = colors.bg_highlight,
-      fg = colors.purple,
-    },
-    modified_selected = {
-      bg = colors.bg_highlight,
-    },
-  },
-}
-
 require("lualine").setup {
   options = {
     section_separators   = "",
     component_separators = "",
-  }
+  },
+  sections = {
+    lualine_z = {
+      "location",
+      {
+        function()
+          return vim.api.nvim_buf_line_count(0)
+        end,
+        color = { fg = colors.fg, bg = colors.bg_highlight },
+      },
+    },
+  },
 }
 
 require("sort").setup()
@@ -207,6 +193,8 @@ require("mini.basics").setup()
 require("mini.comment").setup()
 require("mini.surround").setup()
 require("mini.completion").setup()
+require("mini.align").setup()
+require("mini.tabline").setup { show_icons = false }
 require("mini.jump").setup { delay = { idle_stop = 2500 } }
 require("mini.jump2d").setup { mappings = { start_jumping = "'" } }
 
@@ -223,6 +211,7 @@ require("conform").setup({
   formatters_by_ft = {
     css             = { "prettier" },
     go              = { "goimports", "gofmt" },
+    lua             = { "stylua" },
     markdown        = { "prettier" },
     json            = { "biome", "prettier", stop_after_first = true },
     javascript      = { "biome", "prettier", stop_after_first = true },
