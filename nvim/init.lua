@@ -4,7 +4,7 @@ vim.g.mapleader        = " "
 vim.g.maplocalleader   = " "
 
 vim.opt.number         = true                         -- Show line numbers
-vim.opt.relativenumber = true
+vim.opt.relativenumber = true                         -- Show relative numbers
 vim.opt.cursorline     = true                         -- Enable cursor line highlighting
 vim.opt.signcolumn     = "yes"                        -- Always show sign column (for diagnostics, git, etc.)
 vim.opt.colorcolumn    = "80,120"                     -- Show vertical guidelines
@@ -62,11 +62,27 @@ vim.keymap.set("x", "<C-j>", ":move '>+1<CR>gv=gv", { noremap = true, silent = t
 vim.keymap.set("n", "<leader>/", function() Snacks.picker.grep() end, { desc = "Grep" })
 vim.keymap.set("n", "<leader>fb", function() Snacks.picker.buffers() end, { desc = "Buffers" })
 vim.keymap.set("n", "<leader>fe", function() Snacks.explorer() end, { desc = "File Explorer" })
-vim.keymap.set("n", "<leader>fg", function() Snacks.picker.git_files() end, { desc = "Find Git Files" })
 vim.keymap.set("n", "<leader>ff", function() Snacks.picker.files() end, { desc = "Find Files" })
+vim.keymap.set("n", "<leader>fg", function() Snacks.picker.git_files() end, { desc = "Find Git Files" })
 vim.keymap.set("n", "<leader>fd", function() Snacks.picker.diagnostics_buffer() end, { desc = "Diagnostics" })
 vim.keymap.set("n", "<leader>ss", function() Snacks.picker.lsp_symbols() end, { desc = "LSP Symbols" })
 vim.keymap.set("n", "<leader>z", function() Snacks.zen() end, { desc = "Toggle Zen Mode" })
+
+vim.api.nvim_set_keymap("i", "<Tab>", [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { noremap = true, expr = true })
+vim.api.nvim_set_keymap("i", "<S-Tab>", [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { noremap = true, expr = true })
+
+vim.api.nvim_create_user_command("W", "w", { bang = true, nargs = "*" })
+vim.api.nvim_create_user_command("Wq", "wq", { bang = true, nargs = "*" })
+vim.api.nvim_create_user_command("WQ", "wq", { bang = true, nargs = "*" })
+vim.api.nvim_create_user_command("Bda", function() require("snacks").bufdelete.all() end, { desc = "Close all buffers" })
+vim.api.nvim_create_user_command("Bdo", function() require("snacks").bufdelete.other() end,
+  { desc = "Delete all buffers except the current one" })
+
+_G.cr_action = function()
+  if vim.fn.complete_info()["selected"] ~= -1 then return '\25' end
+  return '\r'
+end
+vim.keymap.set("i", "<CR>", "v:lua.cr_action()", { expr = true })
 
 -- Plugins
 
@@ -101,11 +117,20 @@ local colors = require("tokyonight.colors").setup()
 require("snacks").setup {
   bigfile   = { enable = true },
   quickfile = { enabled = true },
-  picker    = { enabled = true },
+  input     = { enabled = true },
   scope     = { enabled = true },
   indent    = {
     enabled = true,
     animate = { enabled = false },
+  },
+  picker    = {
+    enabled = true,
+    on_show = function()
+      vim.b.minicompletion_disable = true
+    end,
+    on_close = function()
+      vim.b.minicompletion_disable = false
+    end,
   },
 }
 
@@ -116,7 +141,7 @@ require("nvim-treesitter.configs").setup {
     "css",
     "csv",
     "diff",
-    "git_config", "gitcommit", "git_rebase", "gitignore", "gitattributes",
+    "git_config", "git_rebase", "gitattributes", "gitcommit", "gitignore",
     "go", "gomod", "gowork", "gosum",
     "html",
     "javascript",
@@ -124,8 +149,8 @@ require("nvim-treesitter.configs").setup {
     "lua",
     "markdown", "markdown_inline",
     "python", "requirements",
-    "query",
     "regex",
+    "ssh_config",
     "toml",
     "typst",
     "typescript", "tsx",
@@ -153,9 +178,15 @@ bufferline.setup {
     indicator = { style = "none" },
   },
   highlights = {
+    fill = {
+      bg = colors.bg,
+    },
     buffer_selected = {
       bg = colors.bg_highlight,
       fg = colors.purple,
+    },
+    modified_selected = {
+      bg = colors.bg_highlight,
     },
   },
 }
@@ -170,20 +201,16 @@ require("lualine").setup {
 require("sort").setup()
 require("gitsigns").setup()
 require("colorizer").setup()
-require("mini.pairs").setup()
-require("mini.cmdline").setup()
+require("mini.basics").setup()
 require("mini.comment").setup()
 require("mini.surround").setup()
 require("mini.completion").setup()
 require("mini.jump").setup { delay = { idle_stop = 2500 } }
 require("mini.jump2d").setup { mappings = { start_jumping = "'" } }
-require("mini.basics").setup {
-  options = { basic = false },
-  autocommands = { basic = false },
-}
 
 vim.lsp.enable({
   "astro",
+  "biome",
   "gopls",
   "lua_ls",
   "tailwindcss",
@@ -192,6 +219,7 @@ vim.lsp.enable({
 
 require("conform").setup({
   formatters_by_ft = {
+    css             = { "prettier" },
     go              = { "goimports", "gofmt" },
     markdown        = { "prettier" },
     json            = { "biome", "prettier", stop_after_first = true },
