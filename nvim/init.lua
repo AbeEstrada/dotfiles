@@ -12,6 +12,7 @@ vim.opt.list           = true                         -- Show invisible characte
 vim.opt.listchars      = "tab:» ,lead:·,trail:·"      -- Define how invisible chars are displayed
 vim.opt.scrolloff      = 10                           -- Lines above/below cursor
 vim.opt.sidescrolloff  = 10                           -- Columns left/right of cursor
+vim.opt.mousescroll    = "ver:3,hor:0"                -- Disable horizontal scrolling with a trackpad
 
 vim.opt.tabstop        = 2                            -- Number of spaces a tab counts for
 vim.opt.shiftwidth     = 2                            -- Number of spaces to use for autoindent
@@ -68,7 +69,7 @@ vim.keymap.set("n", "<leader>fg", function() Snacks.picker.git_files() end, { de
 vim.keymap.set("n", "<leader>gd", function() Snacks.picker.git_diff() end, { desc = "Git Diff (Hunks)" })
 vim.keymap.set("n", "<leader>ss", function() Snacks.picker.lsp_symbols() end, { desc = "LSP Symbols" })
 vim.keymap.set("n", "<leader>lg", function() Snacks.lazygit.open() end, { desc = "Lazygit" })
-vim.keymap.set("n", "<leader>z", function() Snacks.zen() end, { desc = "Toggle Zen Mode" })
+vim.keymap.set("n", "<leader>zz", function() Snacks.zen() end, { desc = "Toggle Zen Mode" })
 
 vim.api.nvim_set_keymap("i", "<Tab>", [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { noremap = true, expr = true })
 vim.api.nvim_set_keymap("i", "<S-Tab>", [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { noremap = true, expr = true })
@@ -120,6 +121,7 @@ require("snacks").setup {
   quickfile = { enabled = true },
   input     = { enabled = true },
   scope     = { enabled = true },
+  scroll    = { enabled = true },
   indent    = {
     enabled = true,
     animate = { enabled = false },
