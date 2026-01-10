@@ -55,24 +55,32 @@ end)
 vim.keymap.set("n", "U", "<C-r>", { noremap = true, silent = true, desc = "Redo" })
 vim.keymap.set("n", "<A-S-Right>", ":bnext<CR>", { noremap = true, silent = true, desc = "Next buffer" })
 vim.keymap.set("n", "<A-S-Left>", ":bprevious<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
-vim.keymap.set("n", "<C-k>", ":move -2<CR>", { noremap = true, silent = true, desc = "Move line up" })
-vim.keymap.set("n", "<C-j>", ":move +1<CR>", { noremap = true, silent = true, desc = "Move line down" })
-vim.keymap.set("x", "<C-k>", ":move '<-2<CR>gv=gv", { noremap = true, silent = true, desc = "Move lines up" })
-vim.keymap.set("x", "<C-j>", ":move '>+1<CR>gv=gv", { noremap = true, silent = true, desc = "Move lines down" })
+
+vim.keymap.set({ "n", "x" }, "<C-S-j>", "<Cmd>MultipleCursorsAddDown<CR>",
+  { noremap = true, silent = true, desc = "Add cursor and move down" })
+vim.keymap.set({ "n", "x" }, "<C-S-k>", "<Cmd>MultipleCursorsAddUp<CR>",
+  { noremap = true, silent = true, desc = "Add cursor and move up" })
+vim.keymap.set({ "n", "i" }, "<C-LeftMouse>", "<Cmd>MultipleCursorsMouseAddDelete<CR>",
+  { noremap = true, silent = true, desc = "Add or remove cursor" })
 
 vim.keymap.set("n", "<leader>/", function() Snacks.picker.grep() end, { desc = "Grep" })
 vim.keymap.set("n", "<leader>fb", function() Snacks.picker.buffers() end, { desc = "Buffers" })
 vim.keymap.set("n", "<leader>fe", function() Snacks.explorer() end, { desc = "File Explorer" })
 vim.keymap.set("n", "<leader>ff", function() Snacks.picker.files() end, { desc = "Find Files" })
+vim.keymap.set("n", "<leader>fF", function() Snacks.picker.files({ cwd = vim.fn.expand("%:p:h") }) end,
+  { desc = "Find Files (Buffer Dir)" })
 vim.keymap.set("n", "<leader>fd", function() Snacks.picker.diagnostics_buffer() end, { desc = "Diagnostics" })
 vim.keymap.set("n", "<leader>fg", function() Snacks.picker.git_files() end, { desc = "Find Git Files" })
 vim.keymap.set("n", "<leader>gd", function() Snacks.picker.git_diff() end, { desc = "Git Diff (Hunks)" })
+vim.keymap.set("n", "<leader>gs", function() Snacks.picker.git_status() end, { desc = "Git Status" })
 vim.keymap.set("n", "<leader>ss", function() Snacks.picker.lsp_symbols() end, { desc = "LSP Symbols" })
 vim.keymap.set("n", "<leader>lg", function() Snacks.lazygit.open() end, { desc = "Lazygit" })
 vim.keymap.set("n", "<leader>zz", function() Snacks.zen() end, { desc = "Toggle Zen Mode" })
 
 vim.api.nvim_set_keymap("i", "<Tab>", [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { noremap = true, expr = true })
 vim.api.nvim_set_keymap("i", "<S-Tab>", [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { noremap = true, expr = true })
+vim.api.nvim_set_keymap("i", "<Down>", [[pumvisible() ? "\<C-n>" : "\<Down>"]], { noremap = true, expr = true })
+vim.api.nvim_set_keymap("i", "<Up>", [[pumvisible() ? "\<C-p>" : "\<Up>"]], { noremap = true, expr = true })
 
 vim.api.nvim_create_user_command("W", "w", { bang = true, nargs = "*" })
 vim.api.nvim_create_user_command("Wq", "wq", { bang = true, nargs = "*" })
@@ -102,6 +110,7 @@ vim.pack.add({
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/windwp/nvim-ts-autotag" },
   { src = "https://github.com/sQVe/sort.nvim" },
+  { src = "https://github.com/brenton-leighton/multiple-cursors.nvim" },
 })
 
 require("tokyonight").setup {
@@ -187,18 +196,38 @@ require("lualine").setup {
     },
   },
 }
-
 require("sort").setup()
 require("gitsigns").setup()
 require("colorizer").setup()
+require("multiple-cursors").setup()
 require("mini.basics").setup()
 require("mini.comment").setup()
 require("mini.surround").setup()
 require("mini.completion").setup()
+require("mini.pairs").setup()
 require("mini.align").setup()
-require("mini.tabline").setup { show_icons = false }
+require("mini.diff").setup()
 require("mini.jump").setup { delay = { idle_stop = 2500 } }
 require("mini.jump2d").setup { mappings = { start_jumping = "'" } }
+require("mini.move").setup {
+  mappings = {
+    left = "<C-h>",
+    right = "<C-l>",
+    down = "<C-j>",
+    up = "<C-k>",
+    line_left = "<C-h>",
+    line_right = "<C-l>",
+    line_down = "<C-j>",
+    line_up = "<C-k>",
+  }
+}
+require("mini.tabline").setup({
+  show_icons = false,
+  format = function(buf_id, label)
+    local suffix = vim.bo[buf_id].modified and "● " or ""
+    return MiniTabline.default_format(buf_id, label) .. suffix
+  end,
+})
 
 vim.lsp.enable({
   "astro",
