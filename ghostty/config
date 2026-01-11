@@ -1,33 +1,29 @@
-# theme = tokyonight
 theme = abedark
 
-font-family = Inconsolata
+font-family  = Inconsolata
 font-feature = -dlig
-font-size = 15
+font-size    = 15
 
-# custom-shader = "shaders/cursor_smear.glsl"
-
-background = #1E2030
+background         = #222436
 background-opacity = 0.97
-background-blur-radius = 10
+background-blur    = 10
 
-split-divider-color = #393847
-# unfocused-split-opacity = 0.5
+split-divider-color = #343646
 
-window-width = 180
+window-width  = 180
 window-height = 48
-window-colorspace = display-p3
+window-colorspace        = display-p3
 window-title-font-family = SF Pro
 
-cursor-style = bar
-cursor-style-blink = false
-copy-on-select = clipboard
-mouse-hide-while-typing = true
-
-macos-option-as-alt = right
-macos-titlebar-style = tabs
-macos-window-shadow = false
+macos-option-as-alt  = right
+macos-window-shadow  = false
 macos-window-buttons = hidden
+macos-titlebar-style = tabs
+
+cursor-style            = bar
+cursor-style-blink      = false
+copy-on-select          = clipboard
+mouse-hide-while-typing = true
 
 keybind = cmd+n=new_tab
 keybind = cmd+shift+n=new_window
