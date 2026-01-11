@@ -22,7 +22,7 @@ vim.opt.autoindent     = true                         -- Copy indent from curren
 
 vim.opt.undofile       = true                         -- Save undo history to file for persistence
 vim.opt.linebreak      = true                         -- Wrap lines at 'breakat' characters
-vim.opt.clipboard      = "unnamedplus"                -- Use system clipboard by default
+vim.opt.clipboard      = "unnamedplus,unnamed"        -- Use system clipboard by default
 vim.opt.backspace      = "indent,eol,start"           -- Better backspace behavior
 
 vim.opt.hlsearch       = true                         -- Highlight search matches
@@ -67,6 +67,7 @@ vim.keymap.set("n", "<leader>/", function() Snacks.picker.grep() end, { desc = "
 vim.keymap.set("n", "<leader>fb", function() Snacks.picker.buffers() end, { desc = "Buffers" })
 vim.keymap.set("n", "<leader>fe", function() Snacks.explorer() end, { desc = "File Explorer" })
 vim.keymap.set("n", "<leader>ff", function() Snacks.picker.files() end, { desc = "Find Files" })
+vim.keymap.set("n", "<leader>fm", function() Snacks.picker.marks({ global = false }) end, { desc = "Marks" })
 vim.keymap.set("n", "<leader>fF", function() Snacks.picker.files({ cwd = vim.fn.expand("%:p:h") }) end,
   { desc = "Find Files (Buffer Dir)" })
 vim.keymap.set("n", "<leader>fd", function() Snacks.picker.diagnostics_buffer() end, { desc = "Diagnostics" })
@@ -106,7 +107,7 @@ vim.pack.add({
   { src = "https://github.com/neovim/nvim-lspconfig" },
   { src = "https://github.com/stevearc/conform.nvim" },
   { src = "https://github.com/nvim-mini/mini.nvim" },
-  { src = "https://github.com/norcalli/nvim-colorizer.lua" },
+  { src = "https://github.com/catgoose/nvim-colorizer.lua" },
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/windwp/nvim-ts-autotag" },
   { src = "https://github.com/sQVe/sort.nvim" },
@@ -196,9 +197,14 @@ require("lualine").setup {
     },
   },
 }
+require("colorizer").setup {
+  lazy_load = false,
+  user_default_options = {
+    tailwind = true,
+  },
+}
 require("sort").setup()
 require("gitsigns").setup()
-require("colorizer").setup()
 require("multiple-cursors").setup()
 require("mini.basics").setup()
 require("mini.comment").setup()
@@ -234,6 +240,7 @@ vim.lsp.enable({
   "biome",
   "gopls",
   "lua_ls",
+  "ruff",
   "tailwindcss",
   "ts_ls",
 })
