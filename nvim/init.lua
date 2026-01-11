@@ -20,6 +20,7 @@ vim.opt.softtabstop    = 2                            -- Number of spaces to ins
 vim.opt.expandtab      = true                         -- Convert tabs to spaces
 vim.opt.autoindent     = true                         -- Copy indent from current line when starting new line
 
+vim.opt.swapfile       = false                        -- Disable swapfiles
 vim.opt.undofile       = true                         -- Save undo history to file for persistence
 vim.opt.linebreak      = true                         -- Wrap lines at 'breakat' characters
 vim.opt.clipboard      = "unnamedplus,unnamed"        -- Use system clipboard by default
@@ -102,7 +103,7 @@ vim.pack.add({
   { src = "https://github.com/folke/snacks.nvim" },
   { src = "https://github.com/folke/tokyonight.nvim" },
   { src = "https://github.com/nvim-lualine/lualine.nvim" },
-  { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter",        version = "main" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
   { src = "https://github.com/neovim/nvim-lspconfig" },
   { src = "https://github.com/stevearc/conform.nvim" },
@@ -147,7 +148,7 @@ require("snacks").setup {
   },
 }
 
-require("nvim-treesitter.configs").setup {
+require("nvim-treesitter.config").setup {
   auto_install     = true,
   ensure_installed = {
     "astro",
@@ -203,9 +204,20 @@ require("colorizer").setup {
     tailwind = true,
   },
 }
+require("multiple-cursors").setup {
+  pre_hook = function()
+    vim.wo.cursorline = false
+    vim.api.nvim_command("NoMatchParen")
+    vim.g.minipairs_disable = true
+  end,
+  post_hook = function()
+    vim.wo.cursorline = true
+    vim.api.nvim_command("DoMatchParen")
+    vim.g.minipairs_disable = false
+  end,
+}
 require("sort").setup()
 require("gitsigns").setup()
-require("multiple-cursors").setup()
 require("mini.basics").setup()
 require("mini.comment").setup()
 require("mini.surround").setup()
