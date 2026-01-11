@@ -3,41 +3,40 @@ local vim              = vim -- suppress lsp warnings
 vim.g.mapleader        = " "
 vim.g.maplocalleader   = " "
 
-vim.opt.number         = true                         -- Show line numbers
-vim.opt.relativenumber = true                         -- Show relative numbers
-vim.opt.cursorline     = true                         -- Enable cursor line highlighting
-vim.opt.signcolumn     = "yes"                        -- Always show sign column (for diagnostics, git, etc.)
-vim.opt.colorcolumn    = "80,120"                     -- Show vertical guidelines
-vim.opt.list           = true                         -- Show invisible characters
-vim.opt.listchars      = "tab:» ,lead:·,trail:·"      -- Define how invisible chars are displayed
-vim.opt.scrolloff      = 10                           -- Lines above/below cursor
-vim.opt.sidescrolloff  = 10                           -- Columns left/right of cursor
-vim.opt.mousescroll    = "ver:3,hor:0"                -- Disable horizontal scrolling with a trackpad
+vim.opt.number         = true                    -- Show line numbers
+vim.opt.relativenumber = true                    -- Show relative numbers
+vim.opt.cursorline     = true                    -- Enable cursor line highlighting
+vim.opt.signcolumn     = "yes"                   -- Always show sign column (for diagnostics, git, etc.)
+vim.opt.colorcolumn    = "80,120"                -- Show vertical guidelines
+vim.opt.list           = true                    -- Show invisible characters
+vim.opt.listchars      = "tab:» ,lead:·,trail:·" -- Define how invisible chars are displayed
+vim.opt.scrolloff      = 10                      -- Lines above/below cursor
+vim.opt.sidescrolloff  = 10                      -- Columns left/right of cursor
+vim.opt.mousescroll    = "ver:3,hor:0"           -- Disable horizontal scrolling with a trackpad
 
-vim.opt.tabstop        = 2                            -- Number of spaces a tab counts for
-vim.opt.shiftwidth     = 2                            -- Number of spaces to use for autoindent
-vim.opt.softtabstop    = 2                            -- Number of spaces to insert/delete when editing
-vim.opt.expandtab      = true                         -- Convert tabs to spaces
-vim.opt.autoindent     = true                         -- Copy indent from current line when starting new line
+vim.opt.tabstop        = 2                       -- Number of spaces a tab counts for
+vim.opt.shiftwidth     = 2                       -- Number of spaces to use for autoindent
+vim.opt.softtabstop    = 2                       -- Number of spaces to insert/delete when editing
+vim.opt.expandtab      = true                    -- Convert tabs to spaces
+vim.opt.autoindent     = true                    -- Copy indent from current line when starting new line
 
-vim.opt.swapfile       = false                        -- Disable swapfiles
-vim.opt.undofile       = true                         -- Save undo history to file for persistence
-vim.opt.linebreak      = true                         -- Wrap lines at 'breakat' characters
-vim.opt.clipboard      = "unnamedplus,unnamed"        -- Use system clipboard by default
-vim.opt.backspace      = "indent,eol,start"           -- Better backspace behavior
+vim.opt.swapfile       = false                   -- Disable swapfiles
+vim.opt.undofile       = true                    -- Save undo history to file for persistence
+vim.opt.linebreak      = true                    -- Wrap lines at 'breakat' characters
+vim.opt.clipboard      = "unnamedplus,unnamed"   -- Use system clipboard by default
+vim.opt.backspace      = "indent,eol,start"      -- Better backspace behavior
 
-vim.opt.hlsearch       = true                         -- Highlight search matches
-vim.opt.ignorecase     = true                         -- Case-insensitive search
-vim.opt.inccommand     = "split"                      -- Show substitution preview in split
+vim.opt.hlsearch       = true                    -- Highlight search matches
+vim.opt.ignorecase     = true                    -- Case-insensitive search
+vim.opt.inccommand     = "split"                 -- Show substitution preview in split
 
-vim.opt.termguicolors  = true                         -- Enable 24-bit RGB colors
-vim.opt.showmode       = false                        -- Don't show mode indicator (handled by statusline)
-vim.opt.winborder      = "rounded"                    -- Use rounded window borders
+vim.opt.termguicolors  = true                    -- Enable 24-bit RGB colors
+vim.opt.showmode       = false                   -- Don't show mode indicator (handled by statusline)
+vim.opt.winborder      = "rounded"               -- Use rounded window borders
 
-vim.opt.foldmethod     = "expr"                       -- Use expression-based folding
-vim.opt.foldtext       = "&"                          -- Use default fold text
-vim.opt.foldlevel      = 99                           -- Start with all folds open
-vim.opt.foldexpr       = "nvim_treesitter#foldexpr()" -- Use Treesitter for folding
+vim.opt.foldmethod     = "expr"                  -- Use expression-based folding
+vim.opt.foldtext       = "&"                     -- Use default fold text
+vim.opt.foldlevel      = 99                      -- Start with all folds open
 
 vim.opt.wildmenu       = true
 vim.opt.wildmode       = "longest:full,full"
@@ -84,6 +83,7 @@ vim.api.nvim_set_keymap("i", "<S-Tab>", [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]]
 vim.api.nvim_set_keymap("i", "<Down>", [[pumvisible() ? "\<C-n>" : "\<Down>"]], { noremap = true, expr = true })
 vim.api.nvim_set_keymap("i", "<Up>", [[pumvisible() ? "\<C-p>" : "\<Up>"]], { noremap = true, expr = true })
 
+vim.api.nvim_create_user_command("Q", "q", { bang = true, nargs = "*" })
 vim.api.nvim_create_user_command("W", "w", { bang = true, nargs = "*" })
 vim.api.nvim_create_user_command("Wq", "wq", { bang = true, nargs = "*" })
 vim.api.nvim_create_user_command("WQ", "wq", { bang = true, nargs = "*" })
@@ -148,34 +148,39 @@ require("snacks").setup {
   },
 }
 
-require("nvim-treesitter.config").setup {
-  auto_install     = true,
-  ensure_installed = {
-    "astro",
-    "css",
-    "csv",
-    "diff",
-    "git_config", "git_rebase", "gitattributes", "gitcommit", "gitignore",
-    "go", "gomod", "gowork", "gosum",
-    "html",
-    "javascript",
-    "json5",
-    "lua",
-    "markdown", "markdown_inline",
-    "python", "requirements",
-    "regex",
-    "ssh_config",
-    "toml",
-    "typst",
-    "typescript", "tsx",
-    "xml",
-    "yaml",
-  },
-  highlight        = { enable = true, },
-  indent           = { enable = true, },
-  match            = { enable = true, },
-  folds            = { enable = true, },
+local ts_parsers = {
+  "astro",
+  "css",
+  "csv",
+  "diff",
+  "git_config", "git_rebase", "gitattributes", "gitcommit", "gitignore",
+  "go", "gomod", "gowork", "gosum",
+  "html",
+  "javascript",
+  "json5",
+  "lua",
+  "markdown", "markdown_inline",
+  "python", "requirements",
+  "regex",
+  "ssh_config",
+  "toml",
+  "typst",
+  "typescript", "tsx",
+  "xml",
+  "yaml",
 }
+local nts = require("nvim-treesitter")
+nts.install(ts_parsers)
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = nts.get_installed(),
+  callback = function(args)
+    local bufnr = args.buf
+    vim.treesitter.start(bufnr)
+    vim.wo.foldexpr          = "v:lua.vim.treesitter.foldexpr()"
+    vim.bo.indentexpr        = "v:lua.require'nvim-treesitter'.indentexpr"
+    vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter.indent'.get_indent(v:lnum)"
+  end,
+})
 
 require("treesitter-context").setup { enable = true }
 
