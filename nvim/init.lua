@@ -56,13 +56,6 @@ vim.keymap.set("n", "U", "<C-r>", { noremap = true, silent = true, desc = "Redo"
 vim.keymap.set("n", "<A-S-Right>", ":bnext<CR>", { noremap = true, silent = true, desc = "Next buffer" })
 vim.keymap.set("n", "<A-S-Left>", ":bprevious<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
 
-vim.keymap.set({ "n", "x" }, "<C-S-j>", "<Cmd>MultipleCursorsAddDown<CR>",
-  { noremap = true, silent = true, desc = "Add cursor and move down" })
-vim.keymap.set({ "n", "x" }, "<C-S-k>", "<Cmd>MultipleCursorsAddUp<CR>",
-  { noremap = true, silent = true, desc = "Add cursor and move up" })
-vim.keymap.set({ "n", "i" }, "<C-LeftMouse>", "<Cmd>MultipleCursorsMouseAddDelete<CR>",
-  { noremap = true, silent = true, desc = "Add or remove cursor" })
-
 vim.keymap.set("n", "<leader>/", function() Snacks.picker.grep() end, { desc = "Grep" })
 vim.keymap.set("n", "<leader>fb", function() Snacks.picker.buffers() end, { desc = "Buffers" })
 vim.keymap.set("n", "<leader>fe", function() Snacks.explorer() end, { desc = "File Explorer" })
@@ -112,7 +105,6 @@ vim.pack.add({
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/windwp/nvim-ts-autotag" },
   { src = "https://github.com/sQVe/sort.nvim" },
-  { src = "https://github.com/brenton-leighton/multiple-cursors.nvim" },
 })
 
 require("tokyonight").setup {
@@ -188,6 +180,7 @@ require("nvim-ts-autotag").setup()
 
 require("lualine").setup {
   options = {
+    icons_enabled        = false,
     section_separators   = "",
     component_separators = "",
   },
@@ -208,18 +201,6 @@ require("colorizer").setup {
   user_default_options = {
     tailwind = true,
   },
-}
-require("multiple-cursors").setup {
-  pre_hook = function()
-    vim.wo.cursorline = false
-    vim.api.nvim_command("NoMatchParen")
-    vim.g.minipairs_disable = true
-  end,
-  post_hook = function()
-    vim.wo.cursorline = true
-    vim.api.nvim_command("DoMatchParen")
-    vim.g.minipairs_disable = false
-  end,
 }
 require("sort").setup()
 require("gitsigns").setup()
