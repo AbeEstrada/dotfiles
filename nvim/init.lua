@@ -76,6 +76,12 @@ vim.api.nvim_set_keymap("i", "<S-Tab>", [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]]
 vim.api.nvim_set_keymap("i", "<Down>", [[pumvisible() ? "\<C-n>" : "\<Down>"]], { noremap = true, expr = true })
 vim.api.nvim_set_keymap("i", "<Up>", [[pumvisible() ? "\<C-p>" : "\<Up>"]], { noremap = true, expr = true })
 
+_G.cr_action = function()
+  if vim.fn.complete_info()["selected"] ~= -1 then return '\25' end
+  return '\r'
+end
+vim.keymap.set("i", "<CR>", "v:lua.cr_action()", { expr = true })
+
 vim.api.nvim_create_user_command("Q", "q", { bang = true, nargs = "*" })
 vim.api.nvim_create_user_command("W", "w", { bang = true, nargs = "*" })
 vim.api.nvim_create_user_command("Wq", "wq", { bang = true, nargs = "*" })
@@ -83,12 +89,6 @@ vim.api.nvim_create_user_command("WQ", "wq", { bang = true, nargs = "*" })
 vim.api.nvim_create_user_command("Bda", function() require("snacks").bufdelete.all() end, { desc = "Close all buffers" })
 vim.api.nvim_create_user_command("Bdo", function() require("snacks").bufdelete.other() end,
   { desc = "Delete all buffers except the current one" })
-
-_G.cr_action = function()
-  if vim.fn.complete_info()["selected"] ~= -1 then return '\25' end
-  return '\r'
-end
-vim.keymap.set("i", "<CR>", "v:lua.cr_action()", { expr = true })
 
 -- Plugins
 
@@ -104,7 +104,6 @@ vim.pack.add({
   { src = "https://github.com/catgoose/nvim-colorizer.lua" },
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/windwp/nvim-ts-autotag" },
-  { src = "https://github.com/sQVe/sort.nvim" },
 })
 
 require("tokyonight").setup {
@@ -202,16 +201,18 @@ require("colorizer").setup {
     tailwind = true,
   },
 }
-require("sort").setup()
 require("gitsigns").setup()
 require("mini.basics").setup()
 require("mini.comment").setup()
 require("mini.surround").setup()
+require("mini.operators").setup()
 require("mini.completion").setup()
+require("mini.trailspace").setup()
 require("mini.pairs").setup()
 require("mini.align").setup()
 require("mini.diff").setup()
-require("mini.jump").setup { delay = { idle_stop = 2500 } }
+require("mini.ai").setup()
+require("mini.jump").setup { delay = { idle_stop = 1000 } }
 require("mini.jump2d").setup { mappings = { start_jumping = "'" } }
 require("mini.move").setup {
   mappings = {
@@ -237,6 +238,7 @@ vim.lsp.enable({
   "astro",
   "biome",
   "gopls",
+  "html",
   "lua_ls",
   "ruff",
   "tailwindcss",
