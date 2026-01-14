@@ -120,10 +120,11 @@ local colors = require("tokyonight.colors").setup()
 
 require("snacks").setup {
   bigfile   = { enable = true },
-  quickfile = { enabled = true },
+  explorer  = { enabled = true },
   input     = { enabled = true },
   scope     = { enabled = true },
   scroll    = { enabled = true },
+  quickfile = { enabled = true },
   indent    = {
     enabled = true,
     animate = { enabled = false },
@@ -202,30 +203,22 @@ require("colorizer").setup {
   },
 }
 require("gitsigns").setup()
-require("mini.basics").setup()
+require("mini.basics").setup {
+  mappings = { windows = true }
+}
 require("mini.comment").setup()
 require("mini.surround").setup()
+require("mini.splitjoin").setup()
 require("mini.operators").setup()
 require("mini.completion").setup()
 require("mini.trailspace").setup()
-require("mini.pairs").setup()
 require("mini.align").setup()
+require("mini.pairs").setup()
 require("mini.diff").setup()
+require("mini.move").setup()
 require("mini.ai").setup()
 require("mini.jump").setup { delay = { idle_stop = 1000 } }
 require("mini.jump2d").setup { mappings = { start_jumping = "'" } }
-require("mini.move").setup {
-  mappings = {
-    left = "<C-h>",
-    right = "<C-l>",
-    down = "<C-j>",
-    up = "<C-k>",
-    line_left = "<C-h>",
-    line_right = "<C-l>",
-    line_down = "<C-j>",
-    line_up = "<C-k>",
-  }
-}
 require("mini.tabline").setup({
   show_icons = false,
   format = function(buf_id, label)
