@@ -15,7 +15,7 @@ window-height = 48
 window-colorspace        = display-p3
 window-title-font-family = SF Pro
 
-macos-option-as-alt  = right
+macos-option-as-alt  = left
 macos-window-shadow  = false
 macos-window-buttons = hidden
 macos-titlebar-style = tabs
