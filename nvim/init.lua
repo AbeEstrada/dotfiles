@@ -82,6 +82,14 @@ _G.cr_action = function()
 end
 vim.keymap.set("i", "<CR>", "v:lua.cr_action()", { expr = true })
 
+vim.keymap.set("n", "<leader>t", function()
+  -- https://gist.github.com/AbeEstrada/1d6b859bcbdc81f8f94ff44258a0cdae
+  local word = vim.fn.expand("<cword>")
+  local output = vim.fn.system("echo -n " .. word .. " | tog")
+  output = output:gsub("%s+$", "")
+  vim.api.nvim_command('normal! "_ciw' .. output)
+end, { desc = "Toggle boolean under cursor using 'tog' shell command" })
+
 vim.api.nvim_create_user_command("Q", "q", { bang = true, nargs = "*" })
 vim.api.nvim_create_user_command("W", "w", { bang = true, nargs = "*" })
 vim.api.nvim_create_user_command("Wq", "wq", { bang = true, nargs = "*" })
@@ -104,6 +112,8 @@ vim.pack.add({
   { src = "https://github.com/catgoose/nvim-colorizer.lua" },
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/windwp/nvim-ts-autotag" },
+  { src = "https://github.com/gregorias/coop.nvim" },
+  { src = "https://github.com/gregorias/coerce.nvim" },
 })
 
 require("tokyonight").setup {
@@ -119,7 +129,7 @@ vim.cmd.colorscheme "tokyonight"
 local colors = require("tokyonight.colors").setup()
 
 require("snacks").setup {
-  bigfile   = { enable = true },
+  bigfile   = { enabled = true },
   explorer  = { enabled = true },
   input     = { enabled = true },
   scope     = { enabled = true },
@@ -130,13 +140,9 @@ require("snacks").setup {
     animate = { enabled = false },
   },
   picker    = {
-    enabled = true,
-    on_show = function()
-      vim.b.minicompletion_disable = true
-    end,
-    on_close = function()
-      vim.b.minicompletion_disable = false
-    end,
+    enabled  = true,
+    on_show  = function() vim.b.minicompletion_disable = true end,
+    on_close = function() vim.b.minicompletion_disable = false end,
   },
 }
 
@@ -161,6 +167,7 @@ local ts_parsers = {
   "xml",
   "yaml",
 }
+
 local nts = require("nvim-treesitter")
 nts.install(ts_parsers)
 vim.api.nvim_create_autocmd("FileType", {
@@ -202,22 +209,22 @@ require("colorizer").setup {
     tailwind = true,
   },
 }
+require("coerce").setup()
 require("gitsigns").setup()
-require("mini.basics").setup {
-  mappings = { windows = true }
-}
-require("mini.comment").setup()
-require("mini.surround").setup()
-require("mini.splitjoin").setup()
-require("mini.operators").setup()
-require("mini.completion").setup()
-require("mini.trailspace").setup()
+
+require("mini.ai").setup()
+require("mini.diff").setup()
+require("mini.jump").setup()
+require("mini.move").setup()
 require("mini.align").setup()
 require("mini.pairs").setup()
-require("mini.diff").setup()
-require("mini.move").setup()
-require("mini.ai").setup()
-require("mini.jump").setup { delay = { idle_stop = 1000 } }
+require("mini.comment").setup()
+require("mini.surround").setup()
+require("mini.operators").setup()
+require("mini.splitjoin").setup()
+require("mini.completion").setup()
+require("mini.trailspace").setup()
+require("mini.basics").setup { mappings = { windows = true } }
 require("mini.jump2d").setup { mappings = { start_jumping = "'" } }
 require("mini.tabline").setup({
   show_icons = false,
