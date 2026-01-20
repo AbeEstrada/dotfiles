@@ -8,9 +8,17 @@ linemode = "size_and_mtime"
 wrap = "yes"
 
 [opener]
+tdf = [
+  { run = 'tdf "$@"', block = true, desc = "Open in tdf" }
+]
 extract = [
   { run = 'ouch d -y "%*"', desc = "Extract here with ouch", for = "windows" },
   { run = 'ouch d -y "$@"', desc = "Extract here with ouch", for = "unix" },
+]
+
+[open]
+prepend_rules = [
+	{ url = "*.pdf", use = "tdf" }
 ]
 
 [plugin]
@@ -26,4 +34,7 @@ prepend_previewers = [
   { mime = "application/vnd.rar", run = "ouch" },
   { mime = "application/java-archive", run = "ouch" },
   { mime = "application/x-7z-compressed", run = "ouch" },
+  { url = "*.pdf", run = "sips" },
+  { url = "*.svg", run = "sips" },
 ]
+

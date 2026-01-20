@@ -9,3 +9,16 @@ sep_right = { open = "", close = "" }
 [tabs]
 sep_inner = { open = "", close = "" }
 sep_outer = { open = "", close = "" }
+
+[icon]
+globs = []
+dirs  = []
+files = []
+exts  = []
+conds = []
+
+prepend_conds = [
+	{ if = "hidden & dir",  text = "󰘓 " },
+	{ if = "dir",           text = " " },
+	{ if = "!(dir | link)", text = " " },
+]
