@@ -47,7 +47,8 @@ vim.keymap.set("n", "<up>", "<Nop>", { noremap = true, silent = true })
 vim.keymap.set("n", "<down>", "<Nop>", { noremap = true, silent = true })
 vim.keymap.set("n", "<left>", "<Nop>", { noremap = true, silent = true })
 vim.keymap.set("n", "<right>", "<Nop>", { noremap = true, silent = true })
-
+vim.keymap.set("n", "ZZ", "<Nop>", { noremap = true, silent = true })
+vim.keymap.set("n", "ZQ", "<Nop>", { noremap = true, silent = true })
 vim.keymap.set("n", "<Esc>", function()
   vim.cmd("nohlsearch")
 end)
@@ -68,6 +69,7 @@ vim.keymap.set("n", "<leader>fg", function() Snacks.picker.git_files() end, { de
 vim.keymap.set("n", "<leader>gd", function() Snacks.picker.git_diff() end, { desc = "Git Diff (Hunks)" })
 vim.keymap.set("n", "<leader>gs", function() Snacks.picker.git_status() end, { desc = "Git Status" })
 vim.keymap.set("n", "<leader>ss", function() Snacks.picker.lsp_symbols() end, { desc = "LSP Symbols" })
+vim.keymap.set("n", "<leader>su", function() Snacks.picker.undo() end, { desc = "Undo History" })
 vim.keymap.set("n", "<leader>lg", function() Snacks.lazygit.open() end, { desc = "Lazygit" })
 vim.keymap.set("n", "<leader>zz", function() Snacks.zen() end, { desc = "Toggle Zen Mode" })
 
@@ -82,7 +84,7 @@ _G.cr_action = function()
 end
 vim.keymap.set("i", "<CR>", "v:lua.cr_action()", { expr = true })
 
-vim.keymap.set("n", "<leader>t", function()
+vim.keymap.set("n", "<leader>tb", function()
   -- https://gist.github.com/AbeEstrada/1d6b859bcbdc81f8f94ff44258a0cdae
   local word = vim.fn.expand("<cword>")
   local output = vim.fn.system("echo -n " .. word .. " | tog")
@@ -94,7 +96,7 @@ vim.api.nvim_create_user_command("Q", "q", { bang = true, nargs = "*" })
 vim.api.nvim_create_user_command("W", "w", { bang = true, nargs = "*" })
 vim.api.nvim_create_user_command("Wq", "wq", { bang = true, nargs = "*" })
 vim.api.nvim_create_user_command("WQ", "wq", { bang = true, nargs = "*" })
-vim.api.nvim_create_user_command("Bda", function() require("snacks").bufdelete.all() end, { desc = "Close all buffers" })
+vim.api.nvim_create_user_command("Bda", function() require("snacks").bufdelete.all() end, { desc = "Delete all buffers" })
 vim.api.nvim_create_user_command("Bdo", function() require("snacks").bufdelete.other() end,
   { desc = "Delete all buffers except the current one" })
 
@@ -119,6 +121,7 @@ vim.pack.add({
 require("tokyonight").setup {
   transparent  = true,
   lualine_bold = true,
+  dim_inactive = true,
   styles       = {
     sidebars = "transparent",
     floats   = "transparent",
@@ -138,6 +141,8 @@ require("snacks").setup {
   indent    = {
     enabled = true,
     animate = { enabled = false },
+    indent  = { char = "┊" },
+    scope   = { char = "┊" },
   },
   picker    = {
     enabled  = true,
@@ -210,7 +215,10 @@ require("colorizer").setup {
   },
 }
 require("coerce").setup()
-require("gitsigns").setup()
+
+require("gitsigns").setup {
+  word_diff = true,
+}
 
 require("mini.ai").setup()
 require("mini.diff").setup()
@@ -222,17 +230,22 @@ require("mini.comment").setup()
 require("mini.surround").setup()
 require("mini.operators").setup()
 require("mini.splitjoin").setup()
-require("mini.completion").setup()
 require("mini.trailspace").setup()
+require("mini.completion").setup {
+  window = {
+    info      = { border = "rounded" },
+    signature = { border = "rounded" },
+  },
+}
 require("mini.basics").setup { mappings = { windows = true } }
 require("mini.jump2d").setup { mappings = { start_jumping = "'" } }
-require("mini.tabline").setup({
+require("mini.tabline").setup {
   show_icons = false,
   format = function(buf_id, label)
     local suffix = vim.bo[buf_id].modified and "● " or ""
     return MiniTabline.default_format(buf_id, label) .. suffix
   end,
-})
+}
 
 vim.lsp.enable({
   "astro",
@@ -245,7 +258,7 @@ vim.lsp.enable({
   "ts_ls",
 })
 
-require("conform").setup({
+require("conform").setup {
   formatters_by_ft = {
     css             = { "prettier" },
     go              = { "goimports", "gofmt" },
@@ -275,9 +288,10 @@ require("conform").setup({
     if bufname:match("/node_modules/") then
       return
     end
+    MiniTrailspace.trim()
     return { timeout_ms = 500, lsp_format = "fallback" }
   end,
-})
+}
 
 vim.api.nvim_create_user_command("Format", function(args)
   local range = nil
