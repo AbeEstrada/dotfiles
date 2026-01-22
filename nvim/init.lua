@@ -186,6 +186,14 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "mail",
+  callback = function()
+    vim.opt_local.wrap      = true
+    vim.opt_local.linebreak = true
+  end,
+})
+
 require("treesitter-context").setup { enable = true }
 
 require("nvim-ts-autotag").setup()
@@ -246,6 +254,27 @@ require("mini.tabline").setup {
     return MiniTabline.default_format(buf_id, label) .. suffix
   end,
 }
+require("mini.starter").setup {
+  header = [[
+ ███▄    █  ▓█████ ▒█████   ██▒   █▓  ██▓ ███▄ ▄███▓
+ ██ ▀█   █  ▓█   ▀▒██▒  ██▒▓██░   █▒▒▓██▒▓██▒▀█▀ ██▒
+▓██  ▀█ ██▒ ▒███  ▒██░  ██▒ ▓██  █▒░▒▒██▒▓██    ▓██░
+▓██▒  ▐▌██▒ ▒▓█  ▄▒██   ██░  ▒██ █░░░░██░▒██    ▒██
+▒██░   ▓██░▒░▒████░ ████▓▒░   ▒▀█░  ░░██░▒██▒   ░██▒
+░ ▒░   ▒ ▒ ░░░ ▒░ ░ ▒░▒░▒░    ░ ▐░   ░▓  ░ ▒░   ░  ░
+░ ░░   ░ ▒░░ ░ ░    ░ ▒ ▒░    ░ ░░  ░ ▒ ░░  ░      ░
+   ░   ░ ░     ░  ░ ░ ░ ▒        ░  ░ ▒ ░░      ░
+         ░ ░   ░      ░ ░        ░    ░         ░
+  ]],
+  evaluate_single = true,
+  items = {
+    { name = "Insert",   action = "enew",                         section = "" },
+    { name = "Explorer", action = "lua Snacks.picker.explorer()", section = "" },
+    { name = "Find",     action = "lua Snacks.picker.files()",    section = "" },
+    { name = "Quit",     action = "qall",                         section = "" },
+  },
+  footer = "",
+}
 
 vim.lsp.enable({
   "astro",
@@ -253,6 +282,7 @@ vim.lsp.enable({
   "gopls",
   "html",
   "lua_ls",
+  "markdown_oxide",
   "ruff",
   "tailwindcss",
   "ts_ls",
