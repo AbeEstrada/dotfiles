@@ -116,6 +116,7 @@ vim.pack.add({
   { src = "https://github.com/windwp/nvim-ts-autotag" },
   { src = "https://github.com/gregorias/coop.nvim" },
   { src = "https://github.com/gregorias/coerce.nvim" },
+  { src = "https://github.com/h3pei/copy-file-path.nvim" },
 })
 
 require("tokyonight").setup {
@@ -221,12 +222,11 @@ require("colorizer").setup {
   user_default_options = {
     tailwind = true,
   },
+
 }
 require("coerce").setup()
 
-require("gitsigns").setup {
-  word_diff = true,
-}
+require("gitsigns").setup()
 
 require("mini.ai").setup()
 require("mini.diff").setup()
