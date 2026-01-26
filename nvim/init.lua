@@ -68,7 +68,9 @@ vim.keymap.set("n", "<leader>fd", function() Snacks.picker.diagnostics_buffer() 
 vim.keymap.set("n", "<leader>fg", function() Snacks.picker.git_files() end, { desc = "Find Git Files" })
 vim.keymap.set("n", "<leader>gd", function() Snacks.picker.git_diff() end, { desc = "Git Diff (Hunks)" })
 vim.keymap.set("n", "<leader>gs", function() Snacks.picker.git_status() end, { desc = "Git Status" })
+vim.keymap.set("n", "<leader>gr", function() Snacks.picker.lsp_references() end, { desc = "LSP References" })
 vim.keymap.set("n", "<leader>ss", function() Snacks.picker.lsp_symbols() end, { desc = "LSP Symbols" })
+vim.keymap.set("n", "<leader>sk", function() Snacks.picker.keymaps() end, { desc = "Keymaps" })
 vim.keymap.set("n", "<leader>su", function() Snacks.picker.undo() end, { desc = "Undo History" })
 vim.keymap.set("n", "<leader>lg", function() Snacks.lazygit.open() end, { desc = "Lazygit" })
 vim.keymap.set("n", "<leader>zz", function() Snacks.zen() end, { desc = "Toggle Zen Mode" })
@@ -134,6 +136,7 @@ local colors = require("tokyonight.colors").setup()
 
 require("snacks").setup {
   bigfile   = { enabled = true },
+  bufdelete = { enabled = true },
   explorer  = { enabled = true },
   input     = { enabled = true },
   scope     = { enabled = true },
@@ -247,6 +250,7 @@ require("mini.completion").setup {
 }
 require("mini.basics").setup { mappings = { windows = true } }
 require("mini.jump2d").setup { mappings = { start_jumping = "'" } }
+vim.api.nvim_set_hl(0, "MiniTablineCurrent", { bold = true })
 require("mini.tabline").setup {
   show_icons = false,
   format = function(buf_id, label)
@@ -279,12 +283,16 @@ require("mini.starter").setup {
 vim.lsp.enable({
   "astro",
   "biome",
+  "cssls",
   "gopls",
   "html",
+  "jsonls",
   "lua_ls",
   "markdown_oxide",
+  "pylsp",
   "ruff",
   "tailwindcss",
+  "taplo",
   "ts_ls",
 })
 
@@ -292,13 +300,15 @@ require("conform").setup {
   formatters_by_ft = {
     css             = { "prettier" },
     go              = { "goimports", "gofmt" },
-    lua             = { "stylua" },
     markdown        = { "prettier" },
     json            = { "biome", "prettier", stop_after_first = true },
     javascript      = { "biome", "prettier", stop_after_first = true },
     typescript      = { "biome", "prettier", stop_after_first = true },
     javascriptreact = { "biome", "prettier", stop_after_first = true },
     typescriptreact = { "biome", "prettier", stop_after_first = true },
+    swift           = { "swift_format" },
+    toml            = { "taplo" },
+    xml             = { "xmllint" }
   },
   formatters = {
     -- biome = { require_cwd = true },
@@ -322,15 +332,29 @@ require("conform").setup {
     return { timeout_ms = 500, lsp_format = "fallback" }
   end,
 }
-
-vim.api.nvim_create_user_command("Format", function(args)
-  local range = nil
-  if args.count ~= -1 then
-    local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
-    range = {
-      start = { args.line1, 0 },
-      ["end"] = { args.line2, end_line:len() },
-    }
+vim.api.nvim_create_user_command("FormatDisable", function(args)
+  if args.bang then
+    vim.b.disable_autoformat = true
+  else
+    vim.g.disable_autoformat = true
   end
-  require("conform").format({ async = true, lsp_format = "fallback", range = range })
-end, { range = true })
+end, {
+  desc = "Disable autoformat-on-save",
+  bang = true,
+})
+vim.api.nvim_create_user_command("FormatEnable", function()
+  vim.b.disable_autoformat = false
+  vim.g.disable_autoformat = false
+end, {
+  desc = "Enable autoformat-on-save",
+})
+vim.keymap.set("n", "\\f", function()
+  local is_disabled = vim.g.disable_autoformat or vim.b.disable_autoformat
+  if is_disabled then
+    vim.cmd("FormatEnable")
+    print("  autoformat")
+  else
+    vim.cmd("FormatDisable")
+    print("noautoformat")
+  end
+end, { desc = "Toggle autoformat-on-save" })
