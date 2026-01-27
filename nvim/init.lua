@@ -284,6 +284,7 @@ vim.lsp.enable({
   "astro",
   "biome",
   "cssls",
+  "eslint",
   "gopls",
   "html",
   "jsonls",
