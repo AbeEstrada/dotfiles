@@ -1,3 +1,5 @@
+vim.loader.enable()
+
 local vim              = vim -- suppress lsp warnings
 
 vim.g.mapleader        = " "
@@ -56,6 +58,8 @@ end)
 vim.keymap.set("n", "U", "<C-r>", { noremap = true, silent = true, desc = "Redo" })
 vim.keymap.set("n", "<A-S-Right>", ":bnext<CR>", { noremap = true, silent = true, desc = "Next buffer" })
 vim.keymap.set("n", "<A-S-Left>", ":bprevious<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
+vim.keymap.set("n", "gn", "<cmd>enew<CR>", { desc = "New buffer" })
+vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename" })
 
 vim.keymap.set("n", "<leader>/", function() Snacks.picker.grep() end, { desc = "Grep" })
 vim.keymap.set("n", "<leader>fb", function() Snacks.picker.buffers() end, { desc = "Buffers" })
@@ -64,8 +68,10 @@ vim.keymap.set("n", "<leader>ff", function() Snacks.picker.files() end, { desc =
 vim.keymap.set("n", "<leader>fm", function() Snacks.picker.marks({ global = false }) end, { desc = "Marks" })
 vim.keymap.set("n", "<leader>fF", function() Snacks.picker.files({ cwd = vim.fn.expand("%:p:h") }) end,
   { desc = "Find Files (Buffer Dir)" })
-vim.keymap.set("n", "<leader>fd", function() Snacks.picker.diagnostics_buffer() end, { desc = "Diagnostics" })
+vim.keymap.set("n", "<leader>fd", function() Snacks.picker.diagnostics_buffer() end, { desc = "Buffer Diagnostics" })
+vim.keymap.set("n", "<leader>fD", function() Snacks.picker.diagnostics() end, { desc = "Diagnostics" })
 vim.keymap.set("n", "<leader>fg", function() Snacks.picker.git_files() end, { desc = "Find Git Files" })
+vim.keymap.set("n", "<leader>gb", function() Snacks.picker.git_branches() end, { desc = "Git Branches" })
 vim.keymap.set("n", "<leader>gd", function() Snacks.picker.git_diff() end, { desc = "Git Diff (Hunks)" })
 vim.keymap.set("n", "<leader>gs", function() Snacks.picker.git_status() end, { desc = "Git Status" })
 vim.keymap.set("n", "<leader>gr", function() Snacks.picker.lsp_references() end, { desc = "LSP References" })
@@ -130,9 +136,8 @@ require("tokyonight").setup {
     floats   = "transparent",
   },
 }
-vim.cmd.colorscheme "tokyonight"
-
 local colors = require("tokyonight.colors").setup()
+vim.cmd.colorscheme "tokyonight"
 
 require("snacks").setup {
   bigfile   = { enabled = true },
@@ -200,8 +205,6 @@ vim.api.nvim_create_autocmd("FileType", {
 
 require("treesitter-context").setup { enable = true }
 
-require("nvim-ts-autotag").setup()
-
 require("lualine").setup {
   options = {
     icons_enabled        = false,
@@ -220,16 +223,6 @@ require("lualine").setup {
     },
   },
 }
-require("colorizer").setup {
-  lazy_load = false,
-  user_default_options = {
-    tailwind = true,
-  },
-
-}
-require("coerce").setup()
-
-require("gitsigns").setup()
 
 require("mini.ai").setup()
 require("mini.diff").setup()
@@ -359,3 +352,18 @@ vim.keymap.set("n", "\\f", function()
     print("noautoformat")
   end
 end, { desc = "Toggle autoformat-on-save" })
+
+vim.schedule(function()
+  require("nvim-ts-autotag").setup()
+  require("gitsigns").setup()
+  require("coerce").setup()
+  require("colorizer").setup {
+    lazy_load = true,
+    user_default_options = {
+      tailwind = "both",
+      tailwind_opts = {
+        update_names = true,
+      },
+    },
+  }
+end)
