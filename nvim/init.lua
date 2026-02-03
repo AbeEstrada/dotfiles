@@ -59,7 +59,9 @@ vim.keymap.set("n", "U", "<C-r>", { noremap = true, silent = true, desc = "Redo"
 vim.keymap.set("n", "<A-S-Right>", ":bnext<CR>", { noremap = true, silent = true, desc = "Next buffer" })
 vim.keymap.set("n", "<A-S-Left>", ":bprevious<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
 vim.keymap.set("n", "gn", "<cmd>enew<CR>", { desc = "New buffer" })
+vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "LSP Line Diagnostics" })
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename" })
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP Code actions" })
 
 vim.keymap.set("n", "<leader>/", function() Snacks.picker.grep() end, { desc = "Grep" })
 vim.keymap.set("n", "<leader>fb", function() Snacks.picker.buffers() end, { desc = "Buffers" })
@@ -93,12 +95,38 @@ end
 vim.keymap.set("i", "<CR>", "v:lua.cr_action()", { expr = true })
 
 vim.keymap.set("n", "<leader>tb", function()
-  -- https://gist.github.com/AbeEstrada/1d6b859bcbdc81f8f94ff44258a0cdae
-  local word = vim.fn.expand("<cword>")
-  local output = vim.fn.system("echo -n " .. word .. " | tog")
-  output = output:gsub("%s+$", "")
-  vim.api.nvim_command('normal! "_ciw' .. output)
-end, { desc = "Toggle boolean under cursor using 'tog' shell command" })
+  local t = {
+    ["true"] = "false",
+    ["false"] = "true",
+    ["True"] = "False",
+    ["False"] = "True",
+    ["TRUE"] = "FALSE",
+    ["FALSE"] = "TRUE",
+    ["1"] = "0",
+    ["0"] = "1",
+    yes = "no",
+    no = "yes",
+    Yes = "No",
+    No = "Yes",
+    YES = "NO",
+    NO = "YES",
+    ["and"] = "or",
+    ["or"] = "and",
+    And = "Or",
+    Or = "And",
+    AND = "OR",
+    OR = "AND",
+    on = "off",
+    off = "on",
+    On = "Off",
+    Off = "On",
+    ON = "OFF",
+    OFF = "ON"
+  }
+  local w = vim.fn.expand("<cword>")
+  local r = t[w]
+  if r then vim.api.nvim_command('normal! "_ciw' .. r) end
+end, { desc = "Toggle boolean/logical word under cursor" })
 
 vim.api.nvim_create_user_command("Q", "q", { bang = true, nargs = "*" })
 vim.api.nvim_create_user_command("W", "w", { bang = true, nargs = "*" })
@@ -107,6 +135,31 @@ vim.api.nvim_create_user_command("WQ", "wq", { bang = true, nargs = "*" })
 vim.api.nvim_create_user_command("Bda", function() require("snacks").bufdelete.all() end, { desc = "Delete all buffers" })
 vim.api.nvim_create_user_command("Bdo", function() require("snacks").bufdelete.other() end,
   { desc = "Delete all buffers except the current one" })
+vim.api.nvim_create_user_command("Sttr", function(opts)
+  local transformation = opts.args
+  local text
+
+  if opts.range > 0 then
+    vim.cmd.normal({ "gv", bang = true })
+    vim.cmd.normal("y")
+    text = vim.fn.getreg('"')
+  else
+    text = vim.fn.expand("<cword>")
+    if text == "" then return end
+  end
+
+  local result = vim.fn.system("sttr " .. transformation, text):gsub("\n$", "")
+
+  if opts.range > 0 then
+    vim.cmd.normal({ "gvc" .. result, bang = true })
+  else
+    vim.cmd("normal! ciw" .. result)
+  end
+end, {
+  range = true,
+  nargs = 1,
+  desc = "Transform text using sttr"
+})
 
 -- Plugins
 
@@ -122,8 +175,6 @@ vim.pack.add({
   { src = "https://github.com/catgoose/nvim-colorizer.lua" },
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/windwp/nvim-ts-autotag" },
-  { src = "https://github.com/gregorias/coop.nvim" },
-  { src = "https://github.com/gregorias/coerce.nvim" },
   { src = "https://github.com/h3pei/copy-file-path.nvim" },
 })
 
@@ -157,6 +208,11 @@ require("snacks").setup {
     enabled  = true,
     on_show  = function() vim.b.minicompletion_disable = true end,
     on_close = function() vim.b.minicompletion_disable = false end,
+    sources  = {
+      grep     = { exclude = { "node_modules" } },
+      files    = { exclude = { "node_modules" } },
+      explorer = { exclude = { "node_modules" } },
+    },
   },
 }
 
@@ -356,7 +412,6 @@ end, { desc = "Toggle autoformat-on-save" })
 vim.schedule(function()
   require("nvim-ts-autotag").setup()
   require("gitsigns").setup()
-  require("coerce").setup()
   require("colorizer").setup {
     lazy_load = true,
     user_default_options = {
