@@ -79,7 +79,10 @@ vim.keymap.set("n", "<leader>gs", function() Snacks.picker.git_status() end, { d
 vim.keymap.set("n", "<leader>gr", function() Snacks.picker.lsp_references() end, { desc = "LSP References" })
 vim.keymap.set("n", "<leader>ss", function() Snacks.picker.lsp_symbols() end, { desc = "LSP Symbols" })
 vim.keymap.set("n", "<leader>sk", function() Snacks.picker.keymaps() end, { desc = "Keymaps" })
+vim.keymap.set("n", "<leader>sc", function() Snacks.picker.command_history() end, { desc = "Command History" })
+vim.keymap.set("n", "<leader>sC", function() Snacks.picker.command() end, { desc = "Command" })
 vim.keymap.set("n", "<leader>su", function() Snacks.picker.undo() end, { desc = "Undo History" })
+vim.keymap.set("n", "<leader>rf", function() Snacks.rename.rename_file() end, { desc = "Rename File" })
 vim.keymap.set("n", "<leader>lg", function() Snacks.lazygit.open() end, { desc = "Lazygit" })
 vim.keymap.set("n", "<leader>zz", function() Snacks.zen() end, { desc = "Toggle Zen Mode" })
 
@@ -158,7 +161,7 @@ vim.api.nvim_create_user_command("Sttr", function(opts)
 end, {
   range = true,
   nargs = 1,
-  desc = "Transform text using sttr"
+  desc = "Transform text using abhimanyu003/sttr"
 })
 
 -- Plugins
@@ -286,6 +289,7 @@ require("mini.jump").setup()
 require("mini.move").setup()
 require("mini.align").setup()
 require("mini.pairs").setup()
+require("mini.jump2d").setup()
 require("mini.comment").setup()
 require("mini.surround").setup()
 require("mini.operators").setup()
@@ -298,7 +302,6 @@ require("mini.completion").setup {
   },
 }
 require("mini.basics").setup { mappings = { windows = true } }
-require("mini.jump2d").setup { mappings = { start_jumping = "'" } }
 vim.api.nvim_set_hl(0, "MiniTablineCurrent", { bold = true })
 require("mini.tabline").setup {
   show_icons = false,
