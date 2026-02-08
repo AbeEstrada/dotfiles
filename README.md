@@ -5,7 +5,9 @@ This is mostly for personal use, but feel free to fork.
 - Terminal: [Ghostty](https://mitchellh.com/ghostty)
 - Shell: [ZSH](https://www.zsh.org)
   - [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)
-- Editor: [Helix](https://helix-editor.com)
+- Editors:
+  - [Neovim](https://neovim.io)
+  - [Vim](https://www.vim.org)
 - Email: [Aerc](https://aerc-mail.org)
 
 ### Brewfile
