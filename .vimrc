@@ -1,16 +1,13 @@
 set nocompatible
 
 syntax enable
-colorscheme catppuccin
+colorscheme tokyonight
 
-" Transparent background
-highlight Normal ctermbg=NONE guibg=NONE
-highlight NonText ctermbg=NONE guibg=NONE
-highlight LineNr ctermbg=NONE guibg=NONE
-highlight Folded ctermbg=NONE guibg=NONE
-highlight EndOfBuffer ctermbg=NONE guibg=NONE
-highlight Pmenu ctermbg=NONE guibg=NONE
-highlight SignColumn ctermbg=NONE guibg=NONE
+augroup fix_cursorline " Remove tokyonight underline
+  autocmd!
+  autocmd ColorScheme * hi CursorLine   cterm=NONE term=NONE
+  autocmd ColorScheme * hi CursorLineNr cterm=NONE term=NONE
+augroup END
 
 " Change cursor shape for different modes
 let &t_SI = "\e[6 q" " Insert mode: Vertical bar (Beam)
@@ -22,13 +19,14 @@ set background=dark
 set autoread
 set cursorline
 set hidden
-set hlsearch
 set incsearch
+set ignorecase
 set linebreak
 set noswapfile
 set number
 set relativenumber
 set smarttab
+set showmode
 set termguicolors
 set title
 set wildmenu
@@ -40,7 +38,7 @@ set formatoptions+=j
 set foldmethod=indent
 set foldnestmax=3
 set nofoldenable
-set clipboard=unnamedplus
+set clipboard=unnamedplus,unnamed
 
 " Netrw
 let g:netrw_banner = 0
@@ -102,6 +100,36 @@ command! Bda %bd
 " Close all other buffers
 command! Bdo let cur = bufnr('%') | silent! execute 'bufdo if bufnr() != ' . cur . ' | bd | endif'
 
+" Statusline
+function! GetCurrentMode()
+  let l:mode = mode()
+  if l:mode ==# 'n'  | return 'NORMAL' | endif
+  if l:mode ==# 'i'  | return 'INSERT' | endif
+  if l:mode ==# 'v'  | return 'VISUAL' | endif
+  if l:mode ==# 'V'  | return 'V-LINE' | endif
+  if l:mode ==# 'c'  | return 'COMMAND' | endif
+  if l:mode ==# 'R'  | return 'REPLACE' | endif
+  if l:mode ==# "\<C-v>" | return 'V-BLOCK' | endif
+  return l:mode
+endfunction
+
+function! GetPercent()
+    let l:curr = line('.')
+    let l:tot  = line('$')
+    return (l:curr * 100) / l:tot
+endfunction
+
+set statusline=
+set statusline+=\ [%{GetCurrentMode()}]     " Call the function
+set statusline+=\ %f                        " File path
+set statusline+=\ %m                        " Modified flag [+]
+set statusline+=\ %=                        " Switch to right side
+set statusline+=\ %{(&fenc!=''?&fenc:&enc)} " Encoding (utf-8)
+set statusline+=\ %{&ff}                    " Line break type (unix/dos)
+set statusline+=\ [%Y]                      " File type (e.g., [VIM])
+set statusline+=\ %{GetPercent()}\%%        " Shows percentage through file
+set statusline+=\ %l:%c\ %L                 " Line:Column Total Lines
+
 " Buffer tabline
 function! BufferTabline()
   let s = ''
@@ -118,6 +146,9 @@ function! BufferTabline()
   let s .= '%#TabLineFill#'
   return s
 endfunction
+
+hi TabLine     guibg=NONE guifg=#828bb8 gui=NONE cterm=NONE
+hi TabLineFill guibg=NONE cterm=NONE term=NONE
 
 set showtabline=2
 set tabline=%!BufferTabline()
