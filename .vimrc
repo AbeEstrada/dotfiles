@@ -18,6 +18,7 @@ let &t_ti .= "\e[2 q" " Set the cursor to a block on entry
 set background=dark
 set autoread
 set cursorline
+set expandtab
 set hidden
 set incsearch
 set ignorecase
@@ -31,6 +32,8 @@ set termguicolors
 set title
 set wildmenu
 set mouse=a
+set tabstop=2
+set shiftwidth=2
 set laststatus=2
 set encoding=utf-8
 set backspace=indent,eol,start
@@ -119,15 +122,39 @@ function! GetPercent()
     return (l:curr * 100) / l:tot
 endfunction
 
+let g:git_branch_cache = {}
+
+function! GetGitBranch()
+  let l:dir = fnamemodify(expand('%:p'), ':h')
+  if l:dir == '' | return '' | endif
+
+  if has_key(g:git_branch_cache, l:dir)
+    return g:git_branch_cache[l:dir]
+  endif
+
+  let l:branch = system('git -C ' . fnameescape(l:dir) . ' rev-parse --abbrev-ref HEAD 2>/dev/null | head -n1')
+  if v:shell_error != 0
+    let g:git_branch_cache[l:dir] = ''
+    return ''
+  endif
+
+  let l:branch = trim(l:branch)
+  let g:git_branch_cache[l:dir] = (l:branch != '' ? '[' . l:branch . '] ' : '')
+  return g:git_branch_cache[l:dir]
+endfunction
+
+autocmd BufEnter,BufWritePost,FocusGained * unlet! g:git_branch_cache[fnamemodify(expand('%:p'), ':h')]
+
 set statusline=
-set statusline+=\ [%{GetCurrentMode()}]     " Call the function
+set statusline+=\ [%{GetCurrentMode()}]
 set statusline+=\ %f                        " File path
+set statusline+=\ %{GetGitBranch()}
 set statusline+=\ %m                        " Modified flag [+]
 set statusline+=\ %=                        " Switch to right side
 set statusline+=\ %{(&fenc!=''?&fenc:&enc)} " Encoding (utf-8)
 set statusline+=\ %{&ff}                    " Line break type (unix/dos)
-set statusline+=\ [%Y]                      " File type (e.g., [VIM])
-set statusline+=\ %{GetPercent()}\%%        " Shows percentage through file
+set statusline+=\ [%Y]                      " File type
+set statusline+=\ %{GetPercent()}\%%
 set statusline+=\ %l:%c\ %L                 " Line:Column Total Lines
 
 " Buffer tabline
@@ -152,3 +179,4 @@ hi TabLineFill guibg=NONE cterm=NONE term=NONE
 
 set showtabline=2
 set tabline=%!BufferTabline()
+
