@@ -2,46 +2,53 @@ vim.loader.enable()
 
 local vim              = vim -- suppress lsp warnings
 
-vim.g.mapleader        = " "
-vim.g.maplocalleader   = " "
+vim.g.mapleader        = vim.keycode("<space>")
+vim.g.maplocalleader   = vim.keycode("<space>")
 
-vim.opt.number         = true                    -- Show line numbers
-vim.opt.relativenumber = true                    -- Show relative numbers
-vim.opt.cursorline     = true                    -- Enable cursor line highlighting
-vim.opt.signcolumn     = "yes"                   -- Always show sign column (for diagnostics, git, etc.)
-vim.opt.colorcolumn    = "80,120"                -- Show vertical guidelines
-vim.opt.list           = true                    -- Show invisible characters
-vim.opt.listchars      = "tab:» ,lead:·,trail:·" -- Define how invisible chars are displayed
-vim.opt.scrolloff      = 10                      -- Lines above/below cursor
-vim.opt.sidescrolloff  = 10                      -- Columns left/right of cursor
-vim.opt.mousescroll    = "ver:3,hor:0"           -- Disable horizontal scrolling with a trackpad
+vim.opt.number         = true     -- Show line numbers
+vim.opt.relativenumber = true     -- Show relative numbers
+vim.opt.cursorline     = true     -- Enable cursor line highlighting
+vim.opt.signcolumn     = "yes"    -- Always show sign column (for diagnostics, git, etc.)
+vim.opt.colorcolumn    = "80,120" -- Show vertical guidelines
+vim.opt.list           = true     -- Show invisible characters
+vim.opt.listchars      = {        -- Define how invisible chars are displayed
+  tab = "▏ ",
+  trail = "·",
+  extends = "»",
+  precedes = "«",
+}
+vim.opt.scrolloff      = 10                    -- Lines above/below cursor
+vim.opt.sidescrolloff  = 10                    -- Columns left/right of cursor
+vim.opt.mousescroll    = "ver:3,hor:0"         -- Disable horizontal scrolling with a trackpad
 
-vim.opt.tabstop        = 2                       -- Number of spaces a tab counts for
-vim.opt.shiftwidth     = 2                       -- Number of spaces to use for autoindent
-vim.opt.softtabstop    = 2                       -- Number of spaces to insert/delete when editing
-vim.opt.expandtab      = true                    -- Convert tabs to spaces
-vim.opt.autoindent     = true                    -- Copy indent from current line when starting new line
+vim.opt.tabstop        = 2                     -- Number of spaces a tab counts for
+vim.opt.shiftwidth     = 2                     -- Number of spaces to use for autoindent
+vim.opt.softtabstop    = 2                     -- Number of spaces to insert/delete when editing
+vim.opt.expandtab      = true                  -- Convert tabs to spaces
+vim.opt.autoindent     = true                  -- Copy indent from current line when starting new line
 
-vim.opt.swapfile       = false                   -- Disable swapfiles
-vim.opt.undofile       = true                    -- Save undo history to file for persistence
-vim.opt.linebreak      = true                    -- Wrap lines at 'breakat' characters
-vim.opt.clipboard      = "unnamedplus,unnamed"   -- Use system clipboard by default
-vim.opt.backspace      = "indent,eol,start"      -- Better backspace behavior
+vim.opt.swapfile       = false                 -- Disable swapfiles
+vim.opt.undofile       = true                  -- Save undo history to file for persistence
+vim.opt.linebreak      = true                  -- Wrap lines at 'breakat' characters
+vim.opt.clipboard      = "unnamedplus,unnamed" -- Use system clipboard by default
+vim.opt.backspace      = "indent,eol,start"    -- Better backspace behavior
 
-vim.opt.hlsearch       = true                    -- Highlight search matches
-vim.opt.ignorecase     = true                    -- Case-insensitive search
-vim.opt.inccommand     = "split"                 -- Show substitution preview in split
+vim.opt.hlsearch       = true                  -- Highlight search matches
+vim.opt.ignorecase     = true                  -- Case-insensitive search
+vim.opt.inccommand     = "split"               -- Show substitution preview in split
 
-vim.opt.termguicolors  = true                    -- Enable 24-bit RGB colors
-vim.opt.showmode       = false                   -- Don't show mode indicator (handled by statusline)
-vim.opt.winborder      = "rounded"               -- Use rounded window borders
+vim.opt.termguicolors  = true                  -- Enable 24-bit RGB colors
+vim.opt.showmode       = false                 -- Don't show mode indicator (handled by statusline)
+vim.opt.winborder      = "rounded"             -- Use rounded window borders
 
-vim.opt.foldmethod     = "expr"                  -- Use expression-based folding
-vim.opt.foldtext       = "&"                     -- Use default fold text
-vim.opt.foldlevel      = 99                      -- Start with all folds open
+vim.opt.foldmethod     = "expr"                -- Use expression-based folding
+vim.opt.foldtext       = "&"                   -- Use default fold text
+vim.opt.foldlevel      = 99                    -- Start with all folds open
 
-vim.opt.wildmenu       = true
+-- vim.opt.completeopt    = "menu,menuone,popup,fuzzy" -- modern completion menu
+vim.opt.completeopt    = "menu,popup,noselect,noinsert"
 vim.opt.wildmode       = "longest:full,full"
+vim.opt.wildmenu       = true
 
 -- Keys
 
@@ -195,6 +202,30 @@ require("tokyonight").setup {
 local colors = require("tokyonight.colors").setup()
 vim.cmd.colorscheme "tokyonight"
 
+require("mini.basics").setup { mappings = { windows = true } }
+
+require("mini.starter").setup {
+  header = [[
+ ███▄    █  ▓█████ ▒█████   ██▒   █▓  ██▓ ███▄ ▄███▓
+ ██ ▀█   █  ▓█   ▀▒██▒  ██▒▓██░   █▒▒▓██▒▓██▒▀█▀ ██▒
+▓██  ▀█ ██▒ ▒███  ▒██░  ██▒ ▓██  █▒░▒▒██▒▓██    ▓██░
+▓██▒  ▐▌██▒ ▒▓█  ▄▒██   ██░  ▒██ █░░░░██░▒██    ▒██
+▒██░   ▓██░▒░▒████░ ████▓▒░   ▒▀█░  ░░██░▒██▒   ░██▒
+░ ▒░   ▒ ▒ ░░░ ▒░ ░ ▒░▒░▒░    ░ ▐░   ░▓  ░ ▒░   ░  ░
+░ ░░   ░ ▒░░ ░ ░    ░ ▒ ▒░    ░ ░░  ░ ▒ ░░  ░      ░
+   ░   ░ ░     ░  ░ ░ ░ ▒        ░  ░ ▒ ░░      ░
+         ░ ░   ░      ░ ░        ░    ░         ░
+  ]],
+  evaluate_single = true,
+  items = {
+    { name = "Insert",   action = "enew",                         section = "" },
+    { name = "Explorer", action = "lua Snacks.picker.explorer()", section = "" },
+    { name = "Find",     action = "lua Snacks.picker.files()",    section = "" },
+    { name = "Quit",     action = "qall",                         section = "" },
+  },
+  footer = "",
+}
+
 require("snacks").setup {
   bigfile   = { enabled = true },
   bufdelete = { enabled = true },
@@ -273,6 +304,14 @@ require("lualine").setup {
     component_separators = "",
   },
   sections = {
+    lualine_c = {
+      {
+        function()
+          return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":~:.")
+        end,
+        color = { fg = colors.fg },
+      },
+    },
     lualine_z = {
       "location",
       {
@@ -285,25 +324,6 @@ require("lualine").setup {
   },
 }
 
-require("mini.ai").setup()
-require("mini.diff").setup()
-require("mini.jump").setup()
-require("mini.move").setup()
-require("mini.align").setup()
-require("mini.pairs").setup()
-require("mini.jump2d").setup()
-require("mini.comment").setup()
-require("mini.surround").setup()
-require("mini.operators").setup()
-require("mini.splitjoin").setup()
-require("mini.trailspace").setup()
-require("mini.completion").setup {
-  window = {
-    info      = { border = "rounded" },
-    signature = { border = "rounded" },
-  },
-}
-require("mini.basics").setup { mappings = { windows = true } }
 vim.api.nvim_set_hl(0, "MiniTablineCurrent", { bold = true })
 require("mini.tabline").setup {
   show_icons = false,
@@ -311,27 +331,6 @@ require("mini.tabline").setup {
     local suffix = vim.bo[buf_id].modified and "● " or ""
     return MiniTabline.default_format(buf_id, label) .. suffix
   end,
-}
-require("mini.starter").setup {
-  header = [[
- ███▄    █  ▓█████ ▒█████   ██▒   █▓  ██▓ ███▄ ▄███▓
- ██ ▀█   █  ▓█   ▀▒██▒  ██▒▓██░   █▒▒▓██▒▓██▒▀█▀ ██▒
-▓██  ▀█ ██▒ ▒███  ▒██░  ██▒ ▓██  █▒░▒▒██▒▓██    ▓██░
-▓██▒  ▐▌██▒ ▒▓█  ▄▒██   ██░  ▒██ █░░░░██░▒██    ▒██
-▒██░   ▓██░▒░▒████░ ████▓▒░   ▒▀█░  ░░██░▒██▒   ░██▒
-░ ▒░   ▒ ▒ ░░░ ▒░ ░ ▒░▒░▒░    ░ ▐░   ░▓  ░ ▒░   ░  ░
-░ ░░   ░ ▒░░ ░ ░    ░ ▒ ▒░    ░ ░░  ░ ▒ ░░  ░      ░
-   ░   ░ ░     ░  ░ ░ ░ ▒        ░  ░ ▒ ░░      ░
-         ░ ░   ░      ░ ░        ░    ░         ░
-  ]],
-  evaluate_single = true,
-  items = {
-    { name = "Insert",   action = "enew",                         section = "" },
-    { name = "Explorer", action = "lua Snacks.picker.explorer()", section = "" },
-    { name = "Find",     action = "lua Snacks.picker.files()",    section = "" },
-    { name = "Quit",     action = "qall",                         section = "" },
-  },
-  footer = "",
 }
 
 vim.lsp.enable({
@@ -403,6 +402,7 @@ vim.api.nvim_create_user_command("FormatEnable", function()
 end, {
   desc = "Enable autoformat-on-save",
 })
+
 vim.keymap.set("n", "\\f", function()
   local is_disabled = vim.g.disable_autoformat or vim.b.disable_autoformat
   if is_disabled then
@@ -415,6 +415,24 @@ vim.keymap.set("n", "\\f", function()
 end, { desc = "Toggle autoformat-on-save" })
 
 vim.schedule(function()
+  require("mini.ai").setup()
+  require("mini.diff").setup()
+  require("mini.move").setup()
+  require("mini.jump").setup()
+  require("mini.align").setup()
+  require("mini.pairs").setup()
+  require("mini.jump2d").setup()
+  require("mini.comment").setup()
+  require("mini.surround").setup()
+  require("mini.operators").setup()
+  require("mini.splitjoin").setup()
+  require("mini.trailspace").setup()
+  require("mini.completion").setup {
+    window = {
+      info      = { border = "rounded" },
+      signature = { border = "rounded" },
+    },
+  }
   require("nvim-ts-autotag").setup()
   require("gitsigns").setup()
   require("colorizer").setup {
