@@ -21,6 +21,7 @@ set cursorline
 set expandtab
 set hidden
 set incsearch
+set hlsearch
 set ignorecase
 set linebreak
 set nolist
@@ -187,4 +188,5 @@ packadd editorconfig
 packadd hlyank
 packadd justify
 packadd matchit
+packadd nohlsearch
 packadd osc52
