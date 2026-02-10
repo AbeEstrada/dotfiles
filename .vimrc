@@ -53,6 +53,8 @@ let g:netrw_winsize = 30
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 hi! link netrwMarkFile Search
 
+let mapleader = " "
+
 " Disable arrow keys in normal mode
 nnoremap <Up>    <NOP>
 nnoremap <Down>  <NOP>
@@ -183,6 +185,33 @@ hi TabLineFill guibg=NONE cterm=NONE term=NONE
 set showtabline=2
 set tabline=%!BufferTabline()
 
+" Toggle Boolean
+nnoremap <leader>tb :call ToggleBoolean()<CR>
+
+function! ToggleBoolean()
+  let t = {
+        \ 'true': 'false', 'false': 'true',
+        \ 'True': 'False', 'False': 'True',
+        \ 'TRUE': 'FALSE', 'FALSE': 'TRUE',
+        \ 'yes': 'no', 'no': 'yes',
+        \ 'Yes': 'No', 'No': 'Yes',
+        \ 'YES': 'NO', 'NO': 'YES',
+        \ 'and': 'or', 'or': 'and',
+        \ 'And': 'Or', 'Or': 'And',
+        \ 'AND': 'OR', 'OR': 'AND',
+        \ 'on': 'off', 'off': 'on',
+        \ 'On': 'Off', 'Off': 'On',
+        \ 'ON': 'OFF', 'OFF': 'ON',
+        \ '1': '0', '0': '1'
+        \ }
+  let w = expand('<cword>')
+  let r = get(t, w, '')
+  if r != ''
+    execute "normal! \"_ciw" . r
+  endif
+endfunction
+
+" Plugins
 packadd comment
 packadd editorconfig
 packadd hlyank
