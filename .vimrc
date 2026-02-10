@@ -23,6 +23,7 @@ set hidden
 set incsearch
 set ignorecase
 set linebreak
+set nolist
 set noswapfile
 set number
 set relativenumber
@@ -34,6 +35,7 @@ set wildmenu
 set mouse=a
 set tabstop=2
 set shiftwidth=2
+set softtabstop=-1
 set laststatus=2
 set encoding=utf-8
 set backspace=indent,eol,start
@@ -155,7 +157,7 @@ set statusline+=\ %{(&fenc!=''?&fenc:&enc)} " Encoding (utf-8)
 set statusline+=\ %{&ff}                    " Line break type (unix/dos)
 set statusline+=\ [%Y]                      " File type
 set statusline+=\ %{GetPercent()}\%%
-set statusline+=\ %l:%c\ %L                 " Line:Column Total Lines
+set statusline+=\ %l:%c\ %L\                " Line:Column Total Lines
 
 " Buffer tabline
 function! BufferTabline()
@@ -166,7 +168,7 @@ function! BufferTabline()
       let s .= ' ' . i . ' '
       let name = bufname(i)
       let s .= empty(name) ? '[No Name]' : fnamemodify(name, ':t')
-      let s .= (getbufvar(i, '&modified') ? ' ●' : '')
+      let s .= (getbufvar(i, '&modified') ? '[+]' : '')
       let s .= ' '
     endif
   endfor
@@ -180,3 +182,9 @@ hi TabLineFill guibg=NONE cterm=NONE term=NONE
 set showtabline=2
 set tabline=%!BufferTabline()
 
+packadd comment
+packadd editorconfig
+packadd hlyank
+packadd justify
+packadd matchit
+packadd osc52
