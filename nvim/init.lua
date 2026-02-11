@@ -204,8 +204,8 @@ vim.cmd.colorscheme "tokyonight"
 
 require("mini.basics").setup { mappings = { windows = true } }
 
-require("mini.starter").setup {
-  header = [[
+local ok, headers = pcall(require, "headers")
+local header = [[
  ███▄    █  ▓█████ ▒█████   ██▒   █▓  ██▓ ███▄ ▄███▓
  ██ ▀█   █  ▓█   ▀▒██▒  ██▒▓██░   █▒▒▓██▒▓██▒▀█▀ ██▒
 ▓██  ▀█ ██▒ ▒███  ▒██░  ██▒ ▓██  █▒░▒▒██▒▓██    ▓██░
@@ -215,7 +215,9 @@ require("mini.starter").setup {
 ░ ░░   ░ ▒░░ ░ ░    ░ ▒ ▒░    ░ ░░  ░ ▒ ░░  ░      ░
    ░   ░ ░     ░  ░ ░ ░ ▒        ░  ░ ▒ ░░      ░
          ░ ░   ░      ░ ░        ░    ░         ░
-  ]],
+]]
+require("mini.starter").setup {
+  header = (ok and headers["neovim"]) or header,
   evaluate_single = true,
   items = {
     { name = "Insert",   action = "enew",                         section = "" },
@@ -309,8 +311,19 @@ require("lualine").setup {
         function()
           return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":~:.")
         end,
-        color = { fg = colors.fg },
+        color = { fg = colors.fg, bg = colors.bg_highlight },
       },
+    },
+    lualine_x = {
+      {
+        function()
+          local t = vim.bo.expandtab and "spaces" or "tabs"
+          local w = vim.bo.shiftwidth > 0 and vim.bo.shiftwidth or vim.bo.tabstop
+          return t .. ":" .. w
+        end,
+        color = { fg = colors.white },
+      },
+      "encoding", "fileformat", "filetype",
     },
     lualine_z = {
       "location",
