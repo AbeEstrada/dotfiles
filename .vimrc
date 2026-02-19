@@ -39,7 +39,6 @@ set shiftwidth=2
 set softtabstop=-1
 set laststatus=2
 set encoding=utf-8
-set backspace=indent,eol,start
 set formatoptions+=j
 set foldmethod=indent
 set foldnestmax=3
@@ -64,6 +63,20 @@ nnoremap <Right> <NOP>
 " Redo
 nnoremap U <C-r>
 
+" Select entire buffer
+nnoremap vy ggVG
+
+" Yank entire buffer
+nnoremap gy :%y<CR>
+
+" Clear search
+noremap <silent><leader>/ :nohls<CR>
+nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
+
+" Disable the Ex mode shortcut key.
+" Make Q repeat the last macro instead.
+nnoremap Q @@
+
 " Add line above
 nnoremap [<Space> O<Esc>j
 " Add line below
@@ -82,10 +95,10 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 vnoremap <A-j> :m '>+1<CR>gv=gv
 
 " Jump between windows
-nnoremap <S-H> <C-w>h
-nnoremap <S-J> <C-w>j
-nnoremap <S-K> <C-w>k
-nnoremap <S-L> <C-w>l
+nnoremap <C-H> <C-w>h
+nnoremap <C-J> <C-w>j
+nnoremap <C-K> <C-w>k
+nnoremap <C-L> <C-w>l
 
 " Buffer navigation with Shift+Alt+Left/Right
 nnoremap <S-A-Left> :bprevious<CR>
