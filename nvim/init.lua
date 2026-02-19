@@ -66,6 +66,8 @@ vim.keymap.set("n", "U", "<C-r>", { noremap = true, silent = true, desc = "Redo"
 vim.keymap.set("n", "<A-S-Right>", ":bnext<CR>", { noremap = true, silent = true, desc = "Next buffer" })
 vim.keymap.set("n", "<A-S-Left>", ":bprevious<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
 vim.keymap.set("n", "gn", "<cmd>enew<CR>", { desc = "New buffer" })
+vim.keymap.set("n", "gy", ":%y<CR>", { desc = "Yank entire buffer" })
+vim.keymap.set("n", "vy", "ggVG", { desc = "Select entire buffer" })
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "LSP Line Diagnostics" })
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename" })
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP Code actions" })
@@ -79,6 +81,7 @@ vim.keymap.set("n", "<leader>fF", function() Snacks.picker.files({ cwd = vim.fn.
   { desc = "Find Files (Buffer Dir)" })
 vim.keymap.set("n", "<leader>fd", function() Snacks.picker.diagnostics_buffer() end, { desc = "Buffer Diagnostics" })
 vim.keymap.set("n", "<leader>fD", function() Snacks.picker.diagnostics() end, { desc = "Diagnostics" })
+vim.keymap.set("n", "<leader>fu", function() Snacks.picker.undo() end, { desc = "Undo" })
 vim.keymap.set("n", "<leader>fg", function() Snacks.picker.git_files() end, { desc = "Find Git Files" })
 vim.keymap.set("n", "<leader>gb", function() Snacks.picker.git_branches() end, { desc = "Git Branches" })
 vim.keymap.set("n", "<leader>gd", function() Snacks.picker.git_diff() end, { desc = "Git Diff (Hunks)" })
@@ -289,6 +292,8 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+require("treesitter-context").setup { enable = true }
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "mail",
   callback = function()
@@ -296,8 +301,6 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.linebreak = true
   end,
 })
-
-require("treesitter-context").setup { enable = true }
 
 require("lualine").setup {
   options = {
@@ -399,6 +402,20 @@ require("conform").setup {
     return { timeout_ms = 500, lsp_format = "fallback" }
   end,
 }
+vim.api.nvim_create_user_command("Format", function(opts)
+  local formatters = opts.args ~= "" and opts.args or nil
+  require("conform").format({
+    async = false,
+    lsp_format = "fallback",
+    formatters = formatters,
+  })
+end, {
+  desc = "Format current buffer (specify formatter)",
+  nargs = "?",
+  complete = function()
+    return vim.tbl_keys(require("conform").get_formatters())
+  end,
+})
 vim.api.nvim_create_user_command("FormatDisable", function(args)
   if args.bang then
     vim.b.disable_autoformat = true
@@ -447,7 +464,20 @@ vim.schedule(function()
     },
   }
   require("nvim-ts-autotag").setup()
-  require("gitsigns").setup()
+  require("gitsigns").setup {
+    on_attach = function(bufnr)
+      local gitsigns = require("gitsigns")
+      local function map(mode, l, r, opts)
+        opts = opts or {}
+        opts.buffer = bufnr
+        vim.keymap.set(mode, l, r, opts)
+      end
+      map("n", "<leader>hd", gitsigns.diffthis)
+      map('n', '<leader>hD', function()
+        gitsigns.diffthis('~')
+      end)
+    end
+  }
   require("colorizer").setup {
     lazy_load = true,
     user_default_options = {
