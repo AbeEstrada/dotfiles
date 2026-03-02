@@ -42,13 +42,15 @@ vim.opt.showmode       = false                 -- Don't show mode indicator (han
 vim.opt.winborder      = "rounded"             -- Use rounded window borders
 
 vim.opt.foldmethod     = "expr"                -- Use expression-based folding
-vim.opt.foldtext       = "&"                   -- Use default fold text
+vim.opt.foldtext       = ""                    -- Use default fold text
 vim.opt.foldlevel      = 99                    -- Start with all folds open
 
--- vim.opt.completeopt    = "menu,menuone,popup,fuzzy" -- modern completion menu
+vim.opt.pumborder      = "rounded"             -- popup menu (pum) border style
+vim.opt.pumheight      = 10
 vim.opt.completeopt    = "menu,popup,noselect,noinsert"
 vim.opt.wildmode       = "longest:full,full"
 vim.opt.wildmenu       = true
+vim.opt.wildignore     = vim.opt.wildignore + { "*/node_modules/*", "*/.git/*", "*/vendor/*" }
 
 -- Keys
 
@@ -96,7 +98,7 @@ vim.keymap.set("n", "<leader>rf", function() Snacks.rename.rename_file() end, { 
 vim.keymap.set("n", "<leader>lg", function() Snacks.lazygit.open() end, { desc = "Lazygit" })
 vim.keymap.set("n", "<leader>zz", function() Snacks.zen() end, { desc = "Toggle Zen Mode" })
 
-vim.keymap.set({ "n", "x", "o" }, "'", function() MiniJump2d.start() end, { desc = "Start 2d jumping" })
+-- vim.keymap.set({ "n", "x", "o" }, "'", function() MiniJump2d.start() end, { desc = "Start 2d jumping" })
 
 vim.api.nvim_set_keymap("i", "<Tab>", [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { noremap = true, expr = true })
 vim.api.nvim_set_keymap("i", "<S-Tab>", [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { noremap = true, expr = true })
@@ -195,11 +197,12 @@ vim.pack.add({
 
 require("tokyonight").setup {
   transparent  = true,
-  lualine_bold = true,
   dim_inactive = true,
+  lualine_bold = true,
   styles       = {
-    sidebars = "transparent",
     floats   = "transparent",
+    sidebars = "transparent",
+    comments = { italic = true },
   },
 }
 local colors = require("tokyonight.colors").setup()
@@ -450,7 +453,7 @@ vim.schedule(function()
   require("mini.move").setup()
   require("mini.jump").setup()
   require("mini.align").setup()
-  require("mini.pairs").setup()
+  -- require("mini.pairs").setup()
   require("mini.jump2d").setup()
   require("mini.comment").setup()
   require("mini.surround").setup()
