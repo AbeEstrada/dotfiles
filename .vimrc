@@ -34,6 +34,7 @@ set termguicolors
 set title
 set wildmenu
 set mouse=a
+set guioptions-=e
 set tabstop=2
 set shiftwidth=2
 set softtabstop=-1
@@ -178,14 +179,16 @@ set statusline+=\ %l:%c\ %L\                " Line:Column Total Lines
 " Buffer tabline
 function! BufferTabline()
   let s = ''
+  let label = 1
   for i in range(1, bufnr('$'))
     if bufexists(i) && buflisted(i)
       let s .= (i == bufnr('%') ? '%#TabLineSel#' : '%#TabLine#')
-      let s .= ' ' . i . ' '
+      let s .= ' ' . label . ' '
       let name = bufname(i)
       let s .= empty(name) ? '[No Name]' : fnamemodify(name, ':t')
       let s .= (getbufvar(i, '&modified') ? '[+]' : '')
       let s .= ' '
+      let label += 1
     endif
   endfor
   let s .= '%#TabLineFill#'
@@ -252,3 +255,7 @@ let g:fuzzbox_compact  = 1
 
 " https://github.com/girishji/easyjump.vim
 packadd easyjump
+
+" https://github.com/tpope/vim-commentary
+filetype plugin indent on
+autocmd FileType lua setlocal commentstring=\"\ %s
