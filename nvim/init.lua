@@ -5,6 +5,7 @@ local vim              = vim -- suppress lsp warnings
 vim.g.mapleader        = vim.keycode("<space>")
 vim.g.maplocalleader   = vim.keycode("<space>")
 
+vim.opt.shortmess      = "I"      -- Do not show intro
 vim.opt.number         = true     -- Show line numbers
 vim.opt.relativenumber = true     -- Show relative numbers
 vim.opt.cursorline     = true     -- Enable cursor line highlighting
@@ -69,8 +70,6 @@ vim.keymap.set("n", "x", '"_x', { noremap = true, silent = true, desc = "Delete 
 vim.keymap.set("n", "n", "nzzzv", { noremap = true, silent = true, desc = "Next search result (centered)" })
 vim.keymap.set("n", "N", "Nzzzv", { noremap = true, silent = true, desc = "Previous search result (centered)" })
 vim.keymap.set("n", "U", "<C-r>", { noremap = true, silent = true, desc = "Redo" })
-vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true, silent = true, desc = "Half page down (centered)" })
-vim.keymap.set("n", "<C-u>", "<C-u>zz", { noremap = true, silent = true, desc = "Half page up (centered)" })
 vim.keymap.set("n", "<A-S-Right>", ":bnext<CR>", { noremap = true, silent = true, desc = "Next buffer" })
 vim.keymap.set("n", "<A-S-Left>", ":bprevious<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
 vim.keymap.set("n", "gn", "<cmd>enew<CR>", { desc = "New buffer" })
@@ -80,6 +79,7 @@ vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "LSP Line D
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename" })
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP Code actions" })
 
+vim.keymap.set("n", "<leader>e", function() MiniFiles.open() end, { desc = "File Explorer" })
 vim.keymap.set("n", "<leader>/", function() Snacks.picker.grep() end, { desc = "Grep" })
 vim.keymap.set("n", "<leader>fb", function() Snacks.picker.buffers() end, { desc = "Buffers" })
 vim.keymap.set("n", "<leader>fe", function() Snacks.explorer() end, { desc = "File Explorer" })
@@ -195,7 +195,6 @@ vim.pack.add({
   { src = "https://github.com/neovim/nvim-lspconfig" },
   { src = "https://github.com/stevearc/conform.nvim" },
   { src = "https://github.com/nvim-mini/mini.nvim" },
-  { src = "https://github.com/catgoose/nvim-colorizer.lua" },
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/windwp/nvim-ts-autotag" },
   { src = "https://github.com/h3pei/copy-file-path.nvim" },
@@ -215,30 +214,6 @@ local colors = require("tokyonight.colors").setup()
 vim.cmd.colorscheme "tokyonight"
 
 require("mini.basics").setup { mappings = { windows = true } }
-
-local ok, headers = pcall(require, "headers")
-local header = [[
- ███▄    █  ▓█████ ▒█████   ██▒   █▓  ██▓ ███▄ ▄███▓
- ██ ▀█   █  ▓█   ▀▒██▒  ██▒▓██░   █▒▒▓██▒▓██▒▀█▀ ██▒
-▓██  ▀█ ██▒ ▒███  ▒██░  ██▒ ▓██  █▒░▒▒██▒▓██    ▓██░
-▓██▒  ▐▌██▒ ▒▓█  ▄▒██   ██░  ▒██ █░░░░██░▒██    ▒██
-▒██░   ▓██░▒░▒████░ ████▓▒░   ▒▀█░  ░░██░▒██▒   ░██▒
-░ ▒░   ▒ ▒ ░░░ ▒░ ░ ▒░▒░▒░    ░ ▐░   ░▓  ░ ▒░   ░  ░
-░ ░░   ░ ▒░░ ░ ░    ░ ▒ ▒░    ░ ░░  ░ ▒ ░░  ░      ░
-   ░   ░ ░     ░  ░ ░ ░ ▒        ░  ░ ▒ ░░      ░
-         ░ ░   ░      ░ ░        ░    ░         ░
-]]
-require("mini.starter").setup {
-  header = (ok and headers["neovim"]) or header,
-  evaluate_single = true,
-  items = {
-    { name = "Insert",   action = "enew",                         section = "" },
-    { name = "Explorer", action = "lua Snacks.picker.explorer()", section = "" },
-    { name = "Find",     action = "lua Snacks.picker.files()",    section = "" },
-    { name = "Quit",     action = "qall",                         section = "" },
-  },
-  footer = "",
-}
 
 require("snacks").setup {
   bigfile   = { enabled = true },
@@ -374,6 +349,7 @@ vim.lsp.enable({
   "taplo",
   "ts_ls",
 })
+vim.lsp.document_color.enable(true, { bufnr = 0 }, { style = "virtual" })
 
 require("conform").setup {
   formatters_by_ft = {
@@ -458,6 +434,7 @@ vim.schedule(function()
   require("mini.diff").setup()
   require("mini.move").setup()
   require("mini.jump").setup()
+  require("mini.files").setup()
   require("mini.align").setup()
   -- require("mini.pairs").setup()
   require("mini.jump2d").setup()
@@ -486,14 +463,5 @@ vim.schedule(function()
         gitsigns.diffthis('~')
       end)
     end
-  }
-  require("colorizer").setup {
-    lazy_load = true,
-    user_default_options = {
-      tailwind = "both",
-      tailwind_opts = {
-        update_names = true,
-      },
-    },
   }
 end)
