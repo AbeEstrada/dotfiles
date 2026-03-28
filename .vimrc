@@ -40,6 +40,7 @@ set shiftwidth=2
 set softtabstop=-1
 set laststatus=2
 set encoding=utf-8
+set backspace=indent,eol,start
 set formatoptions+=j
 set foldmethod=indent
 set foldnestmax=3
@@ -254,7 +255,7 @@ let g:fuzzbox_devicons = 0
 let g:fuzzbox_compact  = 1
 
 " https://github.com/girishji/easyjump.vim
-packadd easyjump
+packadd easyjump " opt/
 
 " https://github.com/tpope/vim-commentary
 filetype plugin indent on
