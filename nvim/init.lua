@@ -1,11 +1,11 @@
 vim.loader.enable()
 
-local vim              = vim -- suppress lsp warnings
+local vim            = vim -- suppress lsp warnings
 
-vim.g.mapleader        = vim.keycode("<space>")
-vim.g.maplocalleader   = vim.keycode("<space>")
+vim.g.mapleader      = vim.keycode("<space>")
+vim.g.maplocalleader = vim.keycode("<space>")
 
-vim.opt.shortmess      = "I"      -- Do not show intro
+vim.opt.shortmess:append("I")     -- Do not show intro
 vim.opt.number         = true     -- Show line numbers
 vim.opt.relativenumber = true     -- Show relative numbers
 vim.opt.cursorline     = true     -- Enable cursor line highlighting
@@ -52,6 +52,12 @@ vim.opt.completeopt    = "menu,popup,noselect,noinsert"
 vim.opt.wildmode       = "longest:full,full"
 vim.opt.wildmenu       = true
 vim.opt.wildignore     = vim.opt.wildignore + { "*/node_modules/*", "*/.git/*", "*/vendor/*" }
+
+vim.opt.autoread       = true -- Reload files automatically
+vim.opt.updatetime     = 1000 -- Set CursorHold delay
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
+  command = "checktime",      -- Trigger a file check
+})
 
 -- Keys
 
@@ -189,12 +195,13 @@ end, {
 vim.pack.add({
   { src = "https://github.com/folke/snacks.nvim" },
   { src = "https://github.com/folke/tokyonight.nvim" },
+  { src = "https://github.com/nvim-mini/mini.nvim" },
   { src = "https://github.com/nvim-lualine/lualine.nvim" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter",        version = "main" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
   { src = "https://github.com/neovim/nvim-lspconfig" },
   { src = "https://github.com/stevearc/conform.nvim" },
-  { src = "https://github.com/nvim-mini/mini.nvim" },
+  -- { src = "https://github.com/brenoprata10/nvim-highlight-colors" },
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/windwp/nvim-ts-autotag" },
   { src = "https://github.com/h3pei/copy-file-path.nvim" },
@@ -464,4 +471,9 @@ vim.schedule(function()
       end)
     end
   }
+  -- require("nvim-highlight-colors").setup({
+  --   render = "virtual",
+  --   enable_tailwind = true,
+  --   enable_named_colors = false,
+  -- })
 end)
