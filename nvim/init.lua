@@ -9,6 +9,8 @@ vim.opt.shortmess:append("I")     -- Do not show intro
 vim.opt.number         = true     -- Show line numbers
 vim.opt.relativenumber = true     -- Show relative numbers
 vim.opt.cursorline     = true     -- Enable cursor line highlighting
+vim.opt.title          = true     -- Update title with current file
+vim.opt.titlestring    = [[nvim %(%M %)%{%empty(expand("%:t"))?"":expand("%:~:h")."/"%}%t]]
 vim.opt.signcolumn     = "yes"    -- Always show sign column (for diagnostics, git, etc.)
 vim.opt.colorcolumn    = "80,120" -- Show vertical guidelines
 vim.opt.list           = true     -- Show invisible characters
@@ -46,11 +48,11 @@ vim.opt.foldmethod     = "expr"                -- Use expression-based folding
 vim.opt.foldtext       = ""                    -- Use default fold text
 vim.opt.foldlevel      = 99                    -- Start with all folds open
 
-vim.opt.pumborder      = "rounded"             -- popup menu (pum) border style
-vim.opt.pumheight      = 10
+vim.opt.pumborder      = "rounded"             -- Popup menu (pum) border style
+vim.opt.pumheight      = 10                    -- Max number of items in the popup menu
 vim.opt.completeopt    = "menu,popup,noselect,noinsert"
-vim.opt.wildmode       = "longest:full,full"
 vim.opt.wildmenu       = true
+vim.opt.wildmode       = "longest:full,full"
 vim.opt.wildignore     = vim.opt.wildignore + { "*/node_modules/*", "*/.git/*", "*/vendor/*" }
 
 vim.opt.autoread       = true -- Reload files automatically
@@ -81,6 +83,7 @@ vim.keymap.set("n", "<A-S-Left>", ":bprevious<CR>", { noremap = true, silent = t
 vim.keymap.set("n", "gn", "<cmd>enew<CR>", { desc = "New buffer" })
 vim.keymap.set("n", "gy", ":%y<CR>", { desc = "Yank entire buffer" })
 vim.keymap.set("n", "vy", "ggVG", { desc = "Select entire buffer" })
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "LSP Line Diagnostics" })
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename" })
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP Code actions" })
@@ -201,11 +204,15 @@ vim.pack.add({
   { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
   { src = "https://github.com/neovim/nvim-lspconfig" },
   { src = "https://github.com/stevearc/conform.nvim" },
-  -- { src = "https://github.com/brenoprata10/nvim-highlight-colors" },
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/windwp/nvim-ts-autotag" },
   { src = "https://github.com/h3pei/copy-file-path.nvim" },
 })
+
+vim.cmd("packadd matchit")
+
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 require("tokyonight").setup {
   transparent  = true,
@@ -466,14 +473,9 @@ vim.schedule(function()
         vim.keymap.set(mode, l, r, opts)
       end
       map("n", "<leader>hd", gitsigns.diffthis)
-      map('n', '<leader>hD', function()
-        gitsigns.diffthis('~')
+      map("n", "<leader>hD", function()
+        gitsigns.diffthis("~")
       end)
     end
   }
-  -- require("nvim-highlight-colors").setup({
-  --   render = "virtual",
-  --   enable_tailwind = true,
-  --   enable_named_colors = false,
-  -- })
 end)
