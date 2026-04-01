@@ -107,7 +107,7 @@ vim.keymap.set("n", "<leader>gr", function() Snacks.picker.lsp_references() end,
 vim.keymap.set("n", "<leader>ss", function() Snacks.picker.lsp_symbols() end, { desc = "LSP Symbols" })
 vim.keymap.set("n", "<leader>sk", function() Snacks.picker.keymaps() end, { desc = "Keymaps" })
 vim.keymap.set("n", "<leader>sc", function() Snacks.picker.command_history() end, { desc = "Command History" })
-vim.keymap.set("n", "<leader>sC", function() Snacks.picker.command() end, { desc = "Command" })
+vim.keymap.set("n", "<leader>sC", function() Snacks.picker.commands() end, { desc = "Command" })
 vim.keymap.set("n", "<leader>su", function() Snacks.picker.undo() end, { desc = "Undo History" })
 vim.keymap.set("n", "<leader>rf", function() Snacks.rename.rename_file() end, { desc = "Rename File" })
 vim.keymap.set("n", "<leader>lg", function() Snacks.lazygit.open() end, { desc = "Lazygit" })
