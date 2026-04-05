@@ -1,5 +1,3 @@
-vim.loader.enable()
-
 local vim            = vim -- suppress lsp warnings
 
 vim.g.mapleader      = vim.keycode("<space>")
@@ -113,6 +111,22 @@ vim.keymap.set("n", "<leader>rf", function() Snacks.rename.rename_file() end, { 
 vim.keymap.set("n", "<leader>lg", function() Snacks.lazygit.open() end, { desc = "Lazygit" })
 vim.keymap.set("n", "<leader>zz", function() Snacks.zen() end, { desc = "Toggle Zen Mode" })
 
+vim.keymap.set({ "n", "x", "o" }, "<A-o>", function()
+  if vim.treesitter.get_parser(nil, nil, { error = false }) then
+    require("vim.treesitter._select").select_parent(vim.v.count1)
+  else
+    vim.lsp.buf.selection_range(vim.v.count1)
+  end
+end, { desc = "Select parent treesitter node or outer incremental lsp selections" })
+
+vim.keymap.set({ "n", "x", "o" }, "<A-i>", function()
+  if vim.treesitter.get_parser(nil, nil, { error = false }) then
+    require("vim.treesitter._select").select_child(vim.v.count1)
+  else
+    vim.lsp.buf.selection_range(-vim.v.count1)
+  end
+end, { desc = "Select child treesitter node or inner incremental lsp selections" })
+
 -- vim.keymap.set({ "n", "x", "o" }, "'", function() MiniJump2d.start() end, { desc = "Start 2d jumping" })
 
 vim.api.nvim_set_keymap("i", "<Tab>", [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { noremap = true, expr = true })
@@ -193,6 +207,30 @@ end, {
   desc = "Transform text using abhimanyu003/sttr"
 })
 
+require("vim._core.ui2").enable {
+  enable = true,
+  msg = { -- Options related to the message module.
+    ---@type 'cmd'|'msg' Default message target, either in the
+    ---cmdline or in a separate ephemeral message window.
+    ---@type string|table<string, 'cmd'|'msg'|'pager'> Default message target
+    ---or table mapping |ui-messages| kinds and triggers to a target.
+    targets = "cmd",
+    cmd = {           -- Options related to messages in the cmdline window.
+      height = 0.5,   -- Maximum height while expanded for messages beyond 'cmdheight'.
+    },
+    dialog = {        -- Options related to dialog window.
+      height = 0.5,   -- Maximum height.
+    },
+    msg = {           -- Options related to msg window.
+      height = 0.5,   -- Maximum height.
+      timeout = 4000, -- Time a message is visible in the message window.
+    },
+    pager = {         -- Options related to message window.
+      height = 0.5,   -- Maximum height.
+    },
+  },
+}
+
 -- Plugins
 
 vim.pack.add({
@@ -204,12 +242,12 @@ vim.pack.add({
   { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
   { src = "https://github.com/neovim/nvim-lspconfig" },
   { src = "https://github.com/stevearc/conform.nvim" },
-  { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/windwp/nvim-ts-autotag" },
   { src = "https://github.com/h3pei/copy-file-path.nvim" },
 })
 
-vim.cmd("packadd matchit")
+vim.cmd.packadd("matchit")
+vim.cmd.packadd("nvim.difftool")
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -307,12 +345,27 @@ require("lualine").setup {
     component_separators = "",
   },
   sections = {
+    lualine_b = {},
     lualine_c = {
       {
         function()
           return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":~:.")
         end,
         color = { fg = colors.fg, bg = colors.bg_highlight },
+      },
+      {
+        "branch",
+        icons_enabled = true,
+        icon = { "", color = { fg = colors.fg } },
+        color = { fg = colors.blue, bg = colors.bg_highlight },
+      },
+      {
+        "diff",
+        color = { bg = colors.bg_highlight },
+      },
+      {
+        "diagnostics",
+        color = { bg = colors.bg_highlight },
       },
     },
     lualine_x = {
@@ -364,6 +417,12 @@ vim.lsp.enable({
   "ts_ls",
 })
 vim.lsp.document_color.enable(true, { bufnr = 0 }, { style = "virtual" })
+vim.api.nvim_create_user_command("LspInfo", "checkhealth vim.lsp", { desc = "Show LSP Info" })
+vim.api.nvim_create_user_command("LspRestart", "lsp restart", { desc = "Restart LSP" })
+vim.api.nvim_create_user_command("LspLog", function(_)
+  local log_path = vim.lsp.log.get_filename()
+  vim.cmd(string.format("edit %s", log_path))
+end, { desc = "Show LSP log" })
 
 require("conform").setup {
   formatters_by_ft = {
@@ -445,7 +504,6 @@ end, { desc = "Toggle autoformat-on-save" })
 
 vim.schedule(function()
   require("mini.ai").setup()
-  require("mini.diff").setup()
   require("mini.move").setup()
   require("mini.jump").setup()
   require("mini.files").setup()
@@ -457,6 +515,16 @@ vim.schedule(function()
   require("mini.operators").setup()
   require("mini.splitjoin").setup()
   require("mini.trailspace").setup()
+  require("mini.diff").setup {
+    view = {
+      style = "sign",
+      signs = {
+        add = "▎",
+        change = "▎",
+        delete = "",
+      },
+    },
+  }
   require("mini.completion").setup {
     window = {
       info      = { border = "rounded" },
@@ -464,18 +532,4 @@ vim.schedule(function()
     },
   }
   require("nvim-ts-autotag").setup()
-  require("gitsigns").setup {
-    on_attach = function(bufnr)
-      local gitsigns = require("gitsigns")
-      local function map(mode, l, r, opts)
-        opts = opts or {}
-        opts.buffer = bufnr
-        vim.keymap.set(mode, l, r, opts)
-      end
-      map("n", "<leader>hd", gitsigns.diffthis)
-      map("n", "<leader>hD", function()
-        gitsigns.diffthis("~")
-      end)
-    end
-  }
 end)
