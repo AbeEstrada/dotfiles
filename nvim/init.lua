@@ -217,6 +217,7 @@ vim.pack.add({
   { src = "https://github.com/folke/tokyonight.nvim" },
   { src = "https://github.com/folke/snacks.nvim" },
   { src = "https://github.com/nvim-mini/mini.nvim" },
+  { src = "https://github.com/nvim-lualine/lualine.nvim" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter",        version = "main" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
   { src = "https://github.com/neovim/nvim-lspconfig" },
@@ -234,6 +235,7 @@ vim.g.loaded_netrwPlugin = 1
 require("tokyonight").setup {
   transparent  = true,
   dim_inactive = true,
+  lualine_bold = true,
   styles       = {
     floats   = "transparent",
     sidebars = "transparent",
@@ -315,6 +317,59 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.linebreak = true
   end,
 })
+
+require("lualine").setup {
+  options = {
+    icons_enabled        = false,
+    section_separators   = "",
+    component_separators = "",
+  },
+  sections = {
+    lualine_b = {},
+    lualine_c = {
+      {
+        function()
+          return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":~:.")
+        end,
+        color = { fg = colors.fg, bg = colors.bg_highlight },
+      },
+      {
+        "branch",
+        icons_enabled = true,
+        icon = { "", color = { fg = colors.fg } },
+        color = { fg = colors.blue, bg = colors.bg_highlight },
+      },
+      {
+        "diff",
+        color = { bg = colors.bg_highlight },
+      },
+      {
+        "diagnostics",
+        color = { bg = colors.bg_highlight },
+      },
+    },
+    lualine_x = {
+      {
+        function()
+          local t = vim.bo.expandtab and "spaces" or "tabs"
+          local w = vim.bo.shiftwidth > 0 and vim.bo.shiftwidth or vim.bo.tabstop
+          return t .. ":" .. w
+        end,
+        color = { fg = colors.white },
+      },
+      "encoding", "fileformat", "filetype",
+    },
+    lualine_z = {
+      "location",
+      {
+        function()
+          return vim.api.nvim_buf_line_count(0)
+        end,
+        color = { fg = colors.fg, bg = colors.bg_highlight },
+      },
+    },
+  },
+}
 
 vim.api.nvim_set_hl(0, "MiniTablineCurrent", { bold = true })
 require("mini.tabline").setup {
@@ -429,46 +484,17 @@ end, { desc = "Toggle autoformat-on-save" })
 
 vim.schedule(function()
   require("mini.ai").setup()
-  require("mini.git").setup()
   require("mini.move").setup()
   require("mini.jump").setup()
   require("mini.files").setup()
   require("mini.align").setup()
+  -- require("mini.pairs").setup()
   require("mini.jump2d").setup()
   require("mini.comment").setup()
   require("mini.surround").setup()
   require("mini.operators").setup()
   require("mini.splitjoin").setup()
   require("mini.trailspace").setup()
-  require("mini.statusline").setup {
-    use_icons = false,
-    content = {
-      active = function()
-        local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
-        mode                = mode:upper()
-        local git           = MiniStatusline.section_git({ trunc_width = 40 })
-        local diff          = MiniStatusline.section_diff({ trunc_width = 75 })
-        local diagnostics   = MiniStatusline.section_diagnostics({ trunc_width = 75 })
-        local lsp           = MiniStatusline.section_lsp({ trunc_width = 75 })
-        local filename      = MiniStatusline.section_filename({ trunc_width = 140 })
-        local fileinfo      = MiniStatusline.section_fileinfo({ trunc_width = 120 })
-        local search        = MiniStatusline.section_searchcount({ trunc_width = 75 })
-        -- local location      = MiniStatusline.section_location({ trunc_width = 75 })
-        local location      = string.format("%d:%d", vim.fn.line("."), vim.fn.col("."))
-        local total         = string.format("%d", vim.fn.line("$"))
-        local percentage    = "%p%%"
-        return MiniStatusline.combine_groups({
-          { hl = mode_hl,                  strings = { mode } },
-          { hl = "MiniStatuslineFilename", strings = { filename } },
-          "%<", -- Mark general truncate point
-          { hl = "MiniStatuslineDevinfo",  strings = { git, diff, diagnostics, lsp } },
-          "%=", -- End left alignment
-          { hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
-          { hl = mode_hl,                  strings = { search, location, percentage, total } },
-        })
-      end
-    }
-  }
   require("mini.diff").setup {
     view = {
       style = "sign",
