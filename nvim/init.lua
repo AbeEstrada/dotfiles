@@ -7,7 +7,7 @@ vim.opt.shortmess:append("I")     -- Do not show intro
 vim.opt.number         = true     -- Show line numbers
 vim.opt.relativenumber = true     -- Show relative numbers
 vim.opt.cursorline     = true     -- Enable cursor line highlighting
-vim.opt.title          = true     -- Update title with current file
+vim.opt.title          = false    -- Update title with current file
 vim.opt.titlestring    = [[nvim %(%M %)%{%empty(expand("%:t"))?"":expand("%:~:h")."/"%}%t]]
 vim.opt.signcolumn     = "yes"    -- Always show sign column (for diagnostics, git, etc.)
 vim.opt.colorcolumn    = "80,120" -- Show vertical guidelines
