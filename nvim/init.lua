@@ -3,16 +3,16 @@ local vim            = vim -- suppress lsp warnings
 vim.g.mapleader      = vim.keycode("<space>")
 vim.g.maplocalleader = vim.keycode("<space>")
 
-vim.opt.shortmess:append("I")     -- Do not show intro
-vim.opt.number         = true     -- Show line numbers
-vim.opt.relativenumber = true     -- Show relative numbers
-vim.opt.cursorline     = true     -- Enable cursor line highlighting
-vim.opt.title          = false    -- Update title with current file
-vim.opt.titlestring    = [[nvim %(%M %)%{%empty(expand("%:t"))?"":expand("%:~:h")."/"%}%t]]
-vim.opt.signcolumn     = "yes"    -- Always show sign column (for diagnostics, git, etc.)
-vim.opt.colorcolumn    = "80,120" -- Show vertical guidelines
-vim.opt.list           = true     -- Show invisible characters
-vim.opt.listchars      = {        -- Define how invisible chars are displayed
+vim.opt.shortmess:append("I")       -- Do not show intro
+vim.opt.number         = true       -- Show line numbers
+vim.opt.relativenumber = true       -- Show relative numbers
+vim.opt.cursorline     = true       -- Enable cursor line highlighting
+vim.opt.title          = false      -- Update title with current file
+vim.opt.signcolumn     = "yes"      -- Always show sign column (for diagnostics, git, etc.)
+vim.opt.colorcolumn    = "80,120"   -- Show vertical guidelines
+vim.opt.fileformats    = "unix,dos" -- Support line endings
+vim.opt.list           = true       -- Show invisible characters
+vim.opt.listchars      = {          -- Define how invisible chars are displayed
   tab = "▏ ",
   trail = "·",
   extends = "»",
@@ -33,6 +33,7 @@ vim.opt.undofile       = true                  -- Save undo history to file for 
 vim.opt.linebreak      = true                  -- Wrap lines at 'breakat' characters
 vim.opt.clipboard      = "unnamedplus,unnamed" -- Use system clipboard by default
 vim.opt.backspace      = "indent,eol,start"    -- Better backspace behavior
+vim.o.nrformats        = "unsigned"            -- Recognize numbers as unsigned
 
 vim.opt.hlsearch       = true                  -- Highlight search matches
 vim.opt.ignorecase     = true                  -- Case-insensitive search
@@ -45,9 +46,10 @@ vim.opt.winborder      = "rounded"             -- Use rounded window borders
 vim.opt.foldmethod     = "expr"                -- Use expression-based folding
 vim.opt.foldtext       = ""                    -- Use default fold text
 vim.opt.foldlevel      = 99                    -- Start with all folds open
+vim.opt.foldexpr       = "v:lua.vim.treesitter.foldexpr()"
 
-vim.opt.pumborder      = "rounded"             -- Popup menu (pum) border style
-vim.opt.pumheight      = 10                    -- Max number of items in the popup menu
+vim.opt.pumborder      = "rounded" -- Popup menu (pum) border style
+vim.opt.pumheight      = 10        -- Max number of items in the popup menu
 vim.opt.completeopt    = "menu,popup,noselect,noinsert"
 vim.opt.wildmenu       = true
 vim.opt.wildmode       = "longest:full,full"
@@ -58,7 +60,6 @@ vim.opt.updatetime     = 1000 -- Set CursorHold delay
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
   command = "checktime",      -- Trigger a file check
 })
-
 
 -- Keys
 
@@ -86,8 +87,10 @@ vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "LSP Line Diagnostics" })
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename" })
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP Code actions" })
+vim.keymap.set("n", "<leader>cp", function() vim.fn.setreg("+", vim.fn.expand("%:p")) end)
 
-vim.keymap.set("n", "<leader>e", function() MiniFiles.open() end, { desc = "File Explorer" })
+vim.keymap.set("n", "<leader>e", function() MiniFiles.open(vim.api.nvim_buf_get_name(0), false) end,
+  { desc = "File Explorer" })
 vim.keymap.set("n", "<leader>/", function() Snacks.picker.grep() end, { desc = "Grep" })
 vim.keymap.set("n", "<leader>fb", function() Snacks.picker.buffers() end, { desc = "Buffers" })
 vim.keymap.set("n", "<leader>fe", function() Snacks.explorer() end, { desc = "File Explorer" })
@@ -97,7 +100,7 @@ vim.keymap.set("n", "<leader>fF", function() Snacks.picker.files({ cwd = vim.fn.
   { desc = "Find Files (Buffer Dir)" })
 vim.keymap.set("n", "<leader>fd", function() Snacks.picker.diagnostics_buffer() end, { desc = "Buffer Diagnostics" })
 vim.keymap.set("n", "<leader>fD", function() Snacks.picker.diagnostics() end, { desc = "Diagnostics" })
-vim.keymap.set("n", "<leader>fu", function() Snacks.picker.undo() end, { desc = "Undo" })
+vim.keymap.set("n", "<leader>fu", function() Snacks.picker.undo() end, { desc = "Undo History" })
 vim.keymap.set("n", "<leader>fg", function() Snacks.picker.git_files() end, { desc = "Find Git Files" })
 vim.keymap.set("n", "<leader>gb", function() Snacks.picker.git_branches() end, { desc = "Git Branches" })
 vim.keymap.set("n", "<leader>gd", function() Snacks.picker.git_diff() end, { desc = "Git Diff (Hunks)" })
@@ -107,7 +110,6 @@ vim.keymap.set("n", "<leader>ss", function() Snacks.picker.lsp_symbols() end, { 
 vim.keymap.set("n", "<leader>sk", function() Snacks.picker.keymaps() end, { desc = "Keymaps" })
 vim.keymap.set("n", "<leader>sc", function() Snacks.picker.command_history() end, { desc = "Command History" })
 vim.keymap.set("n", "<leader>sC", function() Snacks.picker.commands() end, { desc = "Command" })
-vim.keymap.set("n", "<leader>su", function() Snacks.picker.undo() end, { desc = "Undo History" })
 vim.keymap.set("n", "<leader>rf", function() Snacks.rename.rename_file() end, { desc = "Rename File" })
 vim.keymap.set("n", "<leader>lg", function() Snacks.lazygit.open() end, { desc = "Lazygit" })
 vim.keymap.set("n", "<leader>zz", function() Snacks.zen() end, { desc = "Toggle Zen Mode" })
@@ -127,8 +129,6 @@ vim.keymap.set({ "n", "x", "o" }, "<A-i>", function()
     vim.lsp.buf.selection_range(-vim.v.count1)
   end
 end, { desc = "Select child treesitter node or inner incremental lsp selections" })
-
--- vim.keymap.set({ "n", "x", "o" }, "'", function() MiniJump2d.start() end, { desc = "Start 2d jumping" })
 
 vim.api.nvim_set_keymap("i", "<Tab>", [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { noremap = true, expr = true })
 vim.api.nvim_set_keymap("i", "<S-Tab>", [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { noremap = true, expr = true })
@@ -179,9 +179,13 @@ vim.api.nvim_create_user_command("Q", "q", { bang = true, nargs = "*" })
 vim.api.nvim_create_user_command("W", "w", { bang = true, nargs = "*" })
 vim.api.nvim_create_user_command("Wq", "wq", { bang = true, nargs = "*" })
 vim.api.nvim_create_user_command("WQ", "wq", { bang = true, nargs = "*" })
+vim.api.nvim_create_user_command("Lang", "set filetype=<args>", { nargs = 1 })
 vim.api.nvim_create_user_command("Bda", function() require("snacks").bufdelete.all() end, { desc = "Delete all buffers" })
 vim.api.nvim_create_user_command("Bdo", function() require("snacks").bufdelete.other() end,
   { desc = "Delete all buffers except the current one" })
+vim.api.nvim_create_user_command("CopyFilePath", function()
+  vim.fn.setreg("+", vim.fn.expand("%:p"))
+end, {})
 vim.api.nvim_create_user_command("Sttr", function(opts)
   local transformation = opts.args
   local text
@@ -223,7 +227,6 @@ vim.pack.add({
   { src = "https://github.com/neovim/nvim-lspconfig" },
   { src = "https://github.com/stevearc/conform.nvim" },
   { src = "https://github.com/windwp/nvim-ts-autotag" },
-  { src = "https://github.com/h3pei/copy-file-path.nvim" },
 })
 
 vim.cmd.packadd("matchit")
@@ -297,16 +300,6 @@ local ts_parsers = {
 
 local nts = require("nvim-treesitter")
 nts.install(ts_parsers)
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = nts.get_installed(),
-  callback = function(args)
-    local bufnr = args.buf
-    vim.treesitter.start(bufnr)
-    vim.wo.foldexpr          = "v:lua.vim.treesitter.foldexpr()"
-    vim.bo.indentexpr        = "v:lua.require'nvim-treesitter'.indentexpr"
-    vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter.indent'.get_indent(v:lnum)"
-  end,
-})
 
 require("treesitter-context").setup { enable = true }
 
@@ -396,9 +389,21 @@ vim.lsp.enable({
   "taplo",
   "ts_ls",
 })
-vim.lsp.document_color.enable(true, { bufnr = 0 }, { style = "virtual" })
-vim.api.nvim_create_user_command("LspInfo", "checkhealth vim.lsp", { desc = "Show LSP Info" })
+vim.lsp.document_color.enable(true, nil, { style = "virtual" })
 vim.api.nvim_create_user_command("LspRestart", "lsp restart", { desc = "Restart LSP" })
+vim.api.nvim_create_user_command("LspInfo", "checkhealth vim.lsp", { desc = "Show LSP Info" })
+vim.api.nvim_create_user_command("LspStatus", function()
+  local clients = vim.lsp.get_clients({ bufnr = 0 })
+  if next(clients) == nil then
+    print("No active LSP")
+    return
+  end
+  local names = {}
+  for _, client in ipairs(clients) do
+    table.insert(names, client.name)
+  end
+  print("LSP: " .. table.concat(names, " "))
+end, {})
 vim.api.nvim_create_user_command("LspLog", function(_)
   local log_path = vim.lsp.log.get_filename()
   vim.cmd(string.format("edit %s", log_path))
@@ -436,10 +441,17 @@ require("conform").setup {
     if bufname:match("/node_modules/") then
       return
     end
-    MiniTrailspace.trim()
     return { timeout_ms = 500, lsp_format = "fallback" }
   end,
 }
+-- Trim on save
+vim.api.nvim_create_autocmd("BufWritePre", {
+  callback = function(args)
+    if _G.MiniTrailspace then
+      vim.api.nvim_buf_call(args.buf, MiniTrailspace.trim)
+    end
+  end,
+})
 vim.api.nvim_create_user_command("Format", function(opts)
   local formatters = opts.args ~= "" and opts.args or nil
   require("conform").format({
@@ -482,48 +494,46 @@ vim.keymap.set("n", "\\f", function()
   end
 end, { desc = "Toggle autoformat-on-save" })
 
-vim.schedule(function()
-  require("mini.ai").setup()
-  require("mini.move").setup()
-  require("mini.jump").setup()
-  require("mini.files").setup()
-  require("mini.align").setup()
-  -- require("mini.pairs").setup()
-  require("mini.jump2d").setup()
-  require("mini.comment").setup()
-  require("mini.surround").setup()
-  require("mini.operators").setup()
-  require("mini.splitjoin").setup()
-  require("mini.trailspace").setup()
-  require("mini.diff").setup {
-    view = {
-      style = "sign",
-      signs = {
-        add = "▎",
-        change = "▎",
-        delete = "",
-      },
+require("mini.ai").setup()
+require("mini.move").setup()
+require("mini.jump").setup()
+require("mini.files").setup()
+require("mini.align").setup()
+-- require("mini.pairs").setup()
+require("mini.jump2d").setup()
+require("mini.comment").setup()
+require("mini.surround").setup()
+require("mini.operators").setup()
+require("mini.splitjoin").setup()
+require("mini.trailspace").setup()
+require("mini.diff").setup {
+  view = {
+    style = "sign",
+    signs = {
+      add = "▎",
+      change = "▎",
+      delete = "",
     },
-  }
-  require("mini.completion").setup {
-    window = {
-      info      = { border = "rounded" },
-      signature = { border = "rounded" },
-    },
-  }
-  vim.api.nvim_set_hl(0, "MiniHipatternsFixme", { fg = colors.black, bg = colors.red, bold = true })
-  vim.api.nvim_set_hl(0, "MiniHipatternsHack", { fg = colors.black, bg = colors.orange, bold = true })
-  vim.api.nvim_set_hl(0, "MiniHipatternsTodo", { fg = colors.black, bg = colors.blue, bold = true })
-  vim.api.nvim_set_hl(0, "MiniHipatternsNote", { fg = colors.black, bg = colors.teal, bold = true })
-  local hipatterns = require("mini.hipatterns")
-  hipatterns.setup({
-    highlighters = {
-      fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
-      hack  = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
-      todo  = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
-      note  = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
-      -- hex_color = hipatterns.gen_highlighter.hex_color(),
-    },
-  })
-  require("nvim-ts-autotag").setup()
-end)
+  },
+}
+require("mini.completion").setup {
+  window = {
+    info      = { border = "rounded" },
+    signature = { border = "rounded" },
+  },
+}
+vim.api.nvim_set_hl(0, "MiniHipatternsFixme", { fg = colors.black, bg = colors.red, bold = true })
+vim.api.nvim_set_hl(0, "MiniHipatternsHack", { fg = colors.black, bg = colors.orange, bold = true })
+vim.api.nvim_set_hl(0, "MiniHipatternsTodo", { fg = colors.black, bg = colors.blue, bold = true })
+vim.api.nvim_set_hl(0, "MiniHipatternsNote", { fg = colors.black, bg = colors.teal, bold = true })
+local hipatterns = require("mini.hipatterns")
+hipatterns.setup({
+  highlighters = {
+    fixme     = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
+    hack      = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
+    todo      = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+    note      = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
+    hex_color = hipatterns.gen_highlighter.hex_color(),
+  },
+})
+require("nvim-ts-autotag").setup()
