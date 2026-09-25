@@ -81,13 +81,13 @@ vim.keymap.set("n", "U", "<C-r>", { noremap = true, silent = true, desc = "Redo"
 vim.keymap.set("n", "<A-S-Right>", ":bnext<CR>", { noremap = true, silent = true, desc = "Next buffer" })
 vim.keymap.set("n", "<A-S-Left>", ":bprevious<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
 vim.keymap.set("n", "gn", "<cmd>enew<CR>", { desc = "New buffer" })
-vim.keymap.set("n", "gy", ":%y<CR>", { desc = "Yank entire buffer" })
-vim.keymap.set("n", "vy", "ggVG", { desc = "Select entire buffer" })
+-- vim.keymap.set("n", "gy", ":%y<CR>", { desc = "Yank entire buffer" })
+-- vim.keymap.set("n", "vy", "ggVG", { desc = "Select entire buffer" })
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "LSP Line Diagnostics" })
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename" })
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP Code actions" })
-vim.keymap.set("n", "<leader>cp", function() vim.fn.setreg("+", vim.fn.expand("%:p")) end)
+-- vim.keymap.set("n", "<leader>cp", function() vim.fn.setreg("+", vim.fn.expand("%:p")) end, { desc = "Copy current buffer file path" })
 
 vim.keymap.set("n", "<leader>e", function() MiniFiles.open(vim.api.nvim_buf_get_name(0), false) end,
   { desc = "File Explorer" })
@@ -227,6 +227,7 @@ vim.pack.add({
   { src = "https://github.com/neovim/nvim-lspconfig" },
   { src = "https://github.com/stevearc/conform.nvim" },
   { src = "https://github.com/windwp/nvim-ts-autotag" },
+  { src = "https://github.com/OXY2DEV/markview.nvim" },
 })
 
 vim.cmd.packadd("matchit")
@@ -248,7 +249,7 @@ require("tokyonight").setup {
 local colors = require("tokyonight.colors").setup()
 vim.cmd.colorscheme "tokyonight"
 
-require("mini.basics").setup { mappings = { windows = true } }
+require("mini.basics").setup()
 
 require("snacks").setup {
   bigfile   = { enabled = true },
@@ -494,7 +495,7 @@ vim.keymap.set("n", "\\f", function()
   end
 end, { desc = "Toggle autoformat-on-save" })
 
-require("mini.ai").setup()
+-- require("mini.ai").setup()
 require("mini.move").setup()
 require("mini.jump").setup()
 require("mini.files").setup()
@@ -522,6 +523,11 @@ require("mini.completion").setup {
     signature = { border = "rounded" },
   },
 }
+require("markview").setup({
+  preview = {
+    enable = false,
+  },
+})
 vim.api.nvim_set_hl(0, "MiniHipatternsFixme", { fg = colors.black, bg = colors.red, bold = true })
 vim.api.nvim_set_hl(0, "MiniHipatternsHack", { fg = colors.black, bg = colors.orange, bold = true })
 vim.api.nvim_set_hl(0, "MiniHipatternsTodo", { fg = colors.black, bg = colors.blue, bold = true })
