@@ -268,6 +268,7 @@ vim.pack.add({
   { src = "https://github.com/stevearc/conform.nvim" },
   { src = "https://github.com/windwp/nvim-ts-autotag" },
   { src = "https://github.com/OXY2DEV/markview.nvim" },
+  { src = "https://github.com/mechatroner/rainbow_csv" },
 })
 
 vim.cmd.packadd("matchit")
@@ -294,7 +295,6 @@ require("mini.basics").setup()
 require("snacks").setup {
   bigfile   = { enabled = true },
   bufdelete = { enabled = true },
-  explorer  = { enabled = true },
   input     = { enabled = true },
   scope     = { enabled = true },
   scroll    = { enabled = true },
@@ -346,9 +346,20 @@ require("treesitter-context").setup { enable = true }
 
 -- nvim-treesitter (main) doesn't enable highlighting/indent/folds; do it per buffer
 nvim_on("FileType", nil, function(ev)
+  local ft = vim.bo[ev.buf].filetype
+  if ft == "csv" or ft == "tsv" then return end -- let rainbow_csv handle it
   if not pcall(vim.treesitter.start, ev.buf) then return end
   vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
   vim.wo[0][0].foldexpr     = "v:lua.vim.treesitter.foldexpr()"
+end)
+
+-- rainbow_csv
+nvim_on("FileType", { pattern = { "csv", "tsv", "csv_*", "rfc_*" } }, function(ev)
+  vim.schedule(function()
+    if not vim.api.nvim_buf_is_valid(ev.buf) then return end
+    vim.treesitter.stop(ev.buf)
+    vim.bo[ev.buf].syntax = vim.bo[ev.buf].filetype
+  end)
 end)
 
 nvim_on("FileType", { pattern = "mail" }, function()
@@ -545,7 +556,7 @@ vim.keymap.set("n", "\\f", function()
   end
 end, { desc = "Toggle autoformat-on-save" })
 
--- require("mini.ai").setup()
+require("mini.ai").setup()
 require("mini.move").setup()
 require("mini.jump").setup()
 require("mini.pick").setup()
